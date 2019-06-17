@@ -1,0 +1,44 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29009.5
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestNetStandard20", "TestNetStandard20\TestNetStandard20.csproj", "{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nupkg", "nupkg", "{CE043F66-AFE3-43C6-8D52-E3059B8B2CDB}"
+	ProjectSection(SolutionItems) = preProject
+		..\nupkg\Unity3D.nuspec = ..\nupkg\Unity3D.nuspec
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{E4D0EF7B-F491-4BD5-BDD3-ABD92D3BEE05}"
+	ProjectSection(SolutionItems) = preProject
+		..\nupkg\build\Unity3D.targets = ..\nupkg\build\Unity3D.targets
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestNet472", "TestNet472\TestNet472.csproj", "{C423B07A-9A33-41E4-B35C-CD9DDA29CBB6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C423B07A-9A33-41E4-B35C-CD9DDA29CBB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C423B07A-9A33-41E4-B35C-CD9DDA29CBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C423B07A-9A33-41E4-B35C-CD9DDA29CBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C423B07A-9A33-41E4-B35C-CD9DDA29CBB6}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E4D0EF7B-F491-4BD5-BDD3-ABD92D3BEE05} = {CE043F66-AFE3-43C6-8D52-E3059B8B2CDB}
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {AFEDC263-39BC-42D3-960F-FD230F8257F7}
+	EndGlobalSection
+EndGlobal
