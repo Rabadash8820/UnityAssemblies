@@ -12,7 +12,7 @@
                                     \$$$$$$
 
 
-Thank you for installing the UnityAssemblies NuGet package!
+Thank you for installing the Unity3D NuGet package!
 
 Example .csproj file (using UnityEngine.dll from Unity 2019.1.6f1):
 
@@ -22,8 +22,8 @@ Example .csproj file (using UnityEngine.dll from Unity 2019.1.6f1):
             <UnityVersion>2019.1.6f1</UnityVersion>
         </PropertyGroup>
         <ItemGroup>
-            <PackageReference Include="UnityEngine" Version="1.*" />
+            <PackageReference Include="Unity3D" Version="1.*" />
         </ItemGroup>
     </Project>
 
-For complete documentation, see our README on GitHub: https://github.com/DerploidEntertainment/UnityAssemblies
+For complete documentation, see our README on GitHub: https://github.com/DerploidEntertainment/UnityAssemblies/blob/master/README.md

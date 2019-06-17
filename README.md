@@ -2,9 +2,26 @@
 
 # Unity Assemblies
 
-This repository contains the source code for the [`UnityEngine` NuGet package](https://www.nuget.org/packages/UnityAssemblies).
+This repository contains the source code for the [`Unity3D` NuGet package](https://www.nuget.org/packages/Unity3D).
 
-`UnityEngine` allows developers to effectively reference assemblies of the Unity game engine (e.g., `UnityEngine.dll`) as NuGet packages.
+`Unity3D` allows developers to effectively reference assemblies of the Unity game engine (e.g., `UnityEngine.dll`) as NuGet packages.
+
+## Why another NuGet package for Unity?
+
+Yes, it's true, there are a number of good NuGet packages already available on [nuget.org](https://www.nuget.org/). Unfortunately, most of these packages are no longer being updated and have a number of issues. Almost all of them fall into one of two categories:
+
+1. **Containing the actual Unity binaries within the package.** These packages include [UnityEngine](https://www.nuget.org/packages/UnityEngine/) by Leanwork, [Unity3D.UnityEngine](https://www.nuget.org/packages/Unity3D.UnityEngine/) and [Unity3D.UnityEngine.UI](https://www.nuget.org/packages/Unity3D.UnityEngine.UI) by Dzmitry Lahoda, and [UnityEngine5](https://www.nuget.org/packages/UnityEngine5/) by Taiyoung Jang. The problem with these packages (aside from the questionable legality of re-distributing Unity Technologies' binaries), is that a new version of the package must be pushed for each new version of Unity. When these packages stop being updated (which has happened in almost every case), then they are no longer useful because they don't allow you to program against the latest Unity APIs. Most of them do not have versions for Unity 2019.1+, and/or do not support the new .NET Standard 2.0 profile.
+2. **Containing some kind of script that adds references to assemblies from a particular installed version of Unity.** The main package in this category is [Unity3D.DLLs](https://www.nuget.org/packages/Unity3D.DLLs/) by Precision Mojo, LLC. This package uses a PowerShell script to add references to the latest version of Unity installed on a user's machine. This is powerful, as it theoretically makes the package forward-compatible with all versions of Unity yet to come. Unfortunately, this package has not been updated since 2013, meaning that many of the NuGet/PowerShell conventions that it relied upon are no longer supported in the newest versions of Visual Studio. Even when the package was current, it located the Unity assemblies in a brittle and complex (though clever) manner that does not support the newer Unity Hub install locations and, more importantly, only worked on Windows (involving the Windows registry).
+
+Moreover, only Dzmitry Lahoda's packages seem to recognize the need for _other_ Unity assemblies besides just `UnityEngine`. As more advanced Unity users will know, `UnityEngine.dll` doesn't contain everything. Editor scripts also require a reference to `UnityEditor.dll`; if you want to use the Unity Test Runner, then you have to reference `UnityEngine.TestRunner.dll`; and the list goes on...
+
+Thus, we at Derploid Entertainment created the `Unity3D` package with the following goals:
+- Add the Unity assembly references programmatically, so that the package is forward-compatible
+- Use built-in MSBuild properties/items to add the references, rather than clunky scripts that may not be supported by future versions of Visual Studio
+- Opt in to references to the other Unity assemblies by adding simple boolean properties to the project file, rather than having to call some hard-to-find-and-use script
+- All references must work on Windows _and_ Mac (and Linux, when its officially supported...)
+- Configuration should be minimal: just a Unity version and an optional install location for non-default cases
+- Submit this package to Unity Technologies, **_so that maybe we can finally have an officially supported NuGet package for Unity!_** (we'll keep this repo updated on the status of that)
 
 ## Usage
 
@@ -17,7 +34,7 @@ Here is a minimal example of `.csproj` file making use of this package. The proj
         <UnityVersion>2019.1.6f1</UnityVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="UnityEngine" Version="1.*" />
+        <PackageReference Include="Unity3D" Version="1.*" />
     </ItemGroup>
 </Project>
 ```
