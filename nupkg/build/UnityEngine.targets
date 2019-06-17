@@ -1,0 +1,69 @@
+﻿<Project>
+
+  <!-- Conditional compile symbols -->
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>DEBUG;TRACE;UNITY_ASSERTIONS</DefineConstants>
+  </PropertyGroup>
+
+  <!-- Get default Unity install locations, if requested -->
+  <PropertyGroup Condition="'$(UnityVersion)'!=''">
+    <UnityLocation Condition="'$(UnityLocation)'=='' And $([MSBuild]::IsOsPlatform(Windows))">C:/Program Files/Unity/Hub/Editor</UnityLocation>
+    <UnityLocation Condition="'$(UnityLocation)'=='' And !$([MSBuild]::IsOsPlatform(Windows))">/Application/Unity/Hub/Editor</UnityLocation>
+  </PropertyGroup>
+
+  <!-- Set defaults for which Unity assemblies should be referenced -->
+  <PropertyGroup Condition="'$(UnityVersion)'!=''">
+    <ReferenceUnityEngine Condition="'$(ReferenceUnityEngine)'==''">true</ReferenceUnityEngine>
+    <ReferenceUnityEditor Condition="'$(ReferenceUnityEditor)'==''">false</ReferenceUnityEditor>
+    <ReferenceUnityEngineUi Condition="'$(ReferenceUnityEngineUi)'==''">false</ReferenceUnityEngineUi>
+    <ReferenceUnityEngineTestRunner Condition="'$(ReferenceUnityEngineTestRunner)'==''">false</ReferenceUnityEngineTestRunner>
+  </PropertyGroup>
+
+  <!-- Get full paths of specific Unity assemblies -->
+  <PropertyGroup Condition="'$(UnityVersion)'!=''">
+    <UnityEngineAssembly Condition="'$(ReferenceUnityEngine)'=='true'">$(UnityLocation)/$(UnityVersion)/Editor/Data/Managed/UnityEngine.dll</UnityEngineAssembly>
+    <UnityEditorAssembly Condition="'$(ReferenceUnityEditor)'=='true'">$(UnityLocation)/$(UnityVersion)/Editor/Data/Managed/UnityEditor.dll</UnityEditorAssembly>
+    <UnityEngineUiAssembly Condition="'$(ReferenceUnityEngineUi)'=='true'">$(UnityLocation)/$(UnityVersion)/Editor/Data/UnityExtensions/Unity/GUISystem/UnityEngine.UI.dll</UnityEngineUiAssembly>
+    <UnityEngineTestRunnerAssembly Condition="'$(ReferenceUnityEngineTestRunner)'=='true'">$(UnityLocation)/$(UnityVersion)/Editor/Data/UnityExtensions/Unity/TestRunner/UnityEngine.TestRunner.dll</UnityEngineTestRunnerAssembly>
+  </PropertyGroup>
+
+  <!-- Log if any of the requested assemblies do not exist -->
+  <Target Name="CheckUnityAssembliesExist" BeforeTargets="CoreCompile" Condition="'$(UnityVersion)'!=''">
+    <PropertyGroup>
+      <MissingUnityAssemblyMessage>Make sure the provided Unity version ('$(UnityVersion)') is installed at the provided location.</MissingUnityAssemblyMessage>
+    </PropertyGroup>
+    <Warning Code="MSB3245"
+      Condition="'$(ReferenceUnityEngine)'=='true' And !Exists($(UnityEngineAssembly))"
+      Text="UnityEngine assembly not found at '$(UnityEngineAssembly)'. $(MissingUnityAssemblyMessage)" />
+    <Warning Code="MSB3245"
+      Condition="'$(ReferenceUnityEditor)'=='true' And !Exists($(UnityEditorAssembly))"
+      Text="UnityEditor assembly not found at '$(UnityEditorAssembly)'. $(MissingUnityAssemblyMessage)" />
+    <Warning Code="MSB3245"
+      Condition="'$(ReferenceUnityEngineUi)'=='true' And !Exists($(UnityEngineUiAssembly))"
+      Text="UnityEngine.UI assembly not found at '$(UnityEngineUiAssembly)'. $(MissingUnityAssemblyMessage)" />
+    <Warning Code="MSB3245"
+      Condition="'$(ReferenceUnityEngineTestRunner)'=='true' And !Exists($(UnityEngineTestRunnerAssembly))"
+      Text="UnityEngine.TestRunner assembly not found at '$(UnityEngineTestRunnerAssembly)'. $(MissingUnityAssemblyMessage)" />
+  </Target>
+
+  <!-- Add the requested Unity assembly references, if they do exist -->
+  <ItemGroup Condition="'$(UnityVersion)'!=''">
+    <Reference Include="UnityEngine.dll" Condition="'$(ReferenceUnityEngine)'=='true'">
+      <HintPath>$(UnityEngineAssembly)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEditor.dll" Condition="'$(ReferenceUnityEditor)'=='true'">
+      <HintPath>$(UnityEditorAssembly)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.UI.dll" Condition="'$(ReferenceUnityEngineUi)'=='true'">
+      <HintPath>$(UnityEngineUiAssembly)</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="UnityEngine.TestRunner.dll" Condition="'$(ReferenceUnityEngineTestRunner)'=='true'">
+      <HintPath>$(UnityEngineTestRunnerAssembly)</HintPath>
+      <Private>false</Private>
+    </Reference>
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,29 @@
+ __    __            __    __
+|  \  |  \          |  \  |  \
+| $$  | $$ _______   \$$ _| $$_    __    __
+| $$  | $$|       \ |  \|   $$ \  |  \  |  \
+| $$  | $$| $$$$$$$\| $$ \$$$$$$  | $$  | $$
+| $$  | $$| $$  | $$| $$  | $$ __ | $$  | $$
+| $$__/ $$| $$  | $$| $$  | $$|  \| $$__/ $$
+ \$$    $$| $$  | $$| $$   \$$  $$ \$$    $$
+  \$$$$$$  \$$   \$$ \$$    \$$$$  _\$$$$$$$
+                                  |  \__| $$
+                                   \$$    $$
+                                    \$$$$$$
+
+
+Thank you for installing the UnityAssemblies NuGet package!
+
+Example .csproj file (using UnityEngine.dll from Unity 2019.1.6f1):
+
+    <Project Sdk="Microsoft.NET.Sdk">
+        <PropertyGroup>
+            <TargetFramework>netstandard2.0</TargetFramework>
+            <UnityVersion>2019.1.6f1</UnityVersion>
+        </PropertyGroup>
+        <ItemGroup>
+            <PackageReference Include="UnityEngine" Version="1.*" />
+        </ItemGroup>
+    </Project>
+
+For complete documentation, see our README on GitHub: https://github.com/DerploidEntertainment/UnityAssemblies

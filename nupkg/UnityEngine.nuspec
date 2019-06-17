@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
+  <metadata minClientVersion="2.5">
+    <id>UnityEngine</id>
+    <version>1.0.0-rc1</version>
+    <authors>Dan Vicarel</authors>
+    <owners>DerploidEntertainment</owners>
+    <iconUrl>https://github.com/DerploidEntertainment/UnityAssemblies/raw/master/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/DerploidEntertainment/UnityAssemblies</projectUrl>
+    <description>MSBuild props/targets for adding references to the Unity assemblies.</description>
+    <releaseNotes>Intial package release</releaseNotes>
+    <copyright>Copyright ©2019 Derploid Entertainment, LLC</copyright>
+    <tags>Unity Unity3d Utility UnityEngine UnityEditor</tags>
+    <repository type="git" url="https://github.com/DerploidEntertainment/UnityAssemblies.git" />
+  </metadata>
+</package>
