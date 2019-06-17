@@ -1,8 +1,8 @@
-﻿<Project>
+<Project>
 
   <!-- Conditional compile symbols -->
   <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <DefineConstants>DEBUG;TRACE;UNITY_ASSERTIONS</DefineConstants>
+    <DefineConstants>UNITY_ASSERTIONS</DefineConstants>
   </PropertyGroup>
 
   <!-- Get default Unity install locations, if requested -->
