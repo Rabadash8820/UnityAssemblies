@@ -15,7 +15,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{E4D0EF7B
 		..\nupkg\build\Unity3D.targets = ..\nupkg\build\Unity3D.targets
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestNet472", "TestNet472\TestNet472.csproj", "{C423B07A-9A33-41E4-B35C-CD9DDA29CBB6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestNet461", "TestNet461\TestNet461.csproj", "{00BD5A07-E5AF-4DE3-8E4E-8C07BC716204}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -27,10 +27,10 @@ Global
 		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{C423B07A-9A33-41E4-B35C-CD9DDA29CBB6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{C423B07A-9A33-41E4-B35C-CD9DDA29CBB6}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{C423B07A-9A33-41E4-B35C-CD9DDA29CBB6}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{C423B07A-9A33-41E4-B35C-CD9DDA29CBB6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{00BD5A07-E5AF-4DE3-8E4E-8C07BC716204}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{00BD5A07-E5AF-4DE3-8E4E-8C07BC716204}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{00BD5A07-E5AF-4DE3-8E4E-8C07BC716204}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{00BD5A07-E5AF-4DE3-8E4E-8C07BC716204}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

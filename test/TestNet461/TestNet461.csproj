@@ -4,12 +4,12 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C423B07A-9A33-41E4-B35C-CD9DDA29CBB6}</ProjectGuid>
+    <ProjectGuid>{00BD5A07-E5AF-4DE3-8E4E-8C07BC716204}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>TestNet472</RootNamespace>
-    <AssemblyName>TestNet472</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <RootNamespace>TestNet461</RootNamespace>
+    <AssemblyName>TestNet461</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
   </PropertyGroup>
@@ -41,13 +41,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="TestBehaviour.cs" />
+    <Compile Include="Test.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <UnityVersion>2019.1.6f1</UnityVersion>
     <ReferenceUnityEditor>true</ReferenceUnityEditor>
+    <ReferenceUnityEngineUi>true</ReferenceUnityEngineUi>
+    <ReferenceUnityEngineTestRunner>true</ReferenceUnityEngineTestRunner>
   </PropertyGroup>
   <Import Project="../../nupkg/build/Unity3D.targets" />
 </Project>

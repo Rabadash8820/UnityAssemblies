@@ -3,6 +3,9 @@
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <UnityVersion>2019.1.6f1</UnityVersion>
+    <ReferenceUnityEditor>true</ReferenceUnityEditor>
+    <ReferenceUnityEngineUi>true</ReferenceUnityEngineUi>
+    <ReferenceUnityEngineTestRunner>true</ReferenceUnityEngineTestRunner>
   </PropertyGroup>
 
   <Import Project="../../nupkg/build/Unity3D.targets"/>
