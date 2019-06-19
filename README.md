@@ -102,3 +102,7 @@ No, it is maintained by a few wild and crazy guys at Derploid Entertainment. How
 ### If not, how is this legal?
 
 We're not actually distributing the Unity assembly binaries, just MSBuild files that reference them. This NuGet package won't add anything if you don't actually have a version of Unity installed.
+
+## License
+
+[MIT](./LICENSE)
