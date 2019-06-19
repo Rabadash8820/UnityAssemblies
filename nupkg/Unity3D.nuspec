@@ -2,15 +2,15 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
   <metadata minClientVersion="2.5">
     <id>Unity3D</id>
-    <version>1.0.0-rc1</version>
+    <version>1.1.0-rc1</version>
     <authors>Unity Technologies</authors>
     <owners>DerploidEntertainment</owners>
     <iconUrl>https://github.com/DerploidEntertainment/UnityAssemblies/raw/master/icon.png</iconUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/DerploidEntertainment/UnityAssemblies</projectUrl>
-    <description>Adds references to the Unity assemblies (UnityEngine, UnityEngine.UI, UnityEditor, etc.) using cross-platform paths.</description>
-    <releaseNotes>Intial package release</releaseNotes>
+    <description>Simple, forward-compatible references to ANY Unity assembly on Mac or Windows.</description>
+    <releaseNotes>References are now added as `Reference` items, not magic MSBuild properties.</releaseNotes>
     <copyright>Copyright ©2019 Derploid Entertainment, LLC</copyright>
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>
     <repository type="git" url="https://github.com/DerploidEntertainment/UnityAssemblies.git" />
