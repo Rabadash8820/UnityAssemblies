@@ -1,13 +1,16 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
+  <Import Project= "..\..\nupkg\build\Unity3D.props"/>
+
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <UnityVersion>2019.1.6f1</UnityVersion>
-    <ReferenceUnityEditor>true</ReferenceUnityEditor>
-    <ReferenceUnityEngineUi>true</ReferenceUnityEngineUi>
-    <ReferenceUnityEngineTestRunner>true</ReferenceUnityEngineTestRunner>
   </PropertyGroup>
 
-  <Import Project="../../nupkg/build/Unity3D.targets"/>
-
+  <ItemGroup>
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEditorPath)" Private="false" />
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEngineUiPath)" Private="false" />
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEngineTestRunnerPath)" Private="false" />
+  </ItemGroup>
+  
 </Project>

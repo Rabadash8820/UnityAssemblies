@@ -1,0 +1,28 @@
+﻿<Project>
+
+  <!-- Conditional compile symbols -->
+  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
+    <DefineConstants>UNITY_ASSERTIONS</DefineConstants>
+  </PropertyGroup>
+
+  <!-- Set default Unity install paths -->
+  <PropertyGroup>
+    <OSInstallRoot Condition="$([MSBuild]::IsOsPlatform(Windows))">C:\Program Files</OSInstallRoot>
+    <OSInstallRoot Condition="!$([MSBuild]::IsOsPlatform(Windows))">/Application</OSInstallRoot>
+    <UnityInstallRoot Condition="'$(UnityInstallPath)'==''">$(OSInstallRoot)\Unity\Hub\Editor</UnityInstallRoot>
+  </PropertyGroup>
+
+  <!-- Set relative paths of specific Unity assemblies -->
+  <PropertyGroup>
+    <UnityEnginePath Condition="'$(UnityEnginePath)'==''">Editor\Data\Managed\UnityEngine.dll</UnityEnginePath>
+    <UnityEditorPath Condition="'$(UnityEditorPath)'==''">Editor\Data\Managed\UnityEditor.dll</UnityEditorPath>
+    <UnityEngineUiPath Condition="'$(UnityEngineUiPath)'==''">Editor\Data\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll</UnityEngineUiPath>
+    <UnityEngineTestRunnerPath Condition="'$(UnityEngineTestRunnerPath)'==''">Editor\Data\UnityExtensions\Unity\TestRunner\UnityEngine.TestRunner.dll</UnityEngineTestRunnerPath>
+  </PropertyGroup>
+
+  <!-- Add default Unity references -->
+  <ItemGroup>
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)" Private="false" />
+  </ItemGroup>
+
+</Project>

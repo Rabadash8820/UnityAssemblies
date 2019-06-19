@@ -16,7 +16,7 @@
 
 Thank you for installing the Unity3D NuGet package!
 
-Example .csproj file (using UnityEngine.dll from Unity 2019.1.6f1):
+Example .csproj file (using Unity 2019.1.6f1, targeting .NET Standard 2.0 profile):
 
     <Project Sdk="Microsoft.NET.Sdk">
         <PropertyGroup>

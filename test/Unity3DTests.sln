@@ -1,4 +1,4 @@
-﻿
+
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
@@ -7,17 +7,23 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestNetStandard20", "TestNe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nupkg", "nupkg", "{CE043F66-AFE3-43C6-8D52-E3059B8B2CDB}"
 	ProjectSection(SolutionItems) = preProject
+		..\nupkg\readme.txt = ..\nupkg\readme.txt
 		..\nupkg\Unity3D.nuspec = ..\nupkg\Unity3D.nuspec
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{E4D0EF7B-F491-4BD5-BDD3-ABD92D3BEE05}"
 	ProjectSection(SolutionItems) = preProject
-		..\nupkg\build\Unity3D.targets = ..\nupkg\build\Unity3D.targets
+		..\nupkg\build\Unity3D.props = ..\nupkg\build\Unity3D.props
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestNet461", "TestNet461\TestNet461.csproj", "{00BD5A07-E5AF-4DE3-8E4E-8C07BC716204}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestMulti", "TestMulti\TestMulti.csproj", "{56D1222D-7FF3-4F44-8E5D-A805EC669209}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMulti", "TestMulti\TestMulti.csproj", "{56D1222D-7FF3-4F44-8E5D-A805EC669209}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "buildMultiTargeting", "buildMultiTargeting", "{98FA5AC9-B938-4AA6-B8B1-1B6468878191}"
+	ProjectSection(SolutionItems) = preProject
+		..\nupkg\buildMultiTargeting\Unity3D.props = ..\nupkg\buildMultiTargeting\Unity3D.props
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -43,6 +49,7 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{E4D0EF7B-F491-4BD5-BDD3-ABD92D3BEE05} = {CE043F66-AFE3-43C6-8D52-E3059B8B2CDB}
+		{98FA5AC9-B938-4AA6-B8B1-1B6468878191} = {CE043F66-AFE3-43C6-8D52-E3059B8B2CDB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFEDC263-39BC-42D3-960F-FD230F8257F7}
