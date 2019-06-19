@@ -1,4 +1,3 @@
-﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
@@ -27,6 +26,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "buildMultiTargeting", "buil
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestNetStandardMinimal", "TestNetStandardMinimal\TestNetStandardMinimal.csproj", "{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{157D3502-954C-4200-81B5-4A381B9F4C80}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,6 +60,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{CE043F66-AFE3-43C6-8D52-E3059B8B2CDB} = {157D3502-954C-4200-81B5-4A381B9F4C80}
 		{E4D0EF7B-F491-4BD5-BDD3-ABD92D3BEE05} = {CE043F66-AFE3-43C6-8D52-E3059B8B2CDB}
 		{98FA5AC9-B938-4AA6-B8B1-1B6468878191} = {CE043F66-AFE3-43C6-8D52-E3059B8B2CDB}
 	EndGlobalSection
