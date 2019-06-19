@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
@@ -25,6 +25,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "buildMultiTargeting", "buil
 		..\nupkg\buildMultiTargeting\Unity3D.props = ..\nupkg\buildMultiTargeting\Unity3D.props
 	EndProjectSection
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestNetStandardMinimal", "TestNetStandardMinimal\TestNetStandardMinimal.csproj", "{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -43,6 +45,10 @@ Global
 		{56D1222D-7FF3-4F44-8E5D-A805EC669209}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56D1222D-7FF3-4F44-8E5D-A805EC669209}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56D1222D-7FF3-4F44-8E5D-A805EC669209}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
