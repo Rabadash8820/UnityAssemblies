@@ -15,7 +15,7 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
         <UnityVersion>2019.1.6f1</UnityVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Unity3D" Version="1.*" />
+        <PackageReference Include="Unity3D" Version="1.1.0" />
     </ItemGroup>
 </Project>
 ```
