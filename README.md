@@ -2,6 +2,10 @@
 
 # Unity Assemblies
 
+[![NuGet package](https://img.shields.io/nuget/v/Unity3D.svg)](https://nuget.org/packages/Unity3D)
+[![NuGet package](https://img.shields.io/packagecontrol/dd/Unity3D.svg)](https://nuget.org/packages/Unity3D)
+[![NuGet package](https://img.shields.io/github/license/DerploidEntertainment/UnityAssemblies.svg)](./LICENSE)
+
 This repository contains the source code for the [`Unity3D` NuGet package](https://www.nuget.org/packages/Unity3D).
 
 `Unity3D` allows developers to effectively reference assemblies of the Unity game engine (e.g., `UnityEngine.dll`) as a NuGet packages.
