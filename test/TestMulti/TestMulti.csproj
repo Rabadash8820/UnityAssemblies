@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="../../nupkg/buildMultiTargeting/Unity3D.props"/>
-  
+  <Import Project="..\..\test\UnityVersion.props" />
+  <Import Project="..\..\nupkg\buildMultiTargeting\Unity3D.props"/>
+
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
-    <UnityVersion>2019.1.6f1</UnityVersion>
   </PropertyGroup>
 
   <ItemGroup>
