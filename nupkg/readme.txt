@@ -24,7 +24,7 @@ Example .csproj file (using Unity 2019.1.6f1, targeting .NET Standard 2.0 profil
             <UnityVersion>2019.1.6f1</UnityVersion>
         </PropertyGroup>
         <ItemGroup>
-            <PackageReference Include="Unity3D" Version="1.1.0" />
+            <PackageReference Include="Unity3D" Version="1.2.0" />
         </ItemGroup>
     </Project>
 
