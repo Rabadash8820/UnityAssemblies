@@ -15,6 +15,7 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
 - [Basic Usage](#basic-usage)
 - [Why Another NuGet Package for Unity?](#why-another-nuget-package-for-unity)
 - [Usage](#usage)
+- [Available Short-Hand Assembly Properties](#available-short-hand-assembly-properties)
 - [FAQ](#faq)
 - [License](#license)
 
@@ -74,15 +75,6 @@ By default, we only add a reference to `UnityEngine.dll`, but there are several 
 
 Note the use of the `UnityInstallRoot`, `UnityVersion`, and `*Path` MSBuild properties. These properties spare you from having to remember the default Unity install path or the relative paths for any Unity assemblies, and they also let the references work across platforms (Windows/Mac). See below for a [list of short-hand assembly properties](#available-short-hand-assembly-properties)) that we provide.
 
-| Property | Default value |
-|----------|---------------|
-| `OSInstallRoot` | `C:\Program Files` on Windows or `/Application` on Mac. |
-| `UnityInstallRoot` | `$(OSInstallRoot)\Unity\Hub\Editor` |
-| `UnityEnginePath` | `Editor\Data\Managed\UnityEngine.dll` |
-| `UnityEditorPath` | `Editor\Data\Managed\UnityEditor.dll` |
-| `UnityEngineUiPath` | `Editor\UnityExtensions\Unity\GUISystem\UnityEngine.UI.dll` |
-| `UnityEngineTestRunnerPath` | `Editor\Data\UnityExtensions\Unity\TestRunner\UnityEngine.TestRunner.dll` |
-
 If you want to reference a Unity assembly for which there is no short-hand property, you can just hard-code the path into the `Reference` item yourself. We always recommend starting with the `$(UnityInstallRoot)\$(UnityVersion)\` properties though, as they let your project files build cross-platform, and let you edit your Unity version string in one place.
 
 Because Unity Hub is the tool [recommended by Unity Technologies](https://docs.unity3d.com/Manual/GettingStartedInstallingUnity.html) for installing Unity, we check for Unity assemblies within the Hub's default install locations, as shown above. If you are not using Unity Hub, or you are using a non-default install location, just set `UnityInstallRoot` to a different path. For example, if you were using a Windows machine and your Unity versions were installed in a `Unity\` folder on your `V:` drive, then your `.csproj` would look something like:
@@ -98,6 +90,20 @@ Because Unity Hub is the tool [recommended by Unity Technologies](https://docs.u
 ```
 
 **Warning: When changing the `UnityInstallRoot` property, it is up to you to keep the paths cross-platform.**
+
+## Available Short-Hand Assembly Properties
+
+| Property | Default value |
+|----------|---------------|
+| `OSInstallRoot` | `C:\Program Files` on Windows or `/Application` on Mac. |
+| `UnityInstallRoot` | `$(OSInstallRoot)\Unity\Hub\Editor` |
+| `UnityManagedPath` | `Editor\Data\Managed` |
+| `UnityModulesPath` | `$(UnityManagedPath)\UnityEngine` |
+| `UnityExtensionsPath` | `Editor\Data\UnityExtensions\Unity` |
+| `UnityEnginePath` | `$(UnityManagedPath)\UnityEngine.dll` |
+| `UnityEditorPath` | `$(UnityManagedPath)\UnityEditor.dll` |
+| `UnityEngineUIPath` | `$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll` |
+| `UnityEngineTestRunnerPath` | `$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll` |
 
 ## FAQ
 
