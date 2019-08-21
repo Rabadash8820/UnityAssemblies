@@ -10,6 +10,14 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
 
 `Unity3D` allows developers to effectively reference assemblies of the Unity game engine (e.g., `UnityEngine.dll`) as NuGet packages.
 
+## Contents
+
+- [Basic Usage](#basic-usage)
+- [Why Another NuGet Package for Unity?](#why-another-nuget-package-for-unity)
+- [Usage](#usage)
+- [FAQ](#faq)
+- [License](#license)
+
 ## Basic Usage
 
 ```xml
