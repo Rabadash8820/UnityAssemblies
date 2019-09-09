@@ -1,6 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-  <Import Project="..\..\test\UnityVersion.props" />
   <Import Project= "..\..\nupkg\build\Unity3D.props"/>
+  <Import Project="..\..\test\UnityVersion.props" />
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
   </PropertyGroup>

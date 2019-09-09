@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <Import Project="..\..\test\UnityVersion.props" />
   <Import Project="..\..\nupkg\buildMultiTargeting\Unity3D.props"/>
+  <Import Project="..\..\test\UnityVersion.props" />
 
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;net461</TargetFrameworks>
