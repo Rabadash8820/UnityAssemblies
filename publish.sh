@@ -6,6 +6,9 @@ bumpVersions() {
     echo "    Sample project file in packaged readme.txt"
     echo "    Sample project file at top of main README"
     echo "    <version/> element of nuspec"
+    echo "Also update Unity version strings to the latest version in the following places:"
+    echo "    Sample project file in packaged readme.txt"
+    echo "    Sample project file at top of main README"
     read -p "Press [Enter] when you're done..."
 }
 
@@ -58,7 +61,7 @@ nugetPush() {
     then
         echo "Now sign in to nuget.org, and copy over the documentation from the previous package version"
         echo "    This should basically be the contents of the packaged readme.txt file"
-        echo "    Also be sure to increment the version string to in those docs as well!"
+        echo "    Also be sure to increment the UnityVersion and PackageReference version strings therein!"
         read -p "Press [Enter] when you're done..."
     fi
 }
