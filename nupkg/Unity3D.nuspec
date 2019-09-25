@@ -5,7 +5,7 @@
     <version>1.2.0</version>
     <authors>Unity Technologies</authors>
     <owners>DerploidEntertainment</owners>
-    <iconUrl>https://github.com/DerploidEntertainment/UnityAssemblies/raw/master/icon.png</iconUrl>
+    <icon>icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/DerploidEntertainment/UnityAssemblies</projectUrl>

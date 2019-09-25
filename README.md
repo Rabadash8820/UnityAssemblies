@@ -1,6 +1,6 @@
 # Unity Assemblies
 
-![Unity logo, trademarked by Unity Technologies](./icon.png)
+![Unity logo, trademarked by Unity Technologies](./nupkg/icon.png)
 
 [![NuGet package](https://img.shields.io/nuget/v/Unity3D.svg)](https://nuget.org/packages/Unity3D)
 [![NuGet package](https://img.shields.io/packagecontrol/dd/Unity3D.svg)](https://nuget.org/packages/Unity3D)
