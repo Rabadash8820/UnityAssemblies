@@ -25,7 +25,7 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <UnityVersion>2019.1.6f1</UnityVersion>
+        <UnityVersion>2019.2.6f1</UnityVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Unity3D" Version="1.2.0" />
@@ -54,7 +54,7 @@ Thus, here at Derploid Entertainment, we created the `Unity3D` package with the 
 
 As shown in the basic example above, our package only requires a `UnityVersion` property to be up and running. `UnityVersion` must be a complete version string, in the format used by Unity Hub (the values boxed in red in the screenshot below).
 
-![Unity version strings highlighted in the Unity Hub interface. For example, "2019.1.6f1"](./unity-versions.png)
+![Unity version strings highlighted in the Unity Hub interface. For example, "2019.2.6f1"](./unity-versions.png)
 
 To edit a project file in Visual Studio:
 
@@ -82,7 +82,7 @@ Because Unity Hub is the tool [recommended by Unity Technologies](https://docs.u
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <UnityVersion>2019.1.6f1</UnityVersion>
+        <UnityVersion>2019.2.6f1</UnityVersion>
         <UnityInstallRoot>V:\Unity</UnityInstallRoot>
     </PropertyGroup>
     <!-- etc. -->
