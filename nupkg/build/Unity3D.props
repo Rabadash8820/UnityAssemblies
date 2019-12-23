@@ -4,10 +4,15 @@
   <PropertyGroup>
     <OSInstallRoot Condition="$([MSBuild]::IsOsPlatform(Windows))">C:\Program Files</OSInstallRoot>
     <OSInstallRoot Condition="!$([MSBuild]::IsOsPlatform(Windows))">/Application</OSInstallRoot>
+
     <UnityInstallRoot Condition="'$(UnityInstallPath)'==''">$(OSInstallRoot)\Unity\Hub\Editor</UnityInstallRoot>
     <UnityManagedPath Condition="'$(UnityManagedPath)'==''">Editor\Data\Managed</UnityManagedPath>
     <UnityModulesPath Condition="'$(UnityModulesPath)'==''">$(UnityManagedPath)\UnityEngine</UnityModulesPath>
     <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsPath>
+    <UnityBuiltInPackagesPath Condition="'$(UnityBuiltInPackagesPath)'==''">Editor\Data\Resources\PackageManager\BuiltInPackages</UnityBuiltInPackagesPath>
+
+    <UnityPackageCachePath Condition="'$(UnityPackageCachePath)'==''">Library\PackageCache</UnityPackageCachePath>
+    <UnityScriptAssembliesPath Condition="'$(UnityScriptAssembliesPath)'==''">Library\ScriptAssemblies</UnityScriptAssembliesPath>
   </PropertyGroup>
 
   <!-- Set relative paths of specific Unity assemblies -->
@@ -16,6 +21,10 @@
     <UnityEditorPath Condition="'$(UnityEditorPath)'==''">$(UnityManagedPath)\UnityEditor.dll</UnityEditorPath>
     <UnityEngineUIPath Condition="'$(UnityEngineUIPath)'==''">$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll</UnityEngineUIPath>
     <UnityEngineTestRunnerPath Condition="'$(UnityEngineTestRunnerPath)'==''">$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll</UnityEngineTestRunnerPath>
+
+    <NunitPath Condition="'$(NunitPath)'==''">$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll</NunitPath>
+    <MoqPath Condition="'$(MoqPath)'==''">$(UnityPackageCachePath)\nuget.moq*\Moq.dll</MoqPath>
+    <UnityAnalyticsStandardEventsPath Condition="'$(UnityAnalyticsStandardEventsPath)'==''">$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</UnityAnalyticsStandardEventsPath>
   </PropertyGroup>
 
   <!-- Add default Unity references -->
