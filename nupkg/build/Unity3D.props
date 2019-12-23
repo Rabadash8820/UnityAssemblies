@@ -1,10 +1,5 @@
 <Project>
 
-  <!-- Conditional compile symbols -->
-  <PropertyGroup Condition="'$(Configuration)'=='Debug'">
-    <DefineConstants>UNITY_ASSERTIONS</DefineConstants>
-  </PropertyGroup>
-
   <!-- Set default Unity folder paths -->
   <PropertyGroup>
     <OSInstallRoot Condition="$([MSBuild]::IsOsPlatform(Windows))">C:\Program Files</OSInstallRoot>
