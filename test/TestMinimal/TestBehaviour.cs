@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
 
-namespace TestNetStandardMinimal {
+namespace Unity3D.Test {
     public class TestBehaviour : MonoBehaviour { }
 }

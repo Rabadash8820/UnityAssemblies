@@ -1,0 +1,8 @@
+﻿<Project>
+  <PropertyGroup>
+    <UnityProjectPath Condition="'$(ConfigurationVersionNum)'=='20192'">$(SolutionDir)\..\unity\Unity3D_2019_2</UnityProjectPath>
+    <UnityProjectPath Condition="'$(ConfigurationVersionNum)'=='20184'">$(SolutionDir)\..\unity\Unity3D_2018_4</UnityProjectPath>
+
+    <UnityAssetsPath>$(UnityProjectPath)\Assets</UnityAssetsPath>
+</PropertyGroup>
+</Project>

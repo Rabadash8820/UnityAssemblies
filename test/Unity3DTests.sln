@@ -2,7 +2,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29009.5
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestNetStandard20", "TestNetStandard20\TestNetStandard20.csproj", "{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAllRefs", "TestAllRefs\TestAllRefs.csproj", "{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nupkg", "nupkg", "{CE043F66-AFE3-43C6-8D52-E3059B8B2CDB}"
 	ProjectSection(SolutionItems) = preProject
@@ -15,16 +15,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{E4D0EF7B
 		..\nupkg\build\Unity3D.props = ..\nupkg\build\Unity3D.props
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestNet461", "TestNet461\TestNet461.csproj", "{00BD5A07-E5AF-4DE3-8E4E-8C07BC716204}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMulti", "TestMulti\TestMulti.csproj", "{56D1222D-7FF3-4F44-8E5D-A805EC669209}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "buildMultiTargeting", "buildMultiTargeting", "{98FA5AC9-B938-4AA6-B8B1-1B6468878191}"
 	ProjectSection(SolutionItems) = preProject
 		..\nupkg\buildMultiTargeting\Unity3D.props = ..\nupkg\buildMultiTargeting\Unity3D.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestNetStandardMinimal", "TestNetStandardMinimal\TestNetStandardMinimal.csproj", "{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMinimal", "TestMinimal\TestMinimal.csproj", "{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{157D3502-954C-4200-81B5-4A381B9F4C80}"
 	ProjectSection(SolutionItems) = preProject
@@ -32,36 +28,39 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		..\LICENSE = ..\LICENSE
 		..\publish.sh = ..\publish.sh
 		..\README.md = ..\README.md
-		UnityVersion.props = UnityVersion.props
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E365C332-897A-43CA-8702-F9475896349B}"
 	ProjectSection(SolutionItems) = preProject
+		Directory.Build.props = Directory.Build.props
+		UnityAssetsPath.props = UnityAssetsPath.props
 		UnityVersion.props = UnityVersion.props
 	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
-		Debug|Any CPU = Debug|Any CPU
-		Release|Any CPU = Release|Any CPU
+		2018_4_Net461|Any CPU = 2018_4_Net461|Any CPU
+		2018_4_Standard20|Any CPU = 2018_4_Standard20|Any CPU
+		2019_2_Net461|Any CPU = 2019_2_Net461|Any CPU
+		2019_2_Standard20|Any CPU = 2019_2_Standard20|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{00BD5A07-E5AF-4DE3-8E4E-8C07BC716204}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{00BD5A07-E5AF-4DE3-8E4E-8C07BC716204}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{00BD5A07-E5AF-4DE3-8E4E-8C07BC716204}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{00BD5A07-E5AF-4DE3-8E4E-8C07BC716204}.Release|Any CPU.Build.0 = Release|Any CPU
-		{56D1222D-7FF3-4F44-8E5D-A805EC669209}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{56D1222D-7FF3-4F44-8E5D-A805EC669209}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{56D1222D-7FF3-4F44-8E5D-A805EC669209}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{56D1222D-7FF3-4F44-8E5D-A805EC669209}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.2018_4_Net461|Any CPU.ActiveCfg = 2018_4_Net461|Any CPU
+		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.2018_4_Net461|Any CPU.Build.0 = 2018_4_Net461|Any CPU
+		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.2018_4_Standard20|Any CPU.ActiveCfg = 2018_4_Standard20|Any CPU
+		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.2018_4_Standard20|Any CPU.Build.0 = 2018_4_Standard20|Any CPU
+		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.2019_2_Net461|Any CPU.ActiveCfg = 2019_2_Net461|Any CPU
+		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.2019_2_Net461|Any CPU.Build.0 = 2019_2_Net461|Any CPU
+		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.2019_2_Standard20|Any CPU.ActiveCfg = 2019_2_Standard20|Any CPU
+		{FAF7AFF4-8E1F-4D41-A4B8-24BE2715C89A}.2019_2_Standard20|Any CPU.Build.0 = 2019_2_Standard20|Any CPU
+		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.2018_4_Net461|Any CPU.ActiveCfg = 2018_4_Net461|Any CPU
+		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.2018_4_Net461|Any CPU.Build.0 = 2018_4_Net461|Any CPU
+		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.2018_4_Standard20|Any CPU.ActiveCfg = 2018_4_Standard20|Any CPU
+		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.2018_4_Standard20|Any CPU.Build.0 = 2018_4_Standard20|Any CPU
+		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.2019_2_Net461|Any CPU.ActiveCfg = 2019_2_Net461|Any CPU
+		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.2019_2_Net461|Any CPU.Build.0 = 2019_2_Net461|Any CPU
+		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.2019_2_Standard20|Any CPU.ActiveCfg = 2019_2_Standard20|Any CPU
+		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.2019_2_Standard20|Any CPU.Build.0 = 2019_2_Standard20|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

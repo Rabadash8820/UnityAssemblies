@@ -1,0 +1,23 @@
+﻿<Project>
+
+  <Import Project= "..\nupkg\build\Unity3D.props"/>
+
+  <PropertyGroup>
+    <Configurations>2019_2_Standard20;2019_2_Net461;2018_4_Standard20;2018_4_Net461</Configurations>
+
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_2_Standard20' Or '$(Configuration)'=='2019_2_Net461'">20192</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='2018_4_Standard20' Or '$(Configuration)'=='2018_4_Net461'">20184</ConfigurationVersionNum>
+
+    <DefineConstants>v$(ConfigurationVersionNum)</DefineConstants>
+
+    <TargetFramework Condition="'$(Configuration)'=='2019_2_Standard20' Or '$(Configuration)'=='2018_4_Standard20'">netstandard2.0</TargetFramework>
+    <TargetFramework Condition="'$(Configuration)'=='2019_2_Net461' Or '$(Configuration)'=='2018_4_Net461'">net461</TargetFramework>
+
+    <RootNamespace>Unity3D.Test</RootNamespace>
+  </PropertyGroup>
+
+  <Target Name="PrintConfiguration" AfterTargets="Build">
+    <Message Importance="high" Text="Using Unity Version '$(UnityVersion)', TargetFramework '$(TargetFramework)'" />
+  </Target>
+  
+</Project>
