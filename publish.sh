@@ -8,7 +8,7 @@ bumpVersions() {
     echo "    <version/> element of nuspec"
     echo "Also update Unity version strings to the latest version in the following places:"
     echo "    Sample project file in packaged readme.txt"
-    echo "    Sample project file at top of main README"
+    echo "    Sample project file snippets in main README"
     read -p "Press [Enter] when you're done..."
 }
 
@@ -71,7 +71,7 @@ main() {
 
     # Make sure user has updated package info
     bumpVersions && verifyReleaseNotes
-    
+
     # Get the path to nuget.exe
     checkForNuGet
     nugetCode=$?
@@ -83,12 +83,12 @@ main() {
     then
         nugetPath=./nuget.exe
     fi
-    
+
     # Create the NuGet package
     nugetPack
     if [ $? != 0 ]; then return 1; fi
     nupkgPath=$cwd/Unity3D.$newVersion.nupkg
-    
+
     # Sign and push the NuGet package
     nugetSign && nugetPush
 
