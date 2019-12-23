@@ -6,6 +6,7 @@
     <OSInstallRoot Condition="!$([MSBuild]::IsOsPlatform(Windows))">/Application</OSInstallRoot>
     <UnityInstallRoot Condition="'$(UnityInstallPath)'==''">$(OSInstallRoot)\Unity\Hub\Editor</UnityInstallRoot>
     <UnityManagedPath Condition="'$(UnityManagedPath)'==''">Editor\Data\Managed</UnityManagedPath>
+    <UnityModulesPath Condition="'$(UnityModulesPath)'==''">$(UnityManagedPath)\UnityEngine</UnityModulesPath>
     <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsPath>
   </PropertyGroup>
 
