@@ -11,8 +11,14 @@
     <projectUrl>https://github.com/DerploidEntertainment/UnityAssemblies</projectUrl>
     <description>Simple, forward-compatible references to ANY Unity assembly on Mac or Windows.</description>
     <releaseNotes>
-      - All short-hand assembly properties now use the same casing as the referenced DLL files (e.g., UnityEngineUIPath, not UnityEngineUiPath)
-      - Cleaned up the props file by adding new UnityManagedPath and UnityExtensionsPath properties
+      - Removed unnecessary UNITY_ASSERTIONS define
+      - Added the missing UnityModulesPath property (*facepalm*)
+      - The test solution is now more flexible, containing fewer projects that can each be built with a different target framework and version of Unity
+      - Added some test Unity scenes in various Unity versions, for testing builds that reference Library/ or Asset Store assemblies
+      - Added several improvements to the main README
+        - Usage section is now better organized into sub-sections
+        - Added instructions to remove the default UnityEngine.dll reference
+        - Added instructions to reference assemblies making up Packages, Asset Store assets, and Unity modules
     </releaseNotes>
     <copyright>Copyright ©2019 Derploid Entertainment, LLC</copyright>
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>
