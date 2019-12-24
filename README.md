@@ -105,7 +105,9 @@ You may need to reference assemblies stored in a Unity project folder (i.e., und
 </Project>
 ```
 
-Note that, while we do provide short-hand properties for a couple assemblies under the `PackageCache` folder (see [full list](#available-short-hand-assembly-properties) below), we do *not* provide short-hand properties for assemblies stored in the `ScriptAssemblies` folder. That folder is completely flat, so you can just reference assemblies there by filename.
+Make sure the project has been opened in Unity recently, so that the `Library/` folder actually contains the necessary assemblies!
+
+Also note that, while we do provide short-hand properties for a couple assemblies under the `PackageCache` folder (see [full list](#available-short-hand-assembly-properties) below), we do *not* provide short-hand properties for assemblies stored in the `ScriptAssemblies` folder. That folder is completely flat, so you can just reference assemblies there by filename.
 
 ### Referencing assemblies at non-default install locations
 
@@ -125,11 +127,13 @@ Because Unity Hub is the tool [recommended by Unity Technologies](https://docs.u
 
 ### Removing the default reference to UnityEngine.dll
 
-You may not want to keep our default reference to `UnityEngine.dll`, e.g., if you only need a reference to some other Unity assembly, or want to reference Unity's module assemblies directly. To remove the `Reference` from your project, simply use the MSBuild Item remove syntax; i.e., add the following line to an `<ItemGroup>` in your `.csproj`:
+You may not want to keep our default reference to `UnityEngine.dll`, e.g., if you only need a reference to some other Unity assembly, or want to reference Unity's module assemblies directly. To remove the `Reference` from your project, simply use the MSBuild Item remove syntax, i.e., add the following line to an `<ItemGroup>` in your `.csproj`:
 
 ```xml
 <Reference Remove="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)" />
 ```
+
+**Warning: If using directory imports, be sure to put the above line in `Directory.Build.targets`, not `Directory.Build.props`, otherwise you'll be trying to remove the Reference before it's been added!**
 
 ### Referencing the Unity core modules
 
