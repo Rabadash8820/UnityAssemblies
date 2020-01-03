@@ -147,7 +147,7 @@ The solution is to [remove our default reference](#removing-the-default-referenc
     <ItemGroup>
         <Reference Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll" Private="false" />
         <!-- Other Package assembly references -->
-        <Reference Remove="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)" Private="false" />
+        <Reference Remove="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)" />
         <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.CoreModule.dll" Private="false" />
         <!-- Other module references -->
     </ItemGroup>
