@@ -1,11 +1,14 @@
-<Project>
+﻿<Project>
 
   <Import Project= "..\nupkg\build\Unity3D.props"/>
 
   <PropertyGroup>
-    <Configurations>2019_2_Standard20;2019_2_Net461;2018_4_Standard20;2018_4_Net461</Configurations>
+    <Configurations>2019_3_Standard20;2019_3_Net461;2019_2_Standard20;2019_2_Net461;2018_4_Standard20;2018_4_Net461</Configurations>
 
     <!-- Define Unity version number constants -->
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_3_Standard20'">20193</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_3_Net461'">20193</ConfigurationVersionNum>
+
     <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_2_Standard20'">20192</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_2_Net461'">20192</ConfigurationVersionNum>
 
@@ -15,6 +18,7 @@
     <DefineConstants>v$(ConfigurationVersionNum)</DefineConstants>
 
     <!-- Set TargetFramework -->
+    <TargetFramework Condition="'$(Configuration)'=='2019_3_Standard20'">netstandard2.0</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='2019_2_Standard20'">netstandard2.0</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='2018_4_Standard20'">netstandard2.0</TargetFramework>
     
