@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
   <metadata minClientVersion="2.5">
     <id>Unity3D</id>
-    <version>1.3.0</version>
+    <version>1.3.1</version>
     <authors>Unity Technologies</authors>
     <owners>DerploidEntertainment</owners>
     <icon>icon.png</icon>
@@ -11,15 +11,8 @@
     <projectUrl>https://github.com/DerploidEntertainment/UnityAssemblies</projectUrl>
     <description>Simple, forward-compatible references to ANY Unity assembly on Mac or Windows.</description>
     <releaseNotes>
-      - Removed unnecessary UNITY_ASSERTIONS define
-      - Added the missing UnityModulesPath property (*facepalm*)
-      - Added short-hand properties for more locations, including assemblies within a Unity project folder
-      - The test solution is now more flexible, containing fewer projects that can each be built with a different target framework and version of Unity
-      - Added some test Unity scenes in various Unity versions, for testing builds that reference Library/ or Asset Store assemblies
-      - Added several improvements to the main README
-        - Usage section is now better organized into sub-sections
-        - Added instructions to remove the default UnityEngine.dll reference
-        - Added instructions to reference assemblies making up Packages, Asset Store assets, and Unity modules
+      - Fixed property conditions in the main .props file
+      - Added test projects for Unity 2019.3.x
     </releaseNotes>
     <copyright>Copyright ©2019 Derploid Entertainment, LLC</copyright>
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>

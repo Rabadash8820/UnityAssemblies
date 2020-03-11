@@ -3,15 +3,28 @@
   <Import Project= "..\nupkg\build\Unity3D.props"/>
 
   <PropertyGroup>
-    <Configurations>2019_2_Standard20;2019_2_Net461;2018_4_Standard20;2018_4_Net461</Configurations>
+    <Configurations>2019_3_Standard20;2019_3_Net461;2019_2_Standard20;2019_2_Net461;2018_4_Standard20;2018_4_Net461</Configurations>
 
-    <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_2_Standard20' Or '$(Configuration)'=='2019_2_Net461'">20192</ConfigurationVersionNum>
-    <ConfigurationVersionNum Condition="'$(Configuration)'=='2018_4_Standard20' Or '$(Configuration)'=='2018_4_Net461'">20184</ConfigurationVersionNum>
+    <!-- Define Unity version number constants -->
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_3_Standard20'">20193</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_3_Net461'">20193</ConfigurationVersionNum>
 
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_2_Standard20'">20192</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_2_Net461'">20192</ConfigurationVersionNum>
+
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='2018_4_Standard20'">20184</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='2018_4_Net461'">20184</ConfigurationVersionNum>
+    
     <DefineConstants>v$(ConfigurationVersionNum)</DefineConstants>
 
-    <TargetFramework Condition="'$(Configuration)'=='2019_2_Standard20' Or '$(Configuration)'=='2018_4_Standard20'">netstandard2.0</TargetFramework>
-    <TargetFramework Condition="'$(Configuration)'=='2019_2_Net461' Or '$(Configuration)'=='2018_4_Net461'">net461</TargetFramework>
+    <!-- Set TargetFramework -->
+    <TargetFramework Condition="'$(Configuration)'=='2019_3_Standard20'">netstandard2.0</TargetFramework>
+    <TargetFramework Condition="'$(Configuration)'=='2019_2_Standard20'">netstandard2.0</TargetFramework>
+    <TargetFramework Condition="'$(Configuration)'=='2018_4_Standard20'">netstandard2.0</TargetFramework>
+    
+    <TargetFramework Condition="'$(Configuration)'=='2019_3_Net461'">net461</TargetFramework>
+    <TargetFramework Condition="'$(Configuration)'=='2019_2_Net461'">net461</TargetFramework>
+    <TargetFramework Condition="'$(Configuration)'=='2018_4_Net461'">net461</TargetFramework>
 
     <RootNamespace>Unity3D.Test</RootNamespace>
   </PropertyGroup>
