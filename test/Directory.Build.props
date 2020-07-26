@@ -3,33 +3,28 @@
   <Import Project= "..\nupkg\build\Unity3D.props"/>
 
   <PropertyGroup>
-    <Configurations>2019_3_Standard20;2019_3_Net461;2019_2_Standard20;2019_2_Net461;2018_4_Standard20;2018_4_Net461</Configurations>
+    <Configurations>Standard20_2019_4;Net461_2019_4;Standard20_2018_4;Net461_2018_4</Configurations>
 
     <!-- Define Unity version number constants -->
-    <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_3_Standard20'">20193</ConfigurationVersionNum>
-    <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_3_Net461'">20193</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2019_4'">20194</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Net461_2019_4'">20194</ConfigurationVersionNum>
 
-    <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_2_Standard20'">20192</ConfigurationVersionNum>
-    <ConfigurationVersionNum Condition="'$(Configuration)'=='2019_2_Net461'">20192</ConfigurationVersionNum>
-
-    <ConfigurationVersionNum Condition="'$(Configuration)'=='2018_4_Standard20'">20184</ConfigurationVersionNum>
-    <ConfigurationVersionNum Condition="'$(Configuration)'=='2018_4_Net461'">20184</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2018_4'">20184</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Net461_2018_4'">20184</ConfigurationVersionNum>
     
     <DefineConstants>v$(ConfigurationVersionNum)</DefineConstants>
 
     <!-- Set TargetFramework -->
-    <TargetFramework Condition="'$(Configuration)'=='2019_3_Standard20'">netstandard2.0</TargetFramework>
-    <TargetFramework Condition="'$(Configuration)'=='2019_2_Standard20'">netstandard2.0</TargetFramework>
-    <TargetFramework Condition="'$(Configuration)'=='2018_4_Standard20'">netstandard2.0</TargetFramework>
+    <TargetFramework Condition="'$(Configuration)'=='Standard20_2019_4'">netstandard2.0</TargetFramework>
+    <TargetFramework Condition="'$(Configuration)'=='Standard20_2018_4'">netstandard2.0</TargetFramework>
     
-    <TargetFramework Condition="'$(Configuration)'=='2019_3_Net461'">net461</TargetFramework>
-    <TargetFramework Condition="'$(Configuration)'=='2019_2_Net461'">net461</TargetFramework>
-    <TargetFramework Condition="'$(Configuration)'=='2018_4_Net461'">net461</TargetFramework>
+    <TargetFramework Condition="'$(Configuration)'=='Net461_2019_4'">net461</TargetFramework>
+    <TargetFramework Condition="'$(Configuration)'=='Net461_2018_4'">net461</TargetFramework>
 
     <RootNamespace>Unity3D.Test</RootNamespace>
   </PropertyGroup>
 
-  <Target Name="PrintConfiguration" AfterTargets="Build">
+  <Target Name="PrintConfiguration" BeforeTargets="Build">
     <Message Importance="high" Text="Using Unity Version '$(UnityVersion)', TargetFramework '$(TargetFramework)'" />
   </Target>
   
