@@ -21,7 +21,7 @@
 
     <!-- All PackageCache references for which we provide short-hand properties -->
     <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(UnityProjectPath)\$(NunitPath)" Private="false" />
-    <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(UnityProjectPath)\$(MoqPath)" Private="false" />
+    <Reference Condition="'$(ConfigurationVersionNum)'=='20192' Or '$(ConfigurationVersionNum)'=='20193'" Include="$(UnityProjectPath)\$(MoqPath)" Private="false" />
     <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(UnityProjectPath)\$(UnityAnalyticsStandardEventsPath)" Private="false" />
   </ItemGroup>
 

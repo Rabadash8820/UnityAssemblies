@@ -186,7 +186,7 @@ The assembly paths under the `PackageCache` use the `*` wildcard. This saves you
 | `UnityPackageCachePath` | `Library\PackageCache` | >= 2017.2 |  |
 | `UnityScriptAssembliesPath` | `Library\ScriptAssemblies` | Any |  |
 | `NunitPath` | `$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll` | >= 2019.2 |  |
-| `MoqPath` | `$(UnityPackageCachePath)\nuget.moq*\Moq.dll` | >= 2019.2 |  |
+| `MoqPath` | `$(UnityPackageCachePath)\nuget.moq*\Moq.dll` | 2019.2, 2019.3 |  |
 | `UnityAnalyticsStandardEventsPath` | `$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` | >= 2019.2 |  |
 
 ## FAQ
