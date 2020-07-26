@@ -170,25 +170,25 @@ Just be aware of which properties expect absolute paths, and which expect relati
 
 The assembly paths under the `PackageCache` use the `*` wildcard. This saves you from hard-coding a package version and having to update it each time you update from Unity's Package Manager Window. Unity only stores one version of a Package in the `PackageCache` folder, so you don't need to worry about multiple versions of the same Package being referenced by the wildcard.
 
-| Property | Default value | Unity Version | Comments |
-|:---------|:--------------|-------|:---------|
-| `OSInstallRoot` | `C:\Program Files` on Windows or `/Application` on Mac. | Any |  |
-| `UnityInstallRoot` | `$(OSInstallRoot)\Unity\Hub\Editor` | Any |  |
-| `UnityManagedPath` | `Editor\Data\Managed` | Any |  |
-| `UnityModulesPath` | `$(UnityManagedPath)\UnityEngine` | Any | This folder contains assemblies for Unity's core modules like the Audio, Animation, and ParticleSystem modules. |
-| `UnityExtensionsPath` | `Editor\Data\UnityExtensions\Unity` | Any |  |
-| `UnityBuiltInPackagesPath` | `Editor\Data\Resources\PackageManager\BuiltInPackages` | >= 2017.2 | This folder contains Unity's built-in Packages, like IMGUI and TerrainPhysics. |
-| `UnityEnginePath` | `$(UnityManagedPath)\UnityEngine.dll` | Any | This reference is added by default. See above for [instructions to remove it](#removing-the-default-reference-to-unityengine.dll). |
-| `UnityEditorPath` | `$(UnityManagedPath)\UnityEditor.dll` | Any |  |
-| `UnityEngineUIPath` | `$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll`. | <= 2019.2 | In Unity 2019.2+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll` instead. |
-| `UnityEngineTestRunnerPath` | `$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll` | <= 2019.2 | In Unity 2019.2+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll` instead. |
-| `UnityProjectPath` | N/A | Any | This property has no default value. Point it at the root folder of your Unity project, so that you can more easily reference Package and Asset Store assemblies (as [described above](#referencing-assemblies-stored-in-a-unity-project)). |
-| `UnityPackageCachePath` | `Library\PackageCache` | >= 2017.2 |  |
-| `UnityScriptAssembliesPath` | `Library\ScriptAssemblies` | Any |  |
-| `NewtonsoftJsonPath` | `$(UnityPackageCachePath)\com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll` | >= 2019.3 | Only available when the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner has been included in a project. |
-| `NunitPath` | `$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll` | >= 2019.2 |  |
-| `MoqPath` | `$(UnityPackageCachePath)\nuget.moq*\Moq.dll` | 2019.2, 2019.3 |  |
-| `UnityAnalyticsStandardEventsPath` | `$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` | >= 2019.2 |  |
+| Property | Unity Version | Default value | Comments |
+|:---------|---------------|:--------------|:---------|
+| `OSInstallRoot` | Any | `C:\Program Files` on Windows or `/Application` on Mac. |  |
+| `UnityInstallRoot` | Any | `$(OSInstallRoot)\Unity\Hub\Editor` |  |
+| `UnityManagedPath` | Any | `Editor\Data\Managed` |  |
+| `UnityModulesPath` | Any | `$(UnityManagedPath)\UnityEngine` | This folder contains assemblies for Unity's core modules like the Audio, Animation, and ParticleSystem modules. |
+| `UnityExtensionsPath` | Any | `Editor\Data\UnityExtensions\Unity` |  |
+| `UnityBuiltInPackagesPath` | >= 2017.2 | `Editor\Data\Resources\PackageManager\BuiltInPackages` | This folder contains Unity's built-in Packages, like IMGUI and TerrainPhysics. |
+| `UnityEnginePath` | Any | `$(UnityManagedPath)\UnityEngine.dll` | This reference is added by default. See above for [instructions to remove it](#removing-the-default-reference-to-unityengine.dll). |
+| `UnityEditorPath` | Any | `$(UnityManagedPath)\UnityEditor.dll` |  |
+| `UnityEngineUIPath` | <= 2019.2 | `$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll`. | In Unity 2019.2+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll` instead. |
+| `UnityEngineTestRunnerPath` | <= 2019.2 | `$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll` | In Unity 2019.2+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll` instead. |
+| `UnityProjectPath` | Any | N/A | This property has no default value. Point it at the root folder of your Unity project, so that you can more easily reference Package and Asset Store assemblies (as [described above](#referencing-assemblies-stored-in-a-unity-project)). |
+| `UnityPackageCachePath` | >= 2017.2 | `Library\PackageCache` |  |
+| `UnityScriptAssembliesPath` | Any | `Library\ScriptAssemblies` |  |
+| `NewtonsoftJsonPath` | >= 2019.3 | `$(UnityPackageCachePath)\com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll` | Only available when the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner has been included in a project. |
+| `NunitPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll` |  |
+| `MoqPath` | 2019.2, 2019.3 | `$(UnityPackageCachePath)\nuget.moq*\Moq.dll` |  |
+| `UnityAnalyticsStandardEventsPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` |  |
 
 ## FAQ
 
