@@ -21,7 +21,11 @@
     <UnityEditorPath Condition="'$(UnityEditorPath)'==''">$(UnityManagedPath)\UnityEditor.dll</UnityEditorPath>
     <UnityEngineUIPath Condition="'$(UnityEngineUIPath)'==''">$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll</UnityEngineUIPath>
     <UnityEngineTestRunnerPath Condition="'$(UnityEngineTestRunnerPath)'==''">$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll</UnityEngineTestRunnerPath>
+  </PropertyGroup>
 
+  <!-- Set relative paths of specific PackageCache assemblies -->
+  <PropertyGroup>
+    <NewtonsoftJsonPath Condition="'$(NewtonsoftJsonPath)'==''">$(UnityPackageCachePath)\com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll</NewtonsoftJsonPath>
     <NunitPath Condition="'$(NunitPath)'==''">$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll</NunitPath>
     <MoqPath Condition="'$(MoqPath)'==''">$(UnityPackageCachePath)\nuget.moq*\Moq.dll</MoqPath>
     <UnityAnalyticsStandardEventsPath Condition="'$(UnityAnalyticsStandardEventsPath)'==''">$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</UnityAnalyticsStandardEventsPath>

@@ -185,6 +185,7 @@ The assembly paths under the `PackageCache` use the `*` wildcard. This saves you
 | `UnityProjectPath` | N/A | Any | This property has no default value. Point it at the root folder of your Unity project, so that you can more easily reference Package and Asset Store assemblies (as [described above](#referencing-assemblies-stored-in-a-unity-project)). |
 | `UnityPackageCachePath` | `Library\PackageCache` | >= 2017.2 |  |
 | `UnityScriptAssembliesPath` | `Library\ScriptAssemblies` | Any |  |
+| `NewtonsoftJsonPath` | `$(UnityPackageCachePath)\com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll` | >= 2019.3 | Only available when the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner has been included in a project. |
 | `NunitPath` | `$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll` | >= 2019.2 |  |
 | `MoqPath` | `$(UnityPackageCachePath)\nuget.moq*\Moq.dll` | 2019.2, 2019.3 |  |
 | `UnityAnalyticsStandardEventsPath` | `$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` | >= 2019.2 |  |

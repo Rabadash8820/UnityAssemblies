@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\UnityVersion.props" />
   <Import Project="..\UnityAssetsPath.props" />
@@ -20,6 +20,7 @@
     <Reference Condition="'$(ConfigurationVersionNum)'>='20184'" Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\Unity.TextMeshPro.dll" Private="false" />
 
     <!-- All PackageCache references for which we provide short-hand properties -->
+    <Reference Condition="'$(ConfigurationVersionNum)'>='20193'" Include="$(UnityProjectPath)\$(NewtonsoftJsonPath)" Private="false" />
     <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(UnityProjectPath)\$(NunitPath)" Private="false" />
     <Reference Condition="'$(ConfigurationVersionNum)'=='20192' Or '$(ConfigurationVersionNum)'=='20193'" Include="$(UnityProjectPath)\$(MoqPath)" Private="false" />
     <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(UnityProjectPath)\$(UnityAnalyticsStandardEventsPath)" Private="false" />

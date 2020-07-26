@@ -1,3 +1,7 @@
+#if v20193
+#define NEWTONSOFT_JSON_AVAILABLE
+#endif
+
 #if v20192
 #define NUNIT_AVAILABLE
 #endif
@@ -24,6 +28,9 @@ namespace Unity3D.Test {
     public class TestBehaviour : UnityEngine.MonoBehaviour {
         public UnityEngine.UI.Text TextField;
         public UnityEngine.TestTools.TestPlatform TestPlatformField;
+#if NEWTONSOFT_JSON_AVAILABLE
+        public Newtonsoft.Json.JsonConverter JsonConverterField;
+#endif
 #if UNITY_ANALYTICS_STANDARD_EVENTS_AVAILABLE
         public UnityEngine.Analytics.ContinuousEvent ContinuousEventField;
 #endif
