@@ -1,10 +1,10 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\UnityVersion.props" />
   <Import Project="..\UnityAssetsPath.props" />
 
   <ItemGroup>
-    <!-- Can reference specific Unity assemblies across versions -->
+    <!-- All Unity assembly references for which we provide short-hand properties -->
     <Reference Condition="'$(ConfigurationVersionNum)'>='20184'" Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEditorPath)" Private="false" />
 
     <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll" Private="false" />
@@ -16,11 +16,13 @@
     <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll" Private="false" />
     <Reference Condition="'$(ConfigurationVersionNum)'&lt;'20192'" Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEngineTestRunnerPath)" Private="false" />
 
-    <!-- Can reference something in ScriptAssemblies -->
+    <!-- One ScriptAssemblies reference, to make sure those work -->
     <Reference Condition="'$(ConfigurationVersionNum)'>='20184'" Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\Unity.TextMeshPro.dll" Private="false" />
 
-    <!-- Can reference something in PackageCache -->
-    <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(UnityProjectPath)\$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll" Private="false" />
+    <!-- All PackageCache references for which we provide short-hand properties -->
+    <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(UnityProjectPath)\$(NunitPath)" Private="false" />
+    <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(UnityProjectPath)\$(MoqPath)" Private="false" />
+    <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(UnityProjectPath)\$(UnityAnalyticsStandardEventsPath)" Private="false" />
   </ItemGroup>
 
 </Project>
