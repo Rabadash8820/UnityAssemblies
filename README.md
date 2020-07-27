@@ -97,7 +97,10 @@ You may need to reference assemblies stored in a Unity project folder (i.e., und
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
-    <!-- Same as above... -->
+    <PropertyGroup>
+        <!-- Same as above... -->
+        <UnityProjectPath>/relative/path/to/unity/project</UnityProjectPath>
+    </PropertyGroup>
     <ItemGroup>
         <Reference Include="$(UnityProjectPath)\$(UnityAnalyticsStandardEventsPath)" Private="false" />
         <Reference Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\Unity.Addressables.dll" Private="false" />
