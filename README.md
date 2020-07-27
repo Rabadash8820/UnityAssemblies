@@ -41,7 +41,7 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
 
 ## Why Another NuGet Package for Unity?
 
-Yes, it's true, there are a number of good NuGet packages already available on [nuget.org](https://www.nuget.org/packages?q=unity3d). Unfortunately, most of these packages are no longer being updated and have a number of issues. Almost all of them fall into one of two categories:
+Yes, it's true, there are a number of good NuGet packages for Unity already available on [nuget.org](https://www.nuget.org/packages?q=unity3d). Unfortunately, most of these packages are no longer being updated and have a number of issues. Almost all of them fall into one of two categories:
 
 1. **Containing the actual Unity binaries within the package.** These packages include [UnityEngine](https://www.nuget.org/packages/UnityEngine/) by Leanwork, [Unity3D.UnityEngine](https://www.nuget.org/packages/Unity3D.UnityEngine/) and [Unity3D.UnityEngine.UI](https://www.nuget.org/packages/Unity3D.UnityEngine.UI) by Dzmitry Lahoda, and [UnityEngine5](https://www.nuget.org/packages/UnityEngine5/) by Taiyoung Jang. The problem with these packages (aside from the questionable legality of re-distributing Unity Technologies' binaries), is that a new version of the package must be pushed for each new version of Unity. When these packages stop being updated (which has happened in almost every case), then they are no longer useful because they don't allow you to program against the latest Unity APIs. Most of them do not have versions for Unity 2019.1+, and/or do not support the new .NET Standard 2.0 profile.
 2. **Containing some kind of script that adds references to assemblies from a particular installed version of Unity.** The main package in this category is [Unity3D.DLLs](https://www.nuget.org/packages/Unity3D.DLLs/) by Precision Mojo, LLC. This package uses a PowerShell script to add references to the latest version of Unity installed on a user's machine. This is powerful, as it theoretically makes the package forward-compatible with all versions of Unity yet to come. Unfortunately, this package has not been updated since 2013, meaning that many of the NuGet/PowerShell conventions that it relied upon are no longer supported in the newest versions of Visual Studio. Even when the package was current, it located the Unity assemblies in a brittle and complex (though clever) manner that does not support the newer Unity Hub install locations and, more importantly, only worked on Windows (involving the Windows registry).
@@ -52,7 +52,7 @@ Thus, here at Derploid Entertainment, we created the `Unity3D` package with the 
 
 - Add the Unity assembly references programmatically, so that the package is forward-compatible
 - Use Visual Studio's built-in MSBuild tooling to add the references, rather than clunky scripts written in another language that may not be supported by future versions of Visual Studio
-- Easily reference additional Unity assemblies by adding simple `Reference` items to the project file, rather than calling some hard-to-find-and-use script
+- Easily reference additional Unity assemblies by adding simple `Reference` items to the project file, rather than finding and calling some obscure script
 - All references must work cross-platform (on Windows/Mac)
 - Configuration should be minimal: just a Unity version and an optional install location for non-default cases
 
@@ -185,10 +185,10 @@ The assembly paths under the `PackageCache` use the `*` wildcard. This saves you
 | `UnityProjectPath` | Any | N/A | This property has no default value. Point it at the root folder of your Unity project, so that you can more easily reference Package and Asset Store assemblies (as [described above](#referencing-assemblies-stored-in-a-unity-project)). |
 | `UnityPackageCachePath` | >= 2017.2 | `Library\PackageCache` |  |
 | `UnityScriptAssembliesPath` | Any | `Library\ScriptAssemblies` |  |
-| `NewtonsoftJsonPath` | >= 2019.3 | `$(UnityPackageCachePath)\com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll` | Only available when the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner has been included in a project. |
-| `NunitPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll` |  |
-| `MoqPath` | 2019.2, 2019.3 | `$(UnityPackageCachePath)\nuget.moq*\Moq.dll` |  |
-| `UnityAnalyticsStandardEventsPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` |  |
+| `NewtonsoftJsonPath` | >= 2019.3 | `$(UnityPackageCachePath)\com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll` | Requires installation of the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner package. |
+| `NunitPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. |
+| `MoqPath` | 2019.2, 2019.3 | `$(UnityPackageCachePath)\nuget.moq*\Moq.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. |
+| `UnityAnalyticsStandardEventsPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` | Requires installation of the [Analytics Library](https://docs.unity3d.com/Packages/com.unity.analytics@3.3/manual/index.html) package. |
 
 ## FAQ
 
