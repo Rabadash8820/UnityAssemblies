@@ -31,17 +31,17 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <UnityVersion>2019.3.0f6</UnityVersion>
+        <UnityVersion>2020.1.0f1</UnityVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Unity3D" Version="1.3.1" />
+        <PackageReference Include="Unity3D" Version="1.4.0" />
     </ItemGroup>
 </Project>
 ```
 
 ## Why Another NuGet Package for Unity?
 
-Yes, it's true, there are a number of good NuGet packages already available on [nuget.org](https://www.nuget.org/packages?q=unity3d). Unfortunately, most of these packages are no longer being updated and have a number of issues. Almost all of them fall into one of two categories:
+Yes, it's true, there are a number of good NuGet packages for Unity already available on [nuget.org](https://www.nuget.org/packages?q=unity3d). Unfortunately, most of these packages are no longer being updated and have a number of issues. Almost all of them fall into one of two categories:
 
 1. **Containing the actual Unity binaries within the package.** These packages include [UnityEngine](https://www.nuget.org/packages/UnityEngine/) by Leanwork, [Unity3D.UnityEngine](https://www.nuget.org/packages/Unity3D.UnityEngine/) and [Unity3D.UnityEngine.UI](https://www.nuget.org/packages/Unity3D.UnityEngine.UI) by Dzmitry Lahoda, and [UnityEngine5](https://www.nuget.org/packages/UnityEngine5/) by Taiyoung Jang. The problem with these packages (aside from the questionable legality of re-distributing Unity Technologies' binaries), is that a new version of the package must be pushed for each new version of Unity. When these packages stop being updated (which has happened in almost every case), then they are no longer useful because they don't allow you to program against the latest Unity APIs. Most of them do not have versions for Unity 2019.1+, and/or do not support the new .NET Standard 2.0 profile.
 2. **Containing some kind of script that adds references to assemblies from a particular installed version of Unity.** The main package in this category is [Unity3D.DLLs](https://www.nuget.org/packages/Unity3D.DLLs/) by Precision Mojo, LLC. This package uses a PowerShell script to add references to the latest version of Unity installed on a user's machine. This is powerful, as it theoretically makes the package forward-compatible with all versions of Unity yet to come. Unfortunately, this package has not been updated since 2013, meaning that many of the NuGet/PowerShell conventions that it relied upon are no longer supported in the newest versions of Visual Studio. Even when the package was current, it located the Unity assemblies in a brittle and complex (though clever) manner that does not support the newer Unity Hub install locations and, more importantly, only worked on Windows (involving the Windows registry).
@@ -52,7 +52,7 @@ Thus, here at Derploid Entertainment, we created the `Unity3D` package with the 
 
 - Add the Unity assembly references programmatically, so that the package is forward-compatible
 - Use Visual Studio's built-in MSBuild tooling to add the references, rather than clunky scripts written in another language that may not be supported by future versions of Visual Studio
-- Easily reference additional Unity assemblies by adding simple `Reference` items to the project file, rather than calling some hard-to-find-and-use script
+- Easily reference additional Unity assemblies by adding simple `Reference` items to the project file, rather than finding and calling some obscure script
 - All references must work cross-platform (on Windows/Mac)
 - Configuration should be minimal: just a Unity version and an optional install location for non-default cases
 
@@ -64,7 +64,7 @@ Thus, here at Derploid Entertainment, we created the `Unity3D` package with the 
 
 As shown in the basic example above, our package only requires a `UnityVersion` property to be up and running. `UnityVersion` must be a complete version string, in the format used by Unity Hub (the values boxed in red in the screenshot below).
 
-![Unity version strings highlighted in the Unity Hub interface. For example, "2019.3.0f6"](./images/unity-versions.png)
+![Unity version strings highlighted in the Unity Hub interface. For example, "2019.1.6f1"](./images/unity-versions.png)
 
 To edit a project file in Visual Studio:
 
@@ -97,7 +97,10 @@ You may need to reference assemblies stored in a Unity project folder (i.e., und
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
-    <!-- Same as above... -->
+    <PropertyGroup>
+        <!-- Same as above... -->
+        <UnityProjectPath>/relative/path/to/unity/project</UnityProjectPath>
+    </PropertyGroup>
     <ItemGroup>
         <Reference Include="$(UnityProjectPath)\$(UnityAnalyticsStandardEventsPath)" Private="false" />
         <Reference Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\Unity.Addressables.dll" Private="false" />
@@ -116,7 +119,7 @@ Because Unity Hub is the tool [recommended by Unity Technologies](https://docs.u
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <UnityVersion>2019.3.0f6</UnityVersion>
+        <UnityVersion>2020.1.0f1</UnityVersion>
         <UnityInstallRoot>V:\Unity</UnityInstallRoot>
     </PropertyGroup>
     <!-- etc. -->
@@ -170,28 +173,29 @@ Just be aware of which properties expect absolute paths, and which expect relati
 
 The assembly paths under the `PackageCache` use the `*` wildcard. This saves you from hard-coding a package version and having to update it each time you update from Unity's Package Manager Window. Unity only stores one version of a Package in the `PackageCache` folder, so you don't need to worry about multiple versions of the same Package being referenced by the wildcard.
 
-| Property | Default value | Unity Version | Comments |
-|:---------|:--------------|-------|:---------|
-| `OSInstallRoot` | `C:\Program Files` on Windows or `/Application` on Mac. | Any |  |
-| `UnityInstallRoot` | `$(OSInstallRoot)\Unity\Hub\Editor` | Any |  |
-| `UnityManagedPath` | `Editor\Data\Managed` | Any |  |
-| `UnityModulesPath` | `$(UnityManagedPath)\UnityEngine` | Any | This folder contains assemblies for Unity's core modules like the Audio, Animation, and ParticleSystem modules. |
-| `UnityExtensionsPath` | `Editor\Data\UnityExtensions\Unity` | Any |  |
-| `UnityBuiltInPackagesPath` | `Editor\Data\Resources\PackageManager\BuiltInPackages` | >= 2017.2 | This folder contains Unity's built-in Packages, like IMGUI and TerrainPhysics. |
-| `UnityEnginePath` | `$(UnityManagedPath)\UnityEngine.dll` | Any | This reference is added by default. See above for [instructions to remove it](#removing-the-default-reference-to-unityengine.dll). |
-| `UnityEditorPath` | `$(UnityManagedPath)\UnityEditor.dll` | Any |  |
-| `UnityEngineUIPath` | `$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll`. | <= 2019.2 | In Unity 2019.2+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll` instead. |
-| `UnityEngineTestRunnerPath` | `$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll` | <= 2019.2 | In Unity 2019.2+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll` instead. |
-| `UnityProjectPath` | N/A | Any | This property has no default value. Point it at the root folder of your Unity project, so that you can more easily reference Package and Asset Store assemblies (as [described above](#referencing-assemblies-stored-in-a-unity-project)). |
-| `UnityPackageCachePath` | `Library\PackageCache` | >= 2017.2 |  |
-| `UnityScriptAssembliesPath` | `Library\ScriptAssemblies` | Any |  |
-| `NunitPath` | `$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll` | >= 2019.2 |  |
-| `MoqPath` | `$(UnityPackageCachePath)\nuget.moq*\Moq.dll` | >= 2019.2 |  |
-| `UnityAnalyticsStandardEventsPath` | `$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` | >= 2019.2 |  |
+| Property | Unity Version | Default value | Comments |
+|:---------|---------------|:--------------|:---------|
+| `OSInstallRoot` | Any | `C:\Program Files` on Windows or `/Application` on Mac. |  |
+| `UnityInstallRoot` | Any | `$(OSInstallRoot)\Unity\Hub\Editor` |  |
+| `UnityManagedPath` | Any | `Editor\Data\Managed` |  |
+| `UnityModulesPath` | Any | `$(UnityManagedPath)\UnityEngine` | This folder contains assemblies for Unity's core modules like the Audio, Animation, and ParticleSystem modules. |
+| `UnityExtensionsPath` | Any | `Editor\Data\UnityExtensions\Unity` |  |
+| `UnityBuiltInPackagesPath` | >= 2017.2 | `Editor\Data\Resources\PackageManager\BuiltInPackages` | This folder contains Unity's built-in Packages, like IMGUI and TerrainPhysics. |
+| `UnityEnginePath` | Any | `$(UnityManagedPath)\UnityEngine.dll` | This reference is added by default. See above for [instructions to remove it](#removing-the-default-reference-to-unityengine.dll). |
+| `UnityEditorPath` | Any | `$(UnityManagedPath)\UnityEditor.dll` |  |
+| `UnityEngineUIPath` | <= 2019.2 | `$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll`. | In Unity 2019.2+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll` instead. |
+| `UnityEngineTestRunnerPath` | <= 2019.2 | `$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll` | In Unity 2019.2+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll` instead. |
+| `UnityProjectPath` | Any | N/A | This property has no default value. Point it at the root folder of your Unity project, so that you can more easily reference Package and Asset Store assemblies (as [described above](#referencing-assemblies-stored-in-a-unity-project)). |
+| `UnityPackageCachePath` | >= 2017.2 | `Library\PackageCache` |  |
+| `UnityScriptAssembliesPath` | Any | `Library\ScriptAssemblies` |  |
+| `NewtonsoftJsonPath` | >= 2019.3 | `$(UnityPackageCachePath)\com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll` | Requires installation of the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner package. |
+| `NunitPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. |
+| `MoqPath` | 2019.2, 2019.3 | `$(UnityPackageCachePath)\nuget.moq*\Moq.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. |
+| `UnityAnalyticsStandardEventsPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` | Requires installation of the [Analytics Library](https://docs.unity3d.com/Packages/com.unity.analytics@3.3/manual/index.html) package. |
 
 ## FAQ
 
-1. **Why would I use this NuGet package?** The primary, intended use case for this NuGet is for Unity developers writing [managed plugins](https://docs.unity3d.com/Manual/UsingDLL.html) (pre-compiled DLLs that will be impored into Unity) that also depend on Unity APIs. It allows developers to reference the Unity assemblies via `Reference` items in their project file, just like they might reference any other NuGet package or local assembly, but without having to remember Unity's assembly paths or keep them up-to-date and cross-platform. With the option to [use Unity as a library](https://blogs.unity3d.com/2019/06/17/add-features-powered-by-unity-to-native-mobile-apps/) in 2019.3+, developers might also use this package in native mobile apps created with [Xamarin](https://dotnet.microsoft.com/apps/xamarin), or in really any library or executable that needs access to the Unity APIs.
+1. **Why would I use this NuGet package?** The primary, intended use case for this NuGet is for Unity developers writing [managed plugins](https://docs.unity3d.com/Manual/UsingDLL.html) (pre-compiled DLLs that will be imported into Unity) that also depend on Unity APIs. It allows developers to reference the Unity assemblies via `Reference` items in their project file, just like they might reference any other NuGet package or local assembly, but without having to remember Unity's assembly paths or keep them up-to-date and cross-platform. With the option to [use Unity as a library](https://blogs.unity3d.com/2019/06/17/add-features-powered-by-unity-to-native-mobile-apps/) in 2019.3+, developers might also use this package in native mobile apps created with [Xamarin](https://dotnet.microsoft.com/apps/xamarin), or in really any library or executable that needs access to the Unity APIs.
 1. **How does this work?** This NuGet package [imports an MSBuild .props file](https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package#including-msbuild-props-and-targets-in-a-package) into your project, which adds the various properties and `Reference` items at build time.
 1. **Are the `Reference` paths really cross-platform?** Yes, but only paths that begin with the default `$(OSInstallRoot)` or `$(UnityInstallRoot)` properties. This works through a magical little combination of [MSBuild Conditions](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditions) and the [`IsOsPlatform()` Property Function](https://docs.microsoft.com/en-us/visualstudio/msbuild/property-functions#msbuild-property-functions). Open the [Unity3D.props](./nupkg/build/Unity3D.props) file to see how we do it. :wink:
 1. **Is this package officially maintained by Unity Technologies?** No, it is maintained by a few wild and crazy guys at Derploid Entertainment. However, we will be submitting this package to Unity Technologies as it gains traction, **_so that maybe we can finally have an officially supported NuGet package from Unity!_**
