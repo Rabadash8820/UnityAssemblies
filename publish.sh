@@ -42,7 +42,7 @@ nugetPack() {
 
 nugetSign() {
     read -p "Enter the URL of an RFC 3161 timestamping server: " timestamper
-    read -p "Enter the file path to the certificate to be used while signing the package (probably a .p12 file): " certPath
+    read -p "Enter the file path to the certificate to be used while signing the package (probably a .p12 or .pfx file): " certPath
 
     echo "Signing NuGet package..."
     $nugetPath sign $nupkgPath -Timestamper $timestamper -CertificatePath $certPath
