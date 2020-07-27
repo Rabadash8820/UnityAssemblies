@@ -4,6 +4,9 @@
 #if v20194
 #define NEWTONSOFT_JSON_AVAILABLE
 #endif
+#if v20201
+#define NEWTONSOFT_JSON_AVAILABLE
+#endif
 
 #if v20192
 #define NUNIT_AVAILABLE
@@ -12,6 +15,9 @@
 #define NUNIT_AVAILABLE
 #endif
 #if v20194
+#define NUNIT_AVAILABLE
+#endif
+#if v20201
 #define NUNIT_AVAILABLE
 #endif
 
@@ -29,6 +35,9 @@
 #define UNITY_ANALYTICS_STANDARD_EVENTS_AVAILABLE
 #endif
 #if v20194
+#define UNITY_ANALYTICS_STANDARD_EVENTS_AVAILABLE
+#endif
+#if v20201
 #define UNITY_ANALYTICS_STANDARD_EVENTS_AVAILABLE
 #endif
 
