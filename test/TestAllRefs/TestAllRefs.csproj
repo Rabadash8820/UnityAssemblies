@@ -16,6 +16,10 @@
     <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll" Private="false" />
     <Reference Condition="'$(ConfigurationVersionNum)'&lt;'20192'" Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEngineTestRunnerPath)" Private="false" />
 
+    <Reference Condition="'$(ConfigurationVersionNum)'>='20184'" Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEditorAndroidExtensionsPath)" Private="false" />
+    <Reference Condition="'$(ConfigurationVersionNum)'>='20184'" Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEditoriOSExtensionsCommonPath)" Private="false" />
+    <Reference Condition="'$(ConfigurationVersionNum)'>='20184'" Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEditoriOSExtensionsXcodePath)" Private="false" />
+
     <!-- One ScriptAssemblies reference, to make sure those work -->
     <Reference Condition="'$(ConfigurationVersionNum)'>='20184'" Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\Unity.TextMeshPro.dll" Private="false" />
 

@@ -46,6 +46,9 @@ namespace Unity3D.Test {
     public class TestBehaviour : UnityEngine.MonoBehaviour {
         public UnityEngine.UI.Text TextField;
         public UnityEngine.TestTools.TestPlatform TestPlatformField;
+        public UnityEditor.Android.AndroidPlatformIconKind AndroidPlatformIconKind;
+        public UnityEditor.iOS.Extensions.Common.AppleCommandLineBuildAndRunException CommandLineBuildAndRunException;
+        public UnityEditor.iOS.Xcode.PlistDocument PlistDocument;
 #if NEWTONSOFT_JSON_AVAILABLE
         public Newtonsoft.Json.JsonConverter JsonConverterField;
 #endif

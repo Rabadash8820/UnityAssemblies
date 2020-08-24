@@ -9,6 +9,9 @@
     <UnityManagedPath Condition="'$(UnityManagedPath)'==''">Editor\Data\Managed</UnityManagedPath>
     <UnityModulesPath Condition="'$(UnityModulesPath)'==''">$(UnityManagedPath)\UnityEngine</UnityModulesPath>
     <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsPath>
+    <UnityPlaybackEnginesPath Condition="'$(UnityPlaybackEnginesPath)'==''">Editor\Data\PlaybackEngines</UnityPlaybackEnginesPath>
+    <UnityAndroidPlayerPath Condition="'$(UnityAndroidPlayerPath)'==''">$(UnityPlaybackEnginesPath)\AndroidPlayer</UnityAndroidPlayerPath>
+    <UnityiOSSupportPath Condition="'$(UnityiOSSupportPath)'==''">$(UnityPlaybackEnginesPath)\iOSSupport</UnityiOSSupportPath>
     <UnityBuiltInPackagesPath Condition="'$(UnityBuiltInPackagesPath)'==''">Editor\Data\Resources\PackageManager\BuiltInPackages</UnityBuiltInPackagesPath>
 
     <UnityPackageCachePath Condition="'$(UnityPackageCachePath)'==''">Library\PackageCache</UnityPackageCachePath>
@@ -29,6 +32,9 @@
     <NunitPath Condition="'$(NunitPath)'==''">$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll</NunitPath>
     <MoqPath Condition="'$(MoqPath)'==''">$(UnityPackageCachePath)\nuget.moq*\Moq.dll</MoqPath>
     <UnityAnalyticsStandardEventsPath Condition="'$(UnityAnalyticsStandardEventsPath)'==''">$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</UnityAnalyticsStandardEventsPath>
+    <UnityEditorAndroidExtensionsPath Condition="'$(UnityEditorAndroidExtensionsPath)'==''">$(UnityAndroidPlayerPath)\UnityEditor.Android.Extensions.dll</UnityEditorAndroidExtensionsPath>
+    <UnityEditoriOSExtensionsCommonPath Condition="'$(UnityEditoriOSExtensionsCommonPath)'==''">$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Common.dll</UnityEditoriOSExtensionsCommonPath>
+    <UnityEditoriOSExtensionsXcodePath Condition="'$(UnityEditoriOSExtensionsXcodePath)'==''">$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Xcode.dll</UnityEditoriOSExtensionsXcodePath>
   </PropertyGroup>
 
   <!-- Add default Unity references -->
