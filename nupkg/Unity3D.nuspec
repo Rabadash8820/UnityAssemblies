@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
   <metadata minClientVersion="2.5">
     <id>Unity3D</id>
-    <version>1.4.0</version>
+    <version>1.5.0</version>
     <authors>Unity Technologies</authors>
     <owners>DerploidEntertainment</owners>
     <icon>icon.png</icon>
@@ -11,9 +11,7 @@
     <projectUrl>https://github.com/DerploidEntertainment/UnityAssemblies</projectUrl>
     <description>Simple, forward-compatible references to ANY Unity assembly on Mac or Windows.</description>
     <releaseNotes>
-      - Added short-hand property for Newtonsoft.Json
-      - Improved documentation about which Unity packages are necessary for given MSBuild short-hand properties
-      - Added test projects for Unity 2019.4.x and 2020.1.x
+      - Added short-hand properties for iOS- and Android-specific assemblies
     </releaseNotes>
     <copyright>Copyright ©2019 Derploid Entertainment, LLC</copyright>
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>
