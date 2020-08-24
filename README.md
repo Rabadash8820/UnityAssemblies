@@ -34,7 +34,7 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
         <UnityVersion>2020.1.0f1</UnityVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Unity3D" Version="1.4.0" />
+        <PackageReference Include="Unity3D" Version="1.5.0" />
     </ItemGroup>
 </Project>
 ```
