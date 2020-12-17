@@ -63,7 +63,7 @@ nugetSign() {
         echo "Certificate path cannot be empty."
         read -p "$certPrompt" certPath
     done
-    
+
     echo ""
     echo "Signing NuGet package..."
     "$nugetPath" sign "$nupkgPath" -Timestamper "$timestamper" -CertificatePath "$certPath"
@@ -101,6 +101,13 @@ nugetPush() {
     fi
 }
 
+remindTagRelease() {
+    echo ""
+    echo "Don't forget to add a tag to the git repo and create a Release on GitHub!"
+    echo ""
+    read -p "Press [Enter] when you're done..."
+}
+
 main() {
     cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
@@ -125,13 +132,16 @@ main() {
     # Sign and push the NuGet package
     nugetSign && nugetPush
     errNum=$?
-
-    echo ""
-    if [ $errNum = 0 ] ; then
-        echo "Publish complete!"
-    else
+    if [ $errNum != 0 ] ; then
+        echo ""
         echo "Publish completed with error code: $errNum"
     fi
+
+    # Remind user what to do after publishing
+    remindTagRelease
+
+    echo ""
+    echo "Publish complete!"
 }
 
 main $@
