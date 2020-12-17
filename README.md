@@ -177,9 +177,9 @@ The assembly paths under the `PackageCache` use the `*` wildcard. This saves you
 |:---------|---------------|:--------------|:---------|
 | `OSInstallRoot` | Any | `C:\Program Files` on Windows or `/Application` on Mac. |  |
 | `UnityInstallRoot` | Any | `$(OSInstallRoot)\Unity\Hub\Editor` |  |
-| `UnityManagedPath` | Any | `Editor\Data\Managed` |  |
+| `UnityManagedPath` | Any | `Editor\Data\Managed` on Windows or `Unity.app\Contents\Managed` on Mac. |  |
 | `UnityModulesPath` | Any | `$(UnityManagedPath)\UnityEngine` | This folder contains assemblies for Unity's core modules like the Audio, Animation, and ParticleSystem modules. |
-| `UnityExtensionsPath` | Any | `Editor\Data\UnityExtensions\Unity` |  |
+| `UnityExtensionsPath` | Any | `Editor\Data\UnityExtensions\Unity` on Windows or `Unity.app\Contents\UnityExtensions\Unity` on Mac. |  |
 | `UnityPlaybackEnginesPath` | Any | `Editor\Data\PlaybackEngines` | This folder contains target-platform-specific assemblies, e.g. those for iOS/Android |
 | `UnityAndroidPlayerPath` | Any | `$(UnityPlaybackEnginesPath)\AndroidPlayer` |  |
 | `UnityiOSSupportPath` | Any | `$(UnityPlaybackEnginesPath)\iOSSupport` |  |
