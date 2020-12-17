@@ -1,14 +1,25 @@
 <Project>
 
   <!-- Set default Unity folder paths -->
+  <Choose>
+    <When Condition="$([MSBuild]::IsOsPlatform(Windows))">
+      <PropertyGroup>
+        <OSInstallRoot Condition="'$(OSInstallRoot)'==''">C:\Program Files</OSInstallRoot>
+        <UnityManagedPath Condition="'$(UnityManagedPath)'==''">Editor\Data\Managed</UnityManagedPath>
+        <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsPath>
+      </PropertyGroup>
+    </When>
+    <When Condition="$([MSBuild]::IsOsPlatform(OSX))">
+      <PropertyGroup>
+        <OSInstallRoot Condition="'$(OSInstallRoot)'==''">/Applications</OSInstallRoot>
+        <UnityManagedPath Condition="'$(UnityManagedPath)'==''">Unity.app\Contents\Managed</UnityManagedPath>
+        <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Unity.app\Contents\UnityExtensions\Unity</UnityExtensionsPath>
+      </PropertyGroup>
+    </When>
+  </Choose>
   <PropertyGroup>
-    <OSInstallRoot Condition="'$(OSInstallRoot)'=='' And $([MSBuild]::IsOsPlatform(Windows))">C:\Program Files</OSInstallRoot>
-    <OSInstallRoot Condition="'$(OSInstallRoot)'=='' And !$([MSBuild]::IsOsPlatform(Windows))">/Application</OSInstallRoot>
-
     <UnityInstallRoot Condition="'$(UnityInstallRoot)'==''">$(OSInstallRoot)\Unity\Hub\Editor</UnityInstallRoot>
-    <UnityManagedPath Condition="'$(UnityManagedPath)'==''">Editor\Data\Managed</UnityManagedPath>
     <UnityModulesPath Condition="'$(UnityModulesPath)'==''">$(UnityManagedPath)\UnityEngine</UnityModulesPath>
-    <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsPath>
     <UnityPlaybackEnginesPath Condition="'$(UnityPlaybackEnginesPath)'==''">Editor\Data\PlaybackEngines</UnityPlaybackEnginesPath>
     <UnityAndroidPlayerPath Condition="'$(UnityAndroidPlayerPath)'==''">$(UnityPlaybackEnginesPath)\AndroidPlayer</UnityAndroidPlayerPath>
     <UnityiOSSupportPath Condition="'$(UnityiOSSupportPath)'==''">$(UnityPlaybackEnginesPath)\iOSSupport</UnityiOSSupportPath>

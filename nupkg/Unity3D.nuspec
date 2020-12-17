@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
   <metadata minClientVersion="2.5">
     <id>Unity3D</id>
-    <version>1.5.0</version>
+    <version>1.6.0</version>
     <authors>Unity Technologies</authors>
     <owners>DerploidEntertainment</owners>
     <icon>icon.png</icon>
@@ -11,9 +11,13 @@
     <projectUrl>https://github.com/DerploidEntertainment/UnityAssemblies</projectUrl>
     <description>Simple, forward-compatible references to ANY Unity assembly on Mac or Windows.</description>
     <releaseNotes>
-      - Added short-hand properties for iOS- and Android-specific assemblies
+      - Fixed root paths for MacOS (thanks to input from GitHub user Sorrowful-free)
+      - Updated to Contributor Covenant v2.0
+      - Added tests for Unity 2020.2
+      - Clarified the Unity versions that we officially support in the README
+      - Added notes about suggested `TargetFramework` to README
     </releaseNotes>
-    <copyright>Copyright ©2019 Derploid Entertainment, LLC</copyright>
+    <copyright>Copyright ©2019-2021 Derploid Entertainment, LLC</copyright>
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>
     <repository type="git" url="https://github.com/DerploidEntertainment/UnityAssemblies.git" />
   </metadata>

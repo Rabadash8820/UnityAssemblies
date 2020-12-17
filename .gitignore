@@ -1,13 +1,35 @@
-# Visual Studio
-
-*.nupkg
-
-.vs/
-bin/
-obj/
-
-# Unity
+#########################
+## Unity
+#########################
 
 Library/
-Temp/
 Logs/
+Temp/
+UserSettings/
+.vsconfig
+
+unity/**/*.csproj
+unity/**/*.sln
+
+
+
+#########################
+## VISUAL STUDIO
+#########################
+
+# Build results
+[Dd]ebug/
+[Rr]elease/
+[Bb]in/
+[Oo]bj/
+[Ll]og/
+
+# Visual Studio generated files
+.vs/
+*.user
+
+# NuGet Packages
+*.nupkg
+
+.DS_Store
+*.DS_Store

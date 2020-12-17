@@ -3,8 +3,9 @@
 ![Unity logo, trademarked by Unity Technologies](./nupkg/icon.png)
 
 [![NuGet package](https://img.shields.io/nuget/v/Unity3D.svg)](https://nuget.org/packages/Unity3D)
-[![NuGet package](https://img.shields.io/packagecontrol/dd/Unity3D.svg)](https://nuget.org/packages/Unity3D)
-[![NuGet package](https://img.shields.io/github/license/DerploidEntertainment/UnityAssemblies.svg)](./LICENSE)
+[![NuGet downloads](https://img.shields.io/packagecontrol/dd/Unity3D.svg)](https://nuget.org/packages/Unity3D)
+[![License](https://img.shields.io/github/license/DerploidEntertainment/UnityAssemblies.svg)](./LICENSE)
+[![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 
 This repository contains the source code for the [`Unity3D` NuGet package](https://www.nuget.org/packages/Unity3D).
 
@@ -16,6 +17,7 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
 - [Why Another NuGet Package for Unity?](#why-another-nuget-package-for-unity)
 - [Usage](#usage)
   - [Editing the project file](#editing-the-project-file)
+  - [Choosing a `TargetFramework`](#choosing-a-%60targetframework%60)
   - [Referencing additional Unity assemblies](#referencing-additional-unity-assemblies)
   - [Referencing assemblies stored in a Unity project](#referencing-assemblies-stored-in-a-unity-project)
   - [Referencing assemblies at non-default install locations](#referencing-assemblies-at-non-default-install-locations)
@@ -31,10 +33,10 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <UnityVersion>2020.1.0f1</UnityVersion>
+        <UnityVersion>2020.2.0f1</UnityVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Unity3D" Version="1.5.0" />
+        <PackageReference Include="Unity3D" Version="1.6.0" />
     </ItemGroup>
 </Project>
 ```
@@ -71,6 +73,16 @@ To edit a project file in Visual Studio:
 - **When targeting .NET Standard (recommended):** just double-click on the project in the Solution Explorer
 - **When targeting .NET 4.x:** right click on the project in the Solution Explorer, click `Unload project`, then right click again to select `Edit <YourProject>.csproj`. When you're done editing the file, right click on the project again and select `Reload project`. Having to unload the project to edit it can be cumbersome, so check out this excellent [article by Scott Hanselman](https://www.hanselman.com/blog/UpgradingAnExistingNETProjectFilesToTheLeanNewCSPROJFormatFromNETCore.aspx) for instructions on migrating to the newer, leaner SDK syntax that .NET Standard uses.
 
+### Choosing a `TargetFramework`
+
+For new projects, you should use the newer "SDK-style" VS project files, with `<TargetFramework>netstandard2.0</TargetFramework>`. This style yields smaller, more readable project files, and simplifies portability with other projects built against other .NET runtimes.
+
+If, however, you are working with an existing, older project, then you may be stuck with a .NET 4.x `TargetFramework`. In these cases, we've seen the best results with .NET 4.6.1 up through Unity 2020.1. Projects building against Unity 2020.2 and above should target .NET 4.7.2, otherwise you will see errors like:
+
+```log
+The primary reference ... could not be resolved because it has an indirect dependency on the assembly ... which was built against the ".NETFramework,Version=v4.[x]" framework. This is a higher version than the currently targeted framework ".NETFramework,Version=v4.[y]".
+```
+
 ### Referencing additional Unity assemblies
 
 By default, we only add a reference to `UnityEngine.dll`, but there are several other Unity assemblies that you might need to reference for your project. These include, but are certinaly not limited to, `UnityEditor.dll` for writing custom editors, or `UnityEngine.UI.dll` for referencing UI types like `Text` and `Button`. To reference these assemblies, add `Reference` items to your `.csproj`, like so:
@@ -87,7 +99,7 @@ By default, we only add a reference to `UnityEngine.dll`, but there are several 
 
 Note the use of the `UnityInstallRoot`, `UnityVersion`, and `*Path` MSBuild properties. These properties spare you from having to remember the default Unity install path or the relative paths for any Unity assemblies, and they also let the references work across platforms (Windows/Mac). See below for a [list of short-hand assembly properties](#available-short-hand-assembly-properties) that we provide.
 
-Also note the use of [`Private="false"`](https://docs.microsoft.com/en-us/visualstudio/msbuild/common-msbuild-project-items#reference). This basically means "don't copy the referenced assembly to the output folder". This is recommended, so that Unity assemblies aren't being copied around unnecessarily, since they're automatically available to managed plugins within the Unity editor.
+Also note the use of [`Private="false"`](https://docs.microsoft.com/en-us/visualstudio/msbuild/common-msbuild-project-items#reference). This basically means "don't copy the referenced assembly to the output folder". This is recommended, so that Unity assemblies aren't being copied around unnecessarily, since they're automatically linked with managed plugins inside Unity.
 
 If you want to reference a Unity assembly for which there is no short-hand property, you can just hard-code the path into the `Reference` item yourself. We always recommend starting with the `$(UnityInstallRoot)\$(UnityVersion)\` properties though, as they let your project files build cross-platform, and let you edit your Unity version string in one place.
 
@@ -119,7 +131,7 @@ Because Unity Hub is the tool [recommended by Unity Technologies](https://docs.u
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <UnityVersion>2020.1.0f1</UnityVersion>
+        <UnityVersion>2020.2.0f1</UnityVersion>
         <UnityInstallRoot>V:\Unity</UnityInstallRoot>
     </PropertyGroup>
     <!-- etc. -->
@@ -177,9 +189,9 @@ The assembly paths under the `PackageCache` use the `*` wildcard. This saves you
 |:---------|---------------|:--------------|:---------|
 | `OSInstallRoot` | Any | `C:\Program Files` on Windows or `/Application` on Mac. |  |
 | `UnityInstallRoot` | Any | `$(OSInstallRoot)\Unity\Hub\Editor` |  |
-| `UnityManagedPath` | Any | `Editor\Data\Managed` |  |
+| `UnityManagedPath` | Any | `Editor\Data\Managed` on Windows or `Unity.app\Contents\Managed` on Mac. |  |
 | `UnityModulesPath` | Any | `$(UnityManagedPath)\UnityEngine` | This folder contains assemblies for Unity's core modules like the Audio, Animation, and ParticleSystem modules. |
-| `UnityExtensionsPath` | Any | `Editor\Data\UnityExtensions\Unity` |  |
+| `UnityExtensionsPath` | Any | `Editor\Data\UnityExtensions\Unity` on Windows or `Unity.app\Contents\UnityExtensions\Unity` on Mac. |  |
 | `UnityPlaybackEnginesPath` | Any | `Editor\Data\PlaybackEngines` | This folder contains target-platform-specific assemblies, e.g. those for iOS/Android |
 | `UnityAndroidPlayerPath` | Any | `$(UnityPlaybackEnginesPath)\AndroidPlayer` |  |
 | `UnityiOSSupportPath` | Any | `$(UnityPlaybackEnginesPath)\iOSSupport` |  |
@@ -205,8 +217,9 @@ The assembly paths under the `PackageCache` use the `*` wildcard. This saves you
 1. **How does this work?** This NuGet package [imports an MSBuild .props file](https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package#including-msbuild-props-and-targets-in-a-package) into your project, which adds the various properties and `Reference` items at build time.
 1. **Are the `Reference` paths really cross-platform?** Yes, but only paths that begin with the default `$(OSInstallRoot)` or `$(UnityInstallRoot)` properties. This works through a magical little combination of [MSBuild Conditions](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditions) and the [`IsOsPlatform()` Property Function](https://docs.microsoft.com/en-us/visualstudio/msbuild/property-functions#msbuild-property-functions). Open the [Unity3D.props](./nupkg/build/Unity3D.props) file to see how we do it. :wink:
 1. **Is this package officially maintained by Unity Technologies?** No, it is maintained by a few wild and crazy guys at Derploid Entertainment. However, we will be submitting this package to Unity Technologies as it gains traction, **_so that maybe we can finally have an officially supported NuGet package from Unity!_**
-1. **If not, how is this legal?** We're not actually distributing the Unity assembly binaries, just MSBuild files that reference them. This NuGet package won't add anything if you don't actually have a version of Unity installed.
-1. **Why hasn't this repository been updated since [date]?** The Unity3D NuGet package is very simple, with most of its functionality contained in a [single small file](./nupkg/build/Unity3D.props). Between that, and the package's use of forward-compatible properties like `UnityVersion` that can be tweaked at design time, this repository simply does not require frequent updates. This does _not_ mean that this project is dead; at Derploid, we still use the package in almost every project. Most changes going forward will be to add more short-hand assembly properties, especially for popular third-party assemblies published on the Asset Store.
+1. **If not, how is this legal?** We're not actually distributing the Unity assembly binaries, just MSBuild files that reference them. This NuGet package won't add anything if you don't actually have a version of Unity installed on your machine.
+1. **Can you help me solve [error] in Unity version [version]?** Possibly. We only test compatibility with, and offer support for, the latest Unity [LTS releases](https://unity3d.com/unity/qa/lts-releases) and the TECH stream releases of the current year. Unity does not officially support versions older than that, so neither do we! That said, if you're having an issue with an older version of Unity, there's a good chance that we've seen it ourselves, so feel free to [open an Issue](https://github.com/DerploidEntertainment/UnityAssemblies/issues)!
+1. **Why hasn't this repository been updated since [date]?** The Unity3D NuGet package is very simple, with most of its functionality contained in a [single small file](./nupkg/build/Unity3D.props). Between that, and the package's use of forward-compatible properties like `UnityVersion` that can be tweaked at design time, this repository simply does not require frequent updates. This does _not_ mean that this project is dead; at Derploid, we still use the package in almost every project. Most changes going forward will be to add more short-hand assembly properties, especially for popular third-party assemblies published on the Asset Store, and to add test projects for new versions of Unity.
 
 ## License
 
