@@ -3,25 +3,35 @@
   <Import Project= "..\nupkg\build\Unity3D.props"/>
 
   <PropertyGroup>
-    <Configurations>Standard20_2020_1;Net461_2020_1;Standard20_2019_4;Net461_2019_4;Standard20_2018_4;Net461_2018_4</Configurations>
+    <Configurations>
+      Standard20_2020_2;Net472_2020_2;
+      Standard20_2020_1;Net461_2020_1;
+      Standard20_2019_4;Net461_2019_4;
+      Standard20_2018_4;Net461_2018_4
+    </Configurations>
 
     <!-- Define Unity version number constants -->
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2020_2'">20202</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Net472_2020_2'">20202</ConfigurationVersionNum>
+
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2020_1'">20201</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net461_2020_1'">20201</ConfigurationVersionNum>
-    
+
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2019_4'">20194</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net461_2019_4'">20194</ConfigurationVersionNum>
 
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2018_4'">20184</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net461_2018_4'">20184</ConfigurationVersionNum>
-    
+
     <DefineConstants>v$(ConfigurationVersionNum)</DefineConstants>
 
     <!-- Set TargetFramework -->
+    <TargetFramework Condition="'$(Configuration)'=='Standard20_2020_2'">netstandard2.0</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2020_1'">netstandard2.0</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2019_4'">netstandard2.0</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2018_4'">netstandard2.0</TargetFramework>
-    
+
+    <TargetFramework Condition="'$(Configuration)'=='Net472_2020_2'">net472</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net461_2020_1'">net461</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net461_2019_4'">net461</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net461_2018_4'">net461</TargetFramework>
@@ -32,5 +42,5 @@
   <Target Name="PrintConfiguration" BeforeTargets="Build">
     <Message Importance="high" Text="Using Unity Version '$(UnityVersion)', TargetFramework '$(TargetFramework)'" />
   </Target>
-  
+
 </Project>
