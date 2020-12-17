@@ -17,6 +17,7 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
 - [Why Another NuGet Package for Unity?](#why-another-nuget-package-for-unity)
 - [Usage](#usage)
   - [Editing the project file](#editing-the-project-file)
+  - [Choosing a `TargetFramework`](#choosing-a-%60targetframework%60)
   - [Referencing additional Unity assemblies](#referencing-additional-unity-assemblies)
   - [Referencing assemblies stored in a Unity project](#referencing-assemblies-stored-in-a-unity-project)
   - [Referencing assemblies at non-default install locations](#referencing-assemblies-at-non-default-install-locations)
@@ -72,6 +73,16 @@ To edit a project file in Visual Studio:
 - **When targeting .NET Standard (recommended):** just double-click on the project in the Solution Explorer
 - **When targeting .NET 4.x:** right click on the project in the Solution Explorer, click `Unload project`, then right click again to select `Edit <YourProject>.csproj`. When you're done editing the file, right click on the project again and select `Reload project`. Having to unload the project to edit it can be cumbersome, so check out this excellent [article by Scott Hanselman](https://www.hanselman.com/blog/UpgradingAnExistingNETProjectFilesToTheLeanNewCSPROJFormatFromNETCore.aspx) for instructions on migrating to the newer, leaner SDK syntax that .NET Standard uses.
 
+### Choosing a `TargetFramework`
+
+For new projects, you should use the newer "SDK-style" VS project files, with `<TargetFramework>netstandard2.0</TargetFramework>`. This style yields smaller, more readable project files, and simplifies portability with other projects built against other .NET runtimes.
+
+If, however, you are working with an existing, older project, then you may be stuck with a .NET 4.x `TargetFramework`. In these cases, we've seen the best results with .NET 4.6.1 up through Unity 2020.1. Projects building against Unity 2020.2 and above should target .NET 4.7.2, otherwise you will see errors like:
+
+```log
+The primary reference ... could not be resolved because it has an indirect dependency on the assembly ... which was built against the ".NETFramework,Version=v4.[x]" framework. This is a higher version than the currently targeted framework ".NETFramework,Version=v4.[y]".
+```
+
 ### Referencing additional Unity assemblies
 
 By default, we only add a reference to `UnityEngine.dll`, but there are several other Unity assemblies that you might need to reference for your project. These include, but are certinaly not limited to, `UnityEditor.dll` for writing custom editors, or `UnityEngine.UI.dll` for referencing UI types like `Text` and `Button`. To reference these assemblies, add `Reference` items to your `.csproj`, like so:
@@ -88,7 +99,7 @@ By default, we only add a reference to `UnityEngine.dll`, but there are several 
 
 Note the use of the `UnityInstallRoot`, `UnityVersion`, and `*Path` MSBuild properties. These properties spare you from having to remember the default Unity install path or the relative paths for any Unity assemblies, and they also let the references work across platforms (Windows/Mac). See below for a [list of short-hand assembly properties](#available-short-hand-assembly-properties) that we provide.
 
-Also note the use of [`Private="false"`](https://docs.microsoft.com/en-us/visualstudio/msbuild/common-msbuild-project-items#reference). This basically means "don't copy the referenced assembly to the output folder". This is recommended, so that Unity assemblies aren't being copied around unnecessarily, since they're automatically available to managed plugins within the Unity editor.
+Also note the use of [`Private="false"`](https://docs.microsoft.com/en-us/visualstudio/msbuild/common-msbuild-project-items#reference). This basically means "don't copy the referenced assembly to the output folder". This is recommended, so that Unity assemblies aren't being copied around unnecessarily, since they're automatically linked with managed plugins inside Unity.
 
 If you want to reference a Unity assembly for which there is no short-hand property, you can just hard-code the path into the `Reference` item yourself. We always recommend starting with the `$(UnityInstallRoot)\$(UnityVersion)\` properties though, as they let your project files build cross-platform, and let you edit your Unity version string in one place.
 
