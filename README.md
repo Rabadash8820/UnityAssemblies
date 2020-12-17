@@ -33,10 +33,10 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <UnityVersion>2020.1.0f1</UnityVersion>
+        <UnityVersion>2020.2.0f1</UnityVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Unity3D" Version="1.5.0" />
+        <PackageReference Include="Unity3D" Version="1.6.0" />
     </ItemGroup>
 </Project>
 ```
@@ -131,7 +131,7 @@ Because Unity Hub is the tool [recommended by Unity Technologies](https://docs.u
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <UnityVersion>2020.1.0f1</UnityVersion>
+        <UnityVersion>2020.2.0f1</UnityVersion>
         <UnityInstallRoot>V:\Unity</UnityInstallRoot>
     </PropertyGroup>
     <!-- etc. -->
