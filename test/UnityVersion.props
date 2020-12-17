@@ -1,6 +1,6 @@
 ﻿<Project>
   <PropertyGroup>
-    <UnityVersion Condition="'$(ConfigurationVersionNum)'=='20201'">2020.1.0f1</UnityVersion>
+    <UnityVersion Condition="'$(ConfigurationVersionNum)'=='20201'">2020.1.8f1</UnityVersion>
     <UnityVersion Condition="'$(ConfigurationVersionNum)'=='20194'">2019.4.3f1</UnityVersion>
     <UnityVersion Condition="'$(ConfigurationVersionNum)'=='20184'">2018.4.14f1</UnityVersion>
   </PropertyGroup>
