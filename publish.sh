@@ -1,22 +1,70 @@
 #!/bin/bash
 
 bumpVersions() {
-    newVersion=
+    # Get new version strings from user
+    newPkgVersion=
     prompt="Enter the new version (such as '1.0.0-rc1'): "
-    read -p "$prompt" newVersion
-    while [ -z "$newVersion" ] ; do
-        echo "Version string cannot be empty."
-        read -p "$prompt" newVersion
+    read -p "$prompt" newPkgVersion
+    while [ -z "$newPkgVersion" ] ; do
+        echo "Package version string cannot be empty."
+        read -p "$prompt" newPkgVersion
     done
 
+    newUnityVersion=
+    prompt="Enter the latest Unity version (such as '2020.1.8f1'): "
+    read -p "$prompt" newUnityVersion
+    while [ -z "$newUnityVersion" ] ; do
+        echo "Unity version string cannot be empty."
+        read -p "$prompt" newUnityVersion
+    done
+    
+    # Update package version strings to the provided one
     echo ""
-    echo "Update version string to '$newVersion' in the following places:"
-    echo "    Sample project file in packaged readme.txt"
-    echo "    Sample project file at top of main README"
-    echo "    <version/> element of nuspec"
-    echo "Also update Unity version strings to the latest version in the following places:"
-    echo "    Sample project file in packaged readme.txt"
-    echo "    Sample project file snippets in main README"
+    echo "Changing package version strings to '$newPkgVersion' in:"
+
+    findTxt="PackageReference Include=\"Unity3D\""
+    replaceTxt="$findTxt Version=\"$newPkgVersion\" />"
+
+    pkgReadmePath=$cwd/nupkg/readme.txt
+    echo "    Sample project file in '$pkgReadmePath'..."
+    sed --expression="s|$findTxt.*|$replaceTxt|" --in-place "$pkgReadmePath"
+    errNum=$?
+    if [ $errNum != 0 ]; then return $errNum; fi
+
+    mainReadmePath=$cwd/README.md
+    echo "    Sample project file at top of '$mainReadmePath'..."
+    sed --expression="s|$findTxt.*|$replaceTxt|" --in-place "$mainReadmePath"
+    errNum=$?
+    if [ $errNum != 0 ]; then return $errNum; fi
+
+    findTxt="<version>"
+    replaceTxt="$findTxt$newPkgVersion</version>"
+
+    nuspecPath=$cwd/nupkg/Unity3D.nuspec
+    echo "    Nuspec at '$nuspecPath'..."
+    sed --expression="s|$findTxt.*|$replaceTxt|" --in-place "$nuspecPath"
+    errNum=$?
+    if [ $errNum != 0 ]; then return $errNum; fi
+
+    # Update Unity version strings to the provided one    
+    echo "Changing Unity version strings to '$newUnityVersion' in:"
+
+    findTxt="<UnityVersion>"
+    replaceTxt="$findTxt$newUnityVersion</UnityVersion>"
+
+    echo "    Sample project file in '$pkgReadmePath'..."
+    sed --expression="s|$findTxt.*|$replaceTxt|" --in-place "$pkgReadmePath"
+    errNum=$?
+    if [ $errNum != 0 ]; then return $errNum; fi
+
+    mainReadmePath=$cwd/README.md
+    echo "    Sample project files in '$mainReadmePath'..."
+    sed --expression="s|$findTxt.*|$replaceTxt|" --in-place "$mainReadmePath"
+    errNum=$?
+    if [ $errNum != 0 ]; then return $errNum; fi
+
+    echo ""
+    echo "Commit the version string changes that we just made"
     echo ""
     read -p "Press [Enter] when you're done..."
 }
@@ -127,7 +175,7 @@ main() {
     # Create the NuGet package
     nugetPack
     if [ $? != 0 ]; then return 1; fi
-    nupkgPath="$cwd/Unity3D.$newVersion.nupkg"
+    nupkgPath="$cwd/Unity3D.$newPkgVersion.nupkg"
 
     # Sign and push the NuGet package
     nugetSign && nugetPush
