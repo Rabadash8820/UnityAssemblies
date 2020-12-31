@@ -36,7 +36,7 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
         <UnityVersion>2020.2.0f1</UnityVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Unity3D" Version="1.6.0" />
+        <PackageReference Include="Unity3D" Version="1.7.0" />
     </ItemGroup>
 </Project>
 ```
@@ -55,7 +55,7 @@ Thus, here at Derploid Entertainment, we created the `Unity3D` package with the 
 - Add the Unity assembly references programmatically, so that the package is forward-compatible
 - Use Visual Studio's built-in MSBuild tooling to add the references, rather than clunky scripts written in another language that may not be supported by future versions of Visual Studio
 - Easily reference additional Unity assemblies by adding simple `Reference` items to the project file, rather than finding and calling some obscure script
-- All references must work cross-platform (on Windows/Mac)
+- All references must work cross-platform (on Windows/MacOS/Linux)
 - Configuration should be minimal: just a Unity version and an optional install location for non-default cases
 
 ## Usage
@@ -85,7 +85,7 @@ The primary reference ... could not be resolved because it has an indirect depen
 
 ### Referencing additional Unity assemblies
 
-By default, we only add a reference to `UnityEngine.dll`, but there are several other Unity assemblies that you might need to reference for your project. These include, but are certinaly not limited to, `UnityEditor.dll` for writing custom editors, or `UnityEngine.UI.dll` for referencing UI types like `Text` and `Button`. To reference these assemblies, add `Reference` items to your `.csproj`, like so:
+By default, we only add a reference to `UnityEngine.dll`, but there are several other Unity assemblies that you might need to reference for your project. These include, but are certainly not limited to, `UnityEditor.dll` for writing custom editors, or `UnityEngine.UI.dll` for referencing UI types like `Text` and `Button`. To reference these assemblies, add `Reference` items to your `.csproj`, like so:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
@@ -97,7 +97,7 @@ By default, we only add a reference to `UnityEngine.dll`, but there are several 
 </Project>
 ```
 
-Note the use of the `UnityInstallRoot`, `UnityVersion`, and `*Path` MSBuild properties. These properties spare you from having to remember the default Unity install path or the relative paths for any Unity assemblies, and they also let the references work across platforms (Windows/Mac). See below for a [list of short-hand assembly properties](#available-short-hand-assembly-properties) that we provide.
+Note the use of the `UnityInstallRoot`, `UnityVersion`, and `*Path` MSBuild properties. These properties spare you from having to remember the default Unity install path or the relative paths for any Unity assemblies, and they also let the references work across platforms (Windows/MacOS/Linux). See below for a [list of short-hand assembly properties](#available-short-hand-assembly-properties) that we provide.
 
 Also note the use of [`Private="false"`](https://docs.microsoft.com/en-us/visualstudio/msbuild/common-msbuild-project-items#reference). This basically means "don't copy the referenced assembly to the output folder". This is recommended, so that Unity assemblies aren't being copied around unnecessarily, since they're automatically linked with managed plugins inside Unity.
 
@@ -187,12 +187,12 @@ The assembly paths under the `PackageCache` use the `*` wildcard. This saves you
 
 | Property | Unity Version | Default value | Comments |
 |:---------|---------------|:--------------|:---------|
-| `OSInstallRoot` | Any | `C:\Program Files` on Windows or `/Application` on Mac. |  |
+| `OSInstallRoot` | Any | `C:\Program Files` on Windows, `/Application` on MacOS, or `/home/<username>` on Linux. |  |
 | `UnityInstallRoot` | Any | `$(OSInstallRoot)\Unity\Hub\Editor` |  |
-| `UnityManagedPath` | Any | `Editor\Data\Managed` on Windows or `Unity.app\Contents\Managed` on Mac. |  |
+| `UnityManagedPath` | Any | `Editor\Data\Managed` on Linux/Windows or `Unity.app\Contents\Managed` on MacOS. |  |
 | `UnityModulesPath` | Any | `$(UnityManagedPath)\UnityEngine` | This folder contains assemblies for Unity's core modules like the Audio, Animation, and ParticleSystem modules. |
-| `UnityExtensionsPath` | Any | `Editor\Data\UnityExtensions\Unity` on Windows or `Unity.app\Contents\UnityExtensions\Unity` on Mac. |  |
-| `UnityPlaybackEnginesPath` | Any | `Editor\Data\PlaybackEngines` | This folder contains target-platform-specific assemblies, e.g. those for iOS/Android |
+| `UnityExtensionsPath` | Any | `Editor\Data\UnityExtensions\Unity` on Linux/Windows or `Unity.app\Contents\UnityExtensions\Unity` on MacOS. |  |
+| `UnityPlaybackEnginesPath` | Any | `Editor\Data\PlaybackEngines` | This folder contains target-platform-specific assemblies, e.g. those for iOS/Android. |
 | `UnityAndroidPlayerPath` | Any | `$(UnityPlaybackEnginesPath)\AndroidPlayer` |  |
 | `UnityiOSSupportPath` | Any | `$(UnityPlaybackEnginesPath)\iOSSupport` |  |
 | `UnityBuiltInPackagesPath` | >= 2017.2 | `Editor\Data\Resources\PackageManager\BuiltInPackages` | This folder contains Unity's built-in Packages, like IMGUI and TerrainPhysics. |
