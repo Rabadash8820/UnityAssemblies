@@ -47,7 +47,7 @@ checkForNuGet() {
 nugetPack() {
     echo ""
     echo "Creating NuGet package..."
-    $nugetPath pack "$cwd/nupkg/Unity3D.nuspec"
+    "$nugetPath" pack "$cwd/nupkg/Unity3D.nuspec"
     return $?
 }
 
@@ -76,7 +76,7 @@ nugetPush() {
     defaultNuGetSource="nuget.org"
     echo ""
     read -p "Enter the URL of the NuGet source (or hit [Enter] to use '$defaultNuGetSource'): " nugetSource
-    if [ -z $nugetSource ]; then nugetSource=$defaultNuGetSource; fi
+    if [ -z "$nugetSource" ]; then nugetSource=$defaultNuGetSource; fi
 
     keyPrompt="Enter the API key for the NuGet source: "
     read -p "$keyPrompt" sourceApiKey
@@ -135,6 +135,7 @@ main() {
     if [ $errNum != 0 ] ; then
         echo ""
         echo "Publish completed with error code: $errNum"
+        return 1
     fi
 
     # Remind user what to do after publishing
