@@ -16,6 +16,13 @@
         <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Unity.app\Contents\UnityExtensions\Unity</UnityExtensionsPath>
       </PropertyGroup>
     </When>
+    <When Condition="$([MSBuild]::IsOsPlatform(Linux))">
+      <PropertyGroup>
+        <OSInstallRoot Condition="'$(OSInstallRoot)'==''">$([System.Environment]::GetFolderPath('System.Environment+SpecialFolder.UserProfile'))</OSInstallRoot>
+        <UnityManagedPath Condition="'$(UnityManagedPath)'==''">Editor\Data\Managed</UnityManagedPath>
+        <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsPath>
+      </PropertyGroup>
+    </When>
   </Choose>
   <PropertyGroup>
     <UnityInstallRoot Condition="'$(UnityInstallRoot)'==''">$(OSInstallRoot)\Unity\Hub\Editor</UnityInstallRoot>
