@@ -57,7 +57,7 @@
 
   <!-- Add default Unity references -->
   <ItemGroup>
-    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)" Private="false" />
+    <UnityReference Include="UnityEngine" Private="false" />
   </ItemGroup>
 
 </Project>

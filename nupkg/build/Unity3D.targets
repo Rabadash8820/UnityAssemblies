@@ -1,0 +1,56 @@
+<Project InitialTargets="AddUnityReferences;AddUnityAssemblyReferences;AddUnityProjectReferences;AddUnityProjectAssemblyReferences;AddUnityScriptAssemblyReferences;AddUnityPackageCacheReferences">
+    <!-- UnityReference: Use short-hand names for editor assemblies e.g. UnityEngine, UnityEditor, UnityEngineUI -->
+    <Target Name="AddUnityReferences"
+            Inputs="@(UnityReference)"
+            Outputs="$(UnityInstallRoot)\$(UnityVersion)\$(%(UnityReference.Identity)Path)">
+        <ItemGroup>
+            <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(%(UnityReference.Identity)Path)"
+                       Private="%(UnityReference.Private)"/>
+        </ItemGroup>
+    </Target>
+    <!-- UnityAssemblyReference: Use relative path for editor assemblies -->
+    <Target Name="AddUnityAssemblyReferences"
+            Inputs="@(UnityAssemblyReference)"
+            Outputs="$(UnityInstallRoot)\$(UnityVersion)\%(UnityAssemblyReference.Identity)">
+        <ItemGroup>
+            <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\%(UnityAssemblyReference.Identity)"
+                       Private="%(UnityAssemblyReference.Private)"/>
+        </ItemGroup>
+    </Target>
+    <!-- UnityProjectReference: Use relative path for project assemblies or short-hand names e.g. UnityAnalyticsStandardEvents -->
+    <Target Name="AddUnityProjectReferences"
+            Inputs="@(UnityProjectReference)"
+            Outputs="$(UnityProjectPath)\$(%(UnityProjectReference.Identity)Path)">
+        <ItemGroup>
+            <Reference Include="$(UnityProjectPath)\$(%(UnityProjectReference.Identity)Path)"
+                       Private="%(UnityProjectReference.Private)"/>
+        </ItemGroup>
+    </Target>
+    <!-- UnityProjectAssemblyReference: Use relative path for project assemblies or short-hand names e.g. UnityAnalyticsStandardEvents -->
+    <Target Name="AddUnityProjectAssemblyReferences"
+            Inputs="@(UnityProjectAssemblyReference)"
+            Outputs="$(UnityProjectPath)\%(UnityProjectAssemblyReference.Identity)">
+        <ItemGroup>
+            <Reference Include="$(UnityProjectPath)\%(UnityProjectAssemblyReference.Identity)"
+                       Private="%(UnityProjectAssemblyReference.Private)"/>
+        </ItemGroup>
+    </Target>
+    <!-- UnityScriptAssemblyReference: Use relative path for project ScriptAssemblies assemblies -->
+    <Target Name="AddUnityScriptAssemblyReferences"
+            Inputs="@(UnityScriptAssemblyReference)"
+            Outputs="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\%(UnityScriptAssemblyReference.Identity)">
+        <ItemGroup>
+            <Reference Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\%(UnityScriptAssemblyReference.Identity)"
+                       Private="%(UnityScriptAssemblyReference.Private)"/>
+        </ItemGroup>
+    </Target>
+    <!-- UnityPackageCacheReference: Use relative path for project PackageCache assemblies -->
+    <Target Name="AddUnityPackageCacheReferences"
+            Inputs="@(UnityPackageCacheReference)"
+            Outputs="$(UnityProjectPath)\$(UnityPackageCachePath)\%(UnityPackageCacheReference.Identity)">
+        <ItemGroup>
+            <Reference Include="$(UnityProjectPath)\$(UnityPackageCachePath)\%(UnityPackageCacheReference.Identity)"
+                       Private="%(UnityPackageCacheReference.Private)"/>
+        </ItemGroup>
+    </Target>
+</Project>
