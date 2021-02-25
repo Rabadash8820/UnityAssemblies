@@ -19,7 +19,7 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
 - [Why Another NuGet Package for Unity?](#why-another-nuget-package-for-unity)
 - [Usage](#usage)
   - [Editing the project file](#editing-the-project-file)
-  - [Choosing a `TargetFramework`](#choosing-a-%60targetframework%60)
+  - [Choosing a `TargetFramework`](#choosing-a-targetframework)
   - [Referencing additional Unity assemblies](#referencing-additional-unity-assemblies)
   - [Referencing assemblies stored in a Unity project](#referencing-assemblies-stored-in-a-unity-project)
   - [Referencing assemblies at non-default install locations](#referencing-assemblies-at-non-default-install-locations)
@@ -55,10 +55,10 @@ Moreover, only Dzmitry Lahoda's packages seem to recognize the need for _other_ 
 Thus, here at Derploid Entertainment, we created the `Unity3D` package with the following goals:
 
 - Add the Unity assembly references programmatically, so that the package is forward-compatible
-- Use Visual Studio's built-in MSBuild tooling to add the references, rather than clunky scripts written in another language that may not be supported by future versions of Visual Studio
+- Use standard MSBuild tooling to add the references, rather than clunky scripts written in another language that may not be supported by future versions of Visual Studio
 - Easily reference additional Unity assemblies by adding simple `Reference` items to the project file, rather than finding and calling some obscure script
 - All references must work cross-platform (on Windows/MacOS/Linux)
-- Configuration should be minimal: just a Unity version and an optional install location for non-default cases
+- Configuration should be minimal: just a Unity version, a project path for assemblies stored in the Unity project, and an optional install location for non-default cases.
 
 ## Usage
 
@@ -174,6 +174,8 @@ The solution is to [remove our default reference](#removing-the-default-referenc
 We do *not* provide short-hand properties for assemblies stored in `UnityModulesPath`. The folder is completely flat, so you can just reference assemblies there by filename. If you're unsure of which modules to reference, check out the Unity Scripting Manual. Every type includes an `Implemented in` note at the top of the page, telling you in which of Unity's core modules the type is implemented. For example, here is a screenshot of the manual page for `Vector2`:
 
 ![Unity Scripting Manual page for Vector2, showing that the type is implemented in UnityEngine.CoreModule](./images/unity-modules-docs.png)
+
+**Warning: There is a Unity module called `UnityEngine.dll`. This is not to be confused with the `UnityEngine.dll` under `$(UnityInstallRoot)/Editor/Data/Managed`. If you have [removed the default UnityEngine.dll](#removing-the-default-reference-to-unityengine.dll) from your project, then you may still need to reference this module, for types like `GUIElement`, `Network`, `ProceduralMaterial`, etc.**
 
 ## Available Short-Hand Assembly Properties
 
