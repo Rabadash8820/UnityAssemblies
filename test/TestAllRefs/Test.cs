@@ -1,10 +1,13 @@
-﻿#if v20193
+#if v20193
 #define NEWTONSOFT_JSON_AVAILABLE
 #endif
 #if v20194
 #define NEWTONSOFT_JSON_AVAILABLE
 #endif
 #if v20201
+#define NEWTONSOFT_JSON_AVAILABLE
+#endif
+#if v20202
 #define NEWTONSOFT_JSON_AVAILABLE
 #endif
 
@@ -18,6 +21,9 @@
 #define NUNIT_AVAILABLE
 #endif
 #if v20201
+#define NUNIT_AVAILABLE
+#endif
+#if v20202
 #define NUNIT_AVAILABLE
 #endif
 
@@ -40,7 +46,9 @@
 #if v20201
 #define UNITY_ANALYTICS_STANDARD_EVENTS_AVAILABLE
 #endif
-
+#if v20202
+#define UNITY_ANALYTICS_STANDARD_EVENTS_AVAILABLE
+#endif
 
 namespace Unity3D.Test {
     public class TestBehaviour : UnityEngine.MonoBehaviour {
