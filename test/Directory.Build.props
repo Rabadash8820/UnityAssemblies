@@ -5,6 +5,7 @@
   <PropertyGroup>
     <Configurations>
       Standard20_2021_1;Net472_2021_1;
+      Standard20_2020_3;Net472_2020_3;
       Standard20_2020_2;Net472_2020_2;
       Standard20_2020_1;Net461_2020_1;
       Standard20_2019_4;Net461_2019_4;
@@ -14,6 +15,9 @@
     <!-- Define Unity version number constants -->
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2021_1'">20211</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net472_2021_1'">20211</ConfigurationVersionNum>
+
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2020_3'">20203</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Net472_2020_3'">20203</ConfigurationVersionNum>
     
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2020_2'">20202</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net472_2020_2'">20202</ConfigurationVersionNum>
@@ -31,12 +35,14 @@
 
     <!-- Set TargetFramework -->
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2021_1'">netstandard2.0</TargetFramework>
+    <TargetFramework Condition="'$(Configuration)'=='Standard20_2020_3'">netstandard2.0</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2020_2'">netstandard2.0</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2020_1'">netstandard2.0</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2019_4'">netstandard2.0</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2018_4'">netstandard2.0</TargetFramework>
 
     <TargetFramework Condition="'$(Configuration)'=='Net472_2021_1'">net472</TargetFramework>
+    <TargetFramework Condition="'$(Configuration)'=='Net472_2020_3'">net472</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net472_2020_2'">net472</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net461_2020_1'">net461</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net461_2019_4'">net461</TargetFramework>
