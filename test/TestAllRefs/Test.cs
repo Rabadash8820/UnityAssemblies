@@ -10,6 +10,12 @@
 #if v20202
 #define NEWTONSOFT_JSON_AVAILABLE
 #endif
+#if v20203
+#define NEWTONSOFT_JSON_AVAILABLE
+#endif
+#if v20211
+#define NEWTONSOFT_JSON_AVAILABLE
+#endif
 
 #if v20192
 #define NUNIT_AVAILABLE
@@ -24,6 +30,12 @@
 #define NUNIT_AVAILABLE
 #endif
 #if v20202
+#define NUNIT_AVAILABLE
+#endif
+#if v20203
+#define NUNIT_AVAILABLE
+#endif
+#if v20211
 #define NUNIT_AVAILABLE
 #endif
 
@@ -48,6 +60,16 @@
 #endif
 #if v20202
 #define UNITY_ANALYTICS_STANDARD_EVENTS_AVAILABLE
+#endif
+#if v20203
+#define UNITY_ANALYTICS_STANDARD_EVENTS_AVAILABLE
+#endif
+#if v20211
+#define UNITY_ANALYTICS_STANDARD_EVENTS_AVAILABLE
+#endif
+
+#if v20211
+#define UNITYENGINE_DEVICE_AVAILABLE
 #endif
 
 namespace Unity3D.Test {
@@ -62,6 +84,9 @@ namespace Unity3D.Test {
 #endif
 #if UNITY_ANALYTICS_STANDARD_EVENTS_AVAILABLE
         public UnityEngine.Analytics.ContinuousEvent ContinuousEventField;
+#endif
+#if UNITYENGINE_DEVICE_AVAILABLE
+        public int ScreenHeight = UnityEngine.Device.Screen.height;
 #endif
 
     }
