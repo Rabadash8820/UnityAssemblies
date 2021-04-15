@@ -27,6 +27,7 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
   - [Referencing the Unity core modules](#referencing-the-unity-core-modules)
 - [Available Short-Hand Assembly Properties](#available-short-hand-assembly-properties)
 - [FAQ](#faq)
+- [Contributing](#contributing)
 - [License](#license)
 
 ## Basic Usage
@@ -224,6 +225,10 @@ The assembly paths under the `PackageCache` use the `*` wildcard. This saves you
 1. **If not, how is this legal?** We're not actually distributing the Unity assembly binaries, just MSBuild files that reference them. This NuGet package won't add anything if you don't actually have a version of Unity installed on your machine.
 1. **Can you help me solve [error] in Unity version [version]?** Possibly. We only test compatibility with, and offer support for, the latest Unity [LTS releases](https://unity3d.com/unity/qa/lts-releases) and the TECH stream releases of the current year. Unity does not officially support versions older than that, so neither do we! That said, if you're having an issue with an older version of Unity, there's a good chance that we've seen it ourselves, so feel free to [open an Issue](https://github.com/DerploidEntertainment/UnityAssemblies/issues)!
 1. **Why hasn't this repository been updated since [date]?** The Unity3D NuGet package is very simple, with most of its functionality contained in a [single small file](./nupkg/build/Unity3D.props). Between that, and the package's use of forward-compatible properties like `UnityVersion` that can be tweaked at design time, this repository simply does not require frequent updates. This does _not_ mean that this project is dead; at Derploid, we still use the package in almost every project. Most changes going forward will be to add more short-hand assembly properties, especially for popular third-party assemblies published on the Asset Store, and to add test projects for new versions of Unity.
+
+## Contributing
+
+Please refer to our [Contributing guide](./CONTRIBUTING.md).
 
 ## License
 
