@@ -37,15 +37,8 @@
       "dependencies": {},
       "url": "https://packages.unity.com"
     },
-    "com.unity.standardevents": {
-      "version": "1.0.13",
-      "depth": 0,
-      "source": "registry",
-      "dependencies": {},
-      "url": "https://packages.unity.com"
-    },
     "com.unity.test-framework": {
-      "version": "1.1.22",
+      "version": "1.1.24",
       "depth": 0,
       "source": "registry",
       "dependencies": {
