@@ -2,7 +2,7 @@
 
 ## Overview
 
-Like Unity, **we only supported Unity's [LTS versions](https://unity3d.com/unity/qa/lts-releases) and the Tech Stream versions for the current year.** That said, we are willing to accept bug reports and Pull Requests for issues related to those versions or their documentation.
+Like Unity, **we only support Unity's [LTS versions](https://unity3d.com/unity/qa/lts-releases) and the Tech Stream versions for the current year.** That said, we are willing to accept bug reports and Pull Requests for issues related to other versions or their documentation.
 
 The Unity Assemblies project is a **volunteer effort**. Please be understanding if it takes us time to respond to your Issues or Pull Requests.
 
@@ -10,7 +10,7 @@ Thanks for contributing! :heart: :heart: :heart:
 
 ### Did you find a bug?
 
-* **Ensure the bug was not already reported** by searching on GitHub under [Issues](https://github.com/DerploidEntertainment/UnityAssemblies/issues).
+* **Ensure the bug was not already reported** by searching our [GitHub Issues](https://github.com/DerploidEntertainment/UnityAssemblies/issues).
 * If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/DerploidEntertainment/UnityAssemblies/issues/new). Be sure to include a **title and clear description**, as much relevant information as possible, and a **code sample** or an **executable test case** demonstrating the expected behavior that is not occurring.
 
 ### Did you write a patch that fixes a bug?
@@ -58,7 +58,7 @@ Rapidly changing MSBuild properties/items in a solution can lead to weird, trans
 
 * Use "Build > Rebuild Solution" instead of just "Build". This cleans the solution before building it again.
 * Restart Visual Studio. This refreshes some internal caches.
-* Clear all VS-generated files from the solution folder. I.e., close Visual Studio, then delete the hidden `.vs/` folder and the `bin/` and `obj/` folders under each test C# project. This resets _all_ caches, especially reverting the solution to when you first cloned it. Obviously, VS will have to re-generate those folders next time you open the solution, but that shouldn't take long, as this solution is pretty tiny.
+* Clear all VS-generated files from the solution folder. I.e., close Visual Studio, then delete the hidden `.vs/` folder and the `bin/` and `obj/` folders under each test C# project. This resets _all_ caches, essentially reverting the solution to when you first cloned it. Obviously, VS will have to re-generate those folders next time you open the solution, but that shouldn't take long, as this solution is pretty tiny.
 * Make sure you have installed the necessary VS modules. For targeting .NET 4.x or .NET Standard x, you will need to install the corresponding SDKs from the Visual Studio installer.
 
 If none of the above work, make sure that the assemblies being referenced by your current solution configuration _do_ exist on disk. Common reasons that they wouldn't include:
