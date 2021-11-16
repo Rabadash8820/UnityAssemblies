@@ -20,12 +20,12 @@
 
 Thank you for installing the Unity3D NuGet package!
 
-Example .csproj file (using Unity 2020.2.0f1, targeting .NET Standard 2.0 profile):
+Example .csproj file (using Unity 2021.2.2f1, targeting .NET Standard 2.1 profile):
 
     <Project Sdk="Microsoft.NET.Sdk">
         <PropertyGroup>
-            <TargetFramework>netstandard2.0</TargetFramework>
-            <UnityVersion>2020.2.0f1</UnityVersion>
+            <TargetFramework>netstandard2.1</TargetFramework>
+            <UnityVersion>2021.2.2f1</UnityVersion>
         </PropertyGroup>
         <ItemGroup>
             <PackageReference Include="Unity3D" Version="1.7.0" />
