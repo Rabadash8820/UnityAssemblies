@@ -35,7 +35,7 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <TargetFramework>netstandard2.0</TargetFramework>
+        <TargetFramework>netstandard2.1</TargetFramework>
         <UnityVersion>2021.2.2f1</UnityVersion>
     </PropertyGroup>
     <ItemGroup>
