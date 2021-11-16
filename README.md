@@ -69,7 +69,7 @@ Thus, here at Derploid Entertainment, we created the `Unity3D` package with the 
 
 As shown in the basic example above, our package only requires a `UnityVersion` property to be up and running. `UnityVersion` must be a complete version string, in the format used by Unity Hub (the values boxed in red in the screenshot below).
 
-![Unity version strings highlighted in the Unity Hub interface. For example, "2019.1.6f1"](./images/unity-versions.png)
+![Unity version strings highlighted in the Unity Hub interface](./images/unity-versions.png)
 
 To edit a project file in Visual Studio:
 
