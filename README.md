@@ -78,9 +78,18 @@ To edit a project file in Visual Studio:
 
 ### Choosing a `TargetFramework`
 
-For new projects, you should use the newer "SDK-style" VS project files, with `<TargetFramework>netstandard2.0</TargetFramework>`. This style yields smaller, more readable project files, and simplifies portability with other projects built against other .NET runtimes.
+For new projects, you should use the modern "SDK-style" .csproj files, which have a root `<Project Sdk="...">` element rather than `<Project ToolsVersion="...">`. This style yields smaller, more readable project files, and simplifies portability with projects built against other .NET runtimes. You should then use one of the following .NET Standard `TargetFramework`s:
 
-If, however, you are working with an existing, older project, then you may be stuck with a .NET 4.x `TargetFramework`. In these cases, we've seen the best results with .NET 4.6.1 up through Unity 2020.1. Projects building against Unity 2020.2 and above should target .NET 4.7.2, otherwise you will see errors like:
+- For Unity 2021.2+, use `netstandard2.1`
+- For Unity 2021.1 and below, use `netstandard2.0`
+
+If, however, you are working with an existing, older project, then you may be forced to use one of the following .NET 4.x `TargetFramework`s:
+
+- For Unity 2021.2+, use `net48` :
+- For Unity 2020.2 - 2021.1, use `net472`
+- For Unity 2020.1 and below, use `net461`
+
+If you don't, you will see errors like:
 
 ```log
 The primary reference ... could not be resolved because it has an indirect dependency on the assembly ... which was built against the ".NETFramework,Version=v4.[x]" framework. This is a higher version than the currently targeted framework ".NETFramework,Version=v4.[y]".
