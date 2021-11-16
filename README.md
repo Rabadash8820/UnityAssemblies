@@ -36,7 +36,7 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.0</TargetFramework>
-        <UnityVersion>2020.2.0f1</UnityVersion>
+        <UnityVersion>2021.2.2f1</UnityVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Unity3D" Version="1.7.0" />
@@ -69,7 +69,7 @@ Thus, here at Derploid Entertainment, we created the `Unity3D` package with the 
 
 As shown in the basic example above, our package only requires a `UnityVersion` property to be up and running. `UnityVersion` must be a complete version string, in the format used by Unity Hub (the values boxed in red in the screenshot below).
 
-![Unity version strings highlighted in the Unity Hub interface. For example, "2019.1.6f1"](./images/unity-versions.png)
+![Unity version strings highlighted in the Unity Hub interface](./images/unity-versions.png)
 
 To edit a project file in Visual Studio:
 
@@ -78,9 +78,18 @@ To edit a project file in Visual Studio:
 
 ### Choosing a `TargetFramework`
 
-For new projects, you should use the newer "SDK-style" VS project files, with `<TargetFramework>netstandard2.0</TargetFramework>`. This style yields smaller, more readable project files, and simplifies portability with other projects built against other .NET runtimes.
+For new projects, you should use the modern "SDK-style" .csproj files, which have a root `<Project Sdk="...">` element rather than `<Project ToolsVersion="...">`. This style yields smaller, more readable project files, and simplifies portability with projects built against other .NET runtimes. You should then use one of the following .NET Standard `TargetFramework`s:
 
-If, however, you are working with an existing, older project, then you may be stuck with a .NET 4.x `TargetFramework`. In these cases, we've seen the best results with .NET 4.6.1 up through Unity 2020.1. Projects building against Unity 2020.2 and above should target .NET 4.7.2, otherwise you will see errors like:
+- For Unity 2021.2+, use `netstandard2.1`
+- For Unity 2021.1 and below, use `netstandard2.0`
+
+If, however, you are working with an existing, older project, then you may be forced to use one of the following .NET 4.x `TargetFramework`s:
+
+- For Unity 2021.2+, use `net48` :
+- For Unity 2020.2 - 2021.1, use `net472`
+- For Unity 2020.1 and below, use `net461`
+
+If you don't, you will see errors like:
 
 ```log
 The primary reference ... could not be resolved because it has an indirect dependency on the assembly ... which was built against the ".NETFramework,Version=v4.[x]" framework. This is a higher version than the currently targeted framework ".NETFramework,Version=v4.[y]".
@@ -134,7 +143,7 @@ Because Unity Hub is the tool [recommended by Unity Technologies](https://docs.u
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <UnityVersion>2020.2.0f1</UnityVersion>
+        <UnityVersion>2021.2.2f1</UnityVersion>
         <UnityInstallRoot>V:\Unity</UnityInstallRoot>
     </PropertyGroup>
     <!-- etc. -->
@@ -224,6 +233,7 @@ The assembly paths under the `PackageCache` use the `*` wildcard. This saves you
 1. **Is this package officially maintained by Unity Technologies?** No, it is maintained by a few wild and crazy guys at Derploid Entertainment. However, we will be submitting this package to Unity Technologies as it gains traction, **_so that maybe we can finally have an officially supported NuGet package from Unity!_**
 1. **If not, how is this legal?** We're not actually distributing the Unity assembly binaries, just MSBuild files that reference them. This NuGet package won't add anything if you don't actually have a version of Unity installed on your machine.
 1. **Can you help me solve [error] in Unity version [version]?** Possibly. We only test compatibility with, and offer support for, the latest Unity [LTS releases](https://unity3d.com/unity/qa/lts-releases) and the TECH stream releases of the current year. Unity does not officially support versions older than that, so neither do we! That said, if you're having an issue with an older version of Unity, there's a good chance that we've seen it ourselves, so feel free to [open an Issue](https://github.com/DerploidEntertainment/UnityAssemblies/issues)!
+1. **With which Unity versions has this package been tested?** 2018.4, 2019.4, 2020.1, 2020.3, 2021.1, 2021.2
 1. **Why hasn't this repository been updated since [date]?** The Unity3D NuGet package is very simple, with most of its functionality contained in a [single small file](./nupkg/build/Unity3D.props). Between that, and the package's use of forward-compatible properties like `UnityVersion` that can be tweaked at design time, this repository simply does not require frequent updates. This does _not_ mean that this project is dead; at Derploid, we still use the package in almost every project. Most changes going forward will be to add more short-hand assembly properties, especially for popular third-party assemblies published on the Asset Store, and to add test projects for new versions of Unity.
 
 ## Contributing
