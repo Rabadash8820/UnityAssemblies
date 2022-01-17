@@ -6,6 +6,7 @@
 [![NuGet downloads](https://img.shields.io/packagecontrol/dd/Unity3D.svg)](https://nuget.org/packages/Unity3D)
 [![License](https://img.shields.io/github/license/DerploidEntertainment/UnityAssemblies.svg)](./LICENSE)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
+[![Issues closed](https://img.shields.io/github/issues-closed/DerploidEntertainment/UnityAssemblies)](https://github.com/DerploidEntertainment/UnityAssemblies/issues)
 
 This repository contains the source code for the [`Unity3D` NuGet package](https://www.nuget.org/packages/Unity3D).
 
