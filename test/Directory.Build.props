@@ -4,7 +4,8 @@
 
   <PropertyGroup>
     <Configurations>
-      Standard21_2021_2;Net48_2021_2;Net472_2021_2;
+      Standard21_2021_3;Net472_2021_3;Net48_2021_3;
+      Standard21_2021_2;Net472_2021_2;Net48_2021_2;
       Standard20_2021_1;Net472_2021_1;
       Standard20_2020_3;Net472_2020_3;
       Standard20_2020_2;Net472_2020_2;
@@ -14,16 +15,20 @@
     </Configurations>
 
     <!-- Define Unity version number constants -->
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard21_2021_3'">20213</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Net48_2021_3'">20213</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Net472_2021_3'">20213</ConfigurationVersionNum>
+
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard21_2021_2'">20212</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net48_2021_2'">20212</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net472_2021_2'">20212</ConfigurationVersionNum>
-    
+
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2021_1'">20211</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net472_2021_1'">20211</ConfigurationVersionNum>
 
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2020_3'">20203</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net472_2020_3'">20203</ConfigurationVersionNum>
-    
+
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2020_2'">20202</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net472_2020_2'">20202</ConfigurationVersionNum>
 
@@ -39,7 +44,9 @@
     <DefineConstants>v$(ConfigurationVersionNum)</DefineConstants>
 
     <!-- Set TargetFramework -->
+    <TargetFramework Condition="'$(Configuration)'=='Standard21_2021_3'">netstandard2.1</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard21_2021_2'">netstandard2.1</TargetFramework>
+
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2021_1'">netstandard2.0</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2020_3'">netstandard2.0</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2020_2'">netstandard2.0</TargetFramework>
@@ -47,7 +54,10 @@
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2019_4'">netstandard2.0</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2018_4'">netstandard2.0</TargetFramework>
 
+    <TargetFramework Condition="'$(Configuration)'=='Net48_2021_3'">net48</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net48_2021_2'">net48</TargetFramework>
+
+    <TargetFramework Condition="'$(Configuration)'=='Net472_2021_3'">net472</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net472_2021_2'">net472</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net472_2021_1'">net472</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net472_2020_3'">net472</TargetFramework>
