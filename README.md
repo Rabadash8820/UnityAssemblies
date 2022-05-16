@@ -194,7 +194,7 @@ Note that *all* of the following properties can be overwritten by setting the pr
 <UnityEngineUIPath>path/to/UnityEngine.UI.dll</UnityEngineUIPath>
 ```
 
-Just be aware of which properties expect absolute paths, and which expect relative paths. As assembly paths change in future versions of Unity, you can continue referencing them by overwriting these properties, until we update the properties ourselves. This ability is why we say that this package is "forward-compatible".
+Just be aware of which properties expect absolute paths, and which expect relative paths. As assembly paths change in future versions of Unity, you can continue referencing them by overwriting these properties, until we update the properties ourselves. This ability is why this NuGet package is "forward-compatible".
 
 The assembly paths under the `PackageCache` use the `*` wildcard. This saves you from hard-coding a package version and having to update it each time you update from Unity's Package Manager Window. Unity only stores one version of a Package in the `PackageCache` folder, so you don't need to worry about multiple versions of the same Package being referenced by the wildcard.
 
@@ -211,14 +211,14 @@ The assembly paths under the `PackageCache` use the `*` wildcard. This saves you
 | `UnityBuiltInPackagesPath` | >= 2017.2 | `Editor\Data\Resources\PackageManager\BuiltInPackages` | This folder contains Unity's built-in Packages, like IMGUI and TerrainPhysics. |
 | `UnityEnginePath` | Any | `$(UnityManagedPath)\UnityEngine.dll` | This reference is added by default. See above for [instructions to remove it](#removing-the-default-reference-to-unityengine.dll). |
 | `UnityEditorPath` | Any | `$(UnityManagedPath)\UnityEditor.dll` |  |
-| `UnityEngineUIPath` | <= 2019.2 | `$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll`. | In Unity 2019.2+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll` instead. |
-| `UnityEngineTestRunnerPath` | <= 2019.2 | `$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll` | In Unity 2019.2+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll` instead. |
+| `UnityEngineUIPath` | <= 2019.2 | `$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll`. | In Unity 2019.3+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll` instead. |
+| `UnityEngineTestRunnerPath` | <= 2019.2 | `$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll` | In Unity 2019.3+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll` instead. |
 | `UnityProjectPath` | Any | N/A | This property has no default value. Point it at the root folder of your Unity project, so that you can more easily reference Package and Asset Store assemblies (as [described above](#referencing-assemblies-stored-in-a-unity-project)). |
 | `UnityPackageCachePath` | >= 2017.2 | `Library\PackageCache` |  |
 | `UnityScriptAssembliesPath` | Any | `Library\ScriptAssemblies` |  |
 | `NewtonsoftJsonPath` | >= 2019.3 | `$(UnityPackageCachePath)\com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll` | Requires installation of the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner package. |
 | `NunitPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. |
-| `MoqPath` | 2019.2, 2019.3 | `$(UnityPackageCachePath)\nuget.moq*\Moq.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. |
+| `MoqPath` | 2019.2, 2019.3 | `$(UnityPackageCachePath)\nuget.moq*\Moq.dll` | Required installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. In Unity 2020.1+, [download Moq from NuGet](https://www.nuget.org/packages/moq/) and import it as a managed plugin. |
 | `UnityAnalyticsStandardEventsPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` | Requires installation of the [Analytics Library](https://docs.unity3d.com/Packages/com.unity.analytics@3.3/manual/index.html) package. |
 | `UnityEditorAndroidExtensionsPath` | Any | `$(UnityAndroidPlayerPath)\UnityEditor.Android.Extensions.dll` | See types under `UnityEditor > UnityEditor.Android` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
 | `UnityEditoriOSExtensionsCommonPath` | Any | `$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Common.dll` | See types under `UnityEditor > UnityEditor.iOS` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
@@ -233,8 +233,12 @@ The assembly paths under the `PackageCache` use the `*` wildcard. This saves you
 1. **If not, how is this legal?** We're not actually distributing the Unity assembly binaries, just MSBuild files that reference them. This NuGet package won't add anything if you don't actually have a version of Unity installed on your machine.
 1. **Why don't you use MSBuild `<Target>`s?** Targets _would_ allow us to do some fun things: we could read the `$(UnityVersion)` from a text file so there's not duplication with Unity's `ProjectVersion.txt` file, we could append `$(UnityVersion)` to reference paths automatically so you don't have type them all out, etc. However, a major goal of this package was to make things as _transparent_ as possible, including showing the referenced Unity assemblies under the "Dependencies" node in Visual Studio's Solution Explorer just like other references. As of VS 2019, this does not work with references added by MSBuild targets, unfortunately. However, we are actively researching alternatives in this space, because less verbose reference paths would be awesome!
 1. **Can you help me solve [error] in Unity version [version]?** Possibly. We only test compatibility with, and offer support for, the latest Unity [LTS releases](https://unity3d.com/unity/qa/lts-releases) and the TECH stream releases of the current year. Unity does not officially support versions older than that, so neither do we! That said, if you're having an issue with an older version of Unity, there's a good chance that we've seen it ourselves, so feel free to [open an Issue](https://github.com/DerploidEntertainment/UnityAssemblies/issues)!
-1. **With which Unity versions has this package been tested?** 2018.4, 2019.4, 2020.1, 2020.3, 2021.1, 2021.2
-1. **Why hasn't this repository been updated since [date]?** The Unity3D NuGet package is very simple, with most of its functionality contained in a [single small file](./nupkg/build/Unity3D.props). Between that, and the package's use of forward-compatible properties like `UnityVersion` that can be tweaked at design time, this repository simply does not require frequent updates. This does _not_ mean that this project is dead; at Derploid, we still use the package in almost every project. Most changes going forward will be to add more short-hand assembly properties, especially for popular third-party assemblies published on the Asset Store, and to add test projects for new versions of Unity.
+1. **With which Unity versions has this NuGet package been officially tested?** In the following:
+    - 2018.4 LTS
+    - 2019.4 LTS
+    - 2020.1, 2020.3 LTS
+    - 2021.1, 2021.2, 2021.3 LTS
+3. **Why hasn't this repository been updated since [date]?** The Unity3D NuGet package is very simple, with most of its functionality contained in a [single small file](./nupkg/build/Unity3D.props). Between that, and the package's use of forward-compatible properties like `UnityVersion` that can be tweaked at design time, this repository simply does not require frequent updates. This does _not_ mean that this project is dead; at Derploid, we still use the package in almost every project. Most changes going forward will be to add more short-hand assembly properties, especially for popular third-party assemblies published on the Asset Store, and to add test projects for new versions of Unity.
 
 ## Contributing
 
