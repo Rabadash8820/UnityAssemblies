@@ -72,8 +72,10 @@
 #define UNITYENGINE_DEVICE_AVAILABLE
 #endif
 
-namespace Unity3D.Test {
-    public class TestBehaviour : UnityEngine.MonoBehaviour {
+namespace Unity3D.Test
+{
+    public class TestBehaviour : UnityEngine.MonoBehaviour
+    {
         public UnityEngine.UI.Text TextField;
         public UnityEngine.TestTools.TestPlatform TestPlatformField;
         public UnityEditor.Android.AndroidPlatformIconKind AndroidPlatformIconKind;
@@ -96,7 +98,8 @@ namespace Unity3D.Test {
 #if NUNIT_AVAILABLE
     [NUnit.Framework.TestFixture]
 #endif
-    public class TestFixture {
+    public class TestFixture
+    {
 #if MOQ_AVAILABLE
         public Moq.Mock<TestBehaviour> Mock;
 #endif
