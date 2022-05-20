@@ -5,35 +5,55 @@
     <When Condition="$([MSBuild]::IsOsPlatform(Windows))">
       <PropertyGroup>
         <OSInstallRoot Condition="'$(OSInstallRoot)'==''">C:\Program Files</OSInstallRoot>
-        <UnityManagedPath Condition="'$(UnityManagedPath)'==''">Editor\Data\Managed</UnityManagedPath>
-        <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsPath>
       </PropertyGroup>
     </When>
     <When Condition="$([MSBuild]::IsOsPlatform(OSX))">
       <PropertyGroup>
         <OSInstallRoot Condition="'$(OSInstallRoot)'==''">/Applications</OSInstallRoot>
-        <UnityManagedPath Condition="'$(UnityManagedPath)'==''">Unity.app\Contents\Managed</UnityManagedPath>
-        <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Unity.app\Contents\UnityExtensions\Unity</UnityExtensionsPath>
       </PropertyGroup>
     </When>
     <When Condition="$([MSBuild]::IsOsPlatform(Linux))">
       <PropertyGroup>
         <OSInstallRoot Condition="'$(OSInstallRoot)'==''">$([System.Environment]::GetFolderPath('System.Environment+SpecialFolder.UserProfile'))</OSInstallRoot>
-        <UnityManagedPath Condition="'$(UnityManagedPath)'==''">Editor\Data\Managed</UnityManagedPath>
-        <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsPath>
       </PropertyGroup>
     </When>
   </Choose>
+
   <PropertyGroup>
     <UnityInstallRoot Condition="'$(UnityInstallRoot)'==''">$(OSInstallRoot)\Unity\Hub\Editor</UnityInstallRoot>
+    <UnityVersionInstallPath Condition="'$(UnityVersionInstallPath)'==''">$(UnityInstallRoot)\$(UnityVersion)</UnityVersionInstallPath>
+  </PropertyGroup>
+
+  <Choose>
+    <When Condition="$([MSBuild]::IsOsPlatform(Windows))">
+      <PropertyGroup>
+        <UnityManagedPath Condition="'$(UnityManagedPath)'==''">$(UnityVersionInstallPath)\Editor\Data\Managed</UnityManagedPath>
+        <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">$(UnityVersionInstallPath)\Editor\Data\UnityExtensions\Unity</UnityExtensionsPath>
+      </PropertyGroup>
+    </When>
+    <When Condition="$([MSBuild]::IsOsPlatform(OSX))">
+      <PropertyGroup>
+        <UnityManagedPath Condition="'$(UnityManagedPath)'==''">$(UnityVersionInstallPath)\Unity.app\Contents\Managed</UnityManagedPath>
+        <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">$(UnityVersionInstallPath)\Editor\Unity.app\Contents\UnityExtensions\Unity</UnityExtensionsPath>
+      </PropertyGroup>
+    </When>
+    <When Condition="$([MSBuild]::IsOsPlatform(Linux))">
+      <PropertyGroup>
+        <UnityManagedPath Condition="'$(UnityManagedPath)'==''">$(UnityVersionInstallPath)\Editor\Data\Managed</UnityManagedPath>
+        <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">$(UnityVersionInstallPath)\Editor\Data\UnityExtensions\Unity</UnityExtensionsPath>
+      </PropertyGroup>
+    </When>
+  </Choose>
+
+  <PropertyGroup>
     <UnityModulesPath Condition="'$(UnityModulesPath)'==''">$(UnityManagedPath)\UnityEngine</UnityModulesPath>
-    <UnityPlaybackEnginesPath Condition="'$(UnityPlaybackEnginesPath)'==''">Editor\Data\PlaybackEngines</UnityPlaybackEnginesPath>
+    <UnityPlaybackEnginesPath Condition="'$(UnityPlaybackEnginesPath)'==''">$(UnityVersionInstallPath)\Editor\Data\PlaybackEngines</UnityPlaybackEnginesPath>
     <UnityAndroidPlayerPath Condition="'$(UnityAndroidPlayerPath)'==''">$(UnityPlaybackEnginesPath)\AndroidPlayer</UnityAndroidPlayerPath>
     <UnityiOSSupportPath Condition="'$(UnityiOSSupportPath)'==''">$(UnityPlaybackEnginesPath)\iOSSupport</UnityiOSSupportPath>
-    <UnityBuiltInPackagesPath Condition="'$(UnityBuiltInPackagesPath)'==''">Editor\Data\Resources\PackageManager\BuiltInPackages</UnityBuiltInPackagesPath>
+    <UnityBuiltInPackagesPath Condition="'$(UnityBuiltInPackagesPath)'==''">$(UnityVersionInstallPath)\Editor\Data\Resources\PackageManager\BuiltInPackages</UnityBuiltInPackagesPath>
 
-    <UnityPackageCachePath Condition="'$(UnityPackageCachePath)'==''">Library\PackageCache</UnityPackageCachePath>
-    <UnityScriptAssembliesPath Condition="'$(UnityScriptAssembliesPath)'==''">Library\ScriptAssemblies</UnityScriptAssembliesPath>
+    <UnityPackageCachePath Condition="'$(UnityPackageCachePath)'==''">$(UnityProjectPath)\Library\PackageCache</UnityPackageCachePath>
+    <UnityScriptAssembliesPath Condition="'$(UnityScriptAssembliesPath)'==''">$(UnityProjectPath)\Library\ScriptAssemblies</UnityScriptAssembliesPath>
   </PropertyGroup>
 
   <!-- Set relative paths of specific Unity assemblies -->
@@ -57,7 +77,7 @@
 
   <!-- Add default Unity references -->
   <ItemGroup>
-    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)" Private="false" />
+    <Reference Include="$(UnityEnginePath)" Private="false" />
   </ItemGroup>
 
 </Project>
