@@ -17,7 +17,7 @@ bumpVersions() {
         echo "Unity version string cannot be empty."
         read -p "$prompt" newUnityVersion
     done
-    
+
     # Update package version strings to the provided one
     echo ""
     echo "Changing package version strings to '$newPkgVersion' in:"
@@ -46,8 +46,16 @@ bumpVersions() {
     errNum=$?
     if [ $errNum != 0 ]; then return $errNum; fi
 
-    # Update Unity version strings to the provided one    
+    # Update Unity version strings to the provided one
     echo "Changing Unity version strings to '$newUnityVersion' in:"
+
+    findTxt="using Unity .*,"
+    replaceTxt="using Unity $newUnityVersion,"
+
+    echo "    Sample project file description in '$pkgReadmePath'..."
+    sed --expression="s|$findTxt|$replaceTxt|" --in-place "$pkgReadmePath"
+    errNum=$?
+    if [ $errNum != 0 ]; then return $errNum; fi
 
     findTxt="<UnityVersion>"
     replaceTxt="$findTxt$newUnityVersion</UnityVersion>"
