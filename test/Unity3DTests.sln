@@ -36,7 +36,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E365C332-8
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
 		UnityAssetsPath.props = UnityAssetsPath.props
-		UnityVersion.props = UnityVersion.props
+		UnityEditorVersion.props = UnityEditorVersion.props
 	EndProjectSection
 EndProject
 Global

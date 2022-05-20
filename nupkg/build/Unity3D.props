@@ -25,12 +25,30 @@
     </When>
   </Choose>
 
+  <!--
+    Parse editor version from ProjectVersion.txt file in Unity project. Its contents look like this (minus indent):
+        m_EditorVersion: 2021.3.2f1
+        m_EditorVersionWithRevision: 2021.3.2f1 (d6360bedb9a0)
+
+    We first condense this to single "CSV" line, e.g.: m_EditorVersion,2021.3.2f1,m_EditorVersionWithRevision,2021.3.2f1 (d6360bedb9a0)
+    Then pluck out the versions by splitting on comma
+  -->
+  <PropertyGroup Condition="'$(UnityEditorVersion)'=='' And '$(UnityProjectPath)'!=''">
+    <UnityProjectVersionTxt>$([System.IO.File]::ReadAllText(`$(UnityProjectPath)\ProjectSettings\ProjectVersion.txt`))</UnityProjectVersionTxt>
+    <UnityProjectVersionCsv>$([System.Text.RegularExpressions.Regex]::Replace(`$(UnityProjectVersionTxt)`, `\r\n|\r|\n|: `, `,`))</UnityProjectVersionCsv>
+    <UnityEditorVersion>$(UnityProjectVersionCsv.Split(`,`)[1].Trim())</UnityEditorVersion>
+    <UnityEditorVersionWithRevision>$(UnityProjectVersionCsv.Split(`,`)[3].Trim())</UnityEditorVersionWithRevision>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityEditorVersion)'=='' And '$(UnityProjectPath)'==''">
+    <UnityEditorVersion>SET_VERSION_OR_PROJECT</UnityEditorVersion>
+  </PropertyGroup>
+
   <!-- Set default Unity absolte/relative folder paths -->
   <PropertyGroup>
     <UnityInstallRootDir Condition="'$(UnityInstallRootDir)'==''">Unity\Hub\Editor</UnityInstallRootDir>
     <UnityInstallRoot Condition="'$(UnityInstallRoot)'==''">$(OSInstallRoot)\$(UnityInstallRootDir)</UnityInstallRoot>
 
-    <UnityVersionInstallPath Condition="'$(UnityVersionInstallPath)'==''">$(UnityInstallRoot)\$(UnityVersion)</UnityVersionInstallPath>
+    <UnityVersionInstallPath Condition="'$(UnityVersionInstallPath)'==''">$(UnityInstallRoot)\$(UnityEditorVersion)</UnityVersionInstallPath>
     <UnityManagedPath Condition="'$(UnityManagedPath)'==''">$(UnityVersionInstallPath)\$(UnityManagedDir)</UnityManagedPath>
     <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">$(UnityVersionInstallPath)\$(UnityExtensionsDir)</UnityExtensionsPath>
 
