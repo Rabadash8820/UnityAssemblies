@@ -6,6 +6,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAllRefs", "TestAllRefs\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nupkg", "nupkg", "{CE043F66-AFE3-43C6-8D52-E3059B8B2CDB}"
 	ProjectSection(SolutionItems) = preProject
+		..\nupkg\icon.png = ..\nupkg\icon.png
 		..\nupkg\readme.txt = ..\nupkg\readme.txt
 		..\nupkg\Unity3D.nuspec = ..\nupkg\Unity3D.nuspec
 	EndProjectSection
