@@ -13,10 +13,9 @@
     <readme>README.md</readme>
     <releaseNotes>
       - Unity version can now be parsed automatically from the ProjectVersion.txt file in a Unity project, if not set explicitly.
-      - UnityVersion property has been renamed to UnityEditorVersion
       - Added many new short-hand properties, with better naming (relative paths end in "Dir" or "Assembly", absolute paths end in "Path")
-      - Reference Include paths no longer need to start with $(UnityInstallRoot)/$(UnityEditorVersion). Most paths will now use a single short-hand property
-      - If neither UnityEditorVersion nor UnityProjectPath are explicitly set, then UnityEditorVersion is set to a constant string to explain the issue
+      - Reference Include paths no longer need to start with $(UnityInstallRoot)/$(UnityVersion). Most paths will now use a single short-hand property
+      - If neither UnityVersion nor UnityProjectPath are explicitly set, then UnityVersion is set to a constant string to explain the issue
     </releaseNotes>
     <copyright>Copyright ©2019-2022 Derploid Entertainment, LLC</copyright>
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>

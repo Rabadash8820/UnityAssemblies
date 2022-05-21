@@ -37,7 +37,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E365C332-8
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
 		UnityAssetsPath.props = UnityAssetsPath.props
-		UnityEditorVersion.props = UnityEditorVersion.props
+		UnityVersion.props = UnityVersion.props
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMinimalExplicit", "TestMinimalExplicit\TestMinimalExplicit.csproj", "{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}"
