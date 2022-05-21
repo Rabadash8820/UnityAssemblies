@@ -1,9 +1,18 @@
 #!/bin/bash
 
+verifyReleaseNotes() {
+    echo ""
+    echo "Verify that the <releaseNotes/> element of nuspec is up-to-date"
+    echo ""
+    read -p "Press [Enter] when you're done..."
+}
+
 bumpVersions() {
+    echo ""
+
     # Get new version strings from user
     newPkgVersion=
-    prompt="Enter the new version (such as '1.0.0-rc1'): "
+    prompt="Enter the new package version (such as '1.0.0-rc1'): "
     read -p "$prompt" newPkgVersion
     while [ -z "$newPkgVersion" ] ; do
         echo "Package version string cannot be empty."
@@ -17,63 +26,80 @@ bumpVersions() {
         echo "Unity version string cannot be empty."
         read -p "$prompt" newUnityVersion
     done
-    
+
     # Update package version strings to the provided one
     echo ""
     echo "Changing package version strings to '$newPkgVersion' in:"
 
-    findTxt="PackageReference Include=\"Unity3D\""
-    replaceTxt="$findTxt Version=\"$newPkgVersion\" />"
+    findRegex="PackageReference Include=\"Unity3D\""
+    replaceTxt="$findRegex Version=\"$newPkgVersion\" />"
 
     pkgReadmePath=$cwd/nupkg/readme.txt
     echo "    Sample project file in '$pkgReadmePath'..."
-    sed --expression="s|$findTxt.*|$replaceTxt|" --in-place "$pkgReadmePath"
+    sed --expression="s|$findRegex.*|$replaceTxt|" --in-place "$pkgReadmePath"
     errNum=$?
     if [ $errNum != 0 ]; then return $errNum; fi
 
     mainReadmePath=$cwd/README.md
     echo "    Sample project file at top of '$mainReadmePath'..."
-    sed --expression="s|$findTxt.*|$replaceTxt|" --in-place "$mainReadmePath"
+    sed --expression="s|$findRegex.*|$replaceTxt|" --in-place "$mainReadmePath"
     errNum=$?
     if [ $errNum != 0 ]; then return $errNum; fi
 
-    findTxt="<version>"
-    replaceTxt="$findTxt$newPkgVersion</version>"
+    findRegex="<version>"
+    replaceTxt="$findRegex$newPkgVersion</version>"
 
     nuspecPath=$cwd/nupkg/Unity3D.nuspec
     echo "    Nuspec at '$nuspecPath'..."
-    sed --expression="s|$findTxt.*|$replaceTxt|" --in-place "$nuspecPath"
+    sed --expression="s|$findRegex.*|$replaceTxt|" --in-place "$nuspecPath"
     errNum=$?
     if [ $errNum != 0 ]; then return $errNum; fi
 
-    # Update Unity version strings to the provided one    
+    # Update Unity version strings to the provided one
     echo "Changing Unity version strings to '$newUnityVersion' in:"
 
-    findTxt="<UnityVersion>"
-    replaceTxt="$findTxt$newUnityVersion</UnityVersion>"
+    findRegex="using Unity .*,"
+    replaceTxt="using Unity $newUnityVersion,"
+
+    echo "    Sample project file description in '$pkgReadmePath'..."
+    sed --expression="s|$findRegex|$replaceTxt|" --in-place "$pkgReadmePath"
+    errNum=$?
+    if [ $errNum != 0 ]; then return $errNum; fi
+
+    findRegex="<UnityVersion>"
+    replaceTxt="$findRegex$newUnityVersion</UnityVersion>"
 
     echo "    Sample project file in '$pkgReadmePath'..."
-    sed --expression="s|$findTxt.*|$replaceTxt|" --in-place "$pkgReadmePath"
+    sed --expression="s|$findRegex.*|$replaceTxt|" --in-place "$pkgReadmePath"
     errNum=$?
     if [ $errNum != 0 ]; then return $errNum; fi
 
     mainReadmePath=$cwd/README.md
     echo "    Sample project files in '$mainReadmePath'..."
-    sed --expression="s|$findTxt.*|$replaceTxt|" --in-place "$mainReadmePath"
+    sed --expression="s|$findRegex.*|$replaceTxt|" --in-place "$mainReadmePath"
     errNum=$?
     if [ $errNum != 0 ]; then return $errNum; fi
-
-    echo ""
-    echo "Commit the version string changes that we just made"
-    echo ""
-    read -p "Press [Enter] when you're done..."
 }
 
-verifyReleaseNotes() {
+bumpCurrentYear() {
+    defaultCopyrightStartYear=2019
     echo ""
-    echo "Verify that the <releaseNotes/> element of nuspec is up-to-date"
+    read -p "Enter the 'start year' of the copyright for this package (or hit [ENTER] to use '$defaultCopyrightStartYear'): " copyrightStartYear
+    if [ -z "$copyrightStartYear" ]; then copyrightStartYear=$defaultCopyrightStartYear; fi
+
+    currentYear=$(date +'%Y')
+
     echo ""
-    read -p "Press [Enter] when you're done..."
+    echo "Updating current year to '$currentYear' in:"
+
+    findRegex="[0-9]{4}-[0-9]{4}"
+    replaceTxt="$copyrightStartYear-$currentYear"
+
+    nuspecPath=$cwd/nupkg/Unity3D.nuspec
+    echo "    Nuspec at '$nuspecPath'..."
+    sed --regexp-extended --expression="s|$findRegex|$replaceTxt|" --in-place "$nuspecPath"
+    errNum=$?
+    if [ $errNum != 0 ]; then return $errNum; fi
 }
 
 checkForNuGet() {
@@ -160,7 +186,12 @@ main() {
     cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
     # Make sure user has updated package info
-    bumpVersions && verifyReleaseNotes
+    verifyReleaseNotes && bumpVersions && bumpCurrentYear
+
+    echo ""
+    echo "Commit the changes to version/year that this script just made"
+    echo ""
+    read -p "Press [Enter] when you're done..."
 
     # Get the path to nuget.exe
     checkForNuGet

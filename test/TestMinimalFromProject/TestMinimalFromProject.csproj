@@ -1,0 +1,4 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <Import Project="..\UnityAssetsPath.props" />
+  <Import Project= "..\..\nupkg\build\Unity3D.props"/>
+</Project>

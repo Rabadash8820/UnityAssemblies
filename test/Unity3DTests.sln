@@ -6,6 +6,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestAllRefs", "TestAllRefs\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nupkg", "nupkg", "{CE043F66-AFE3-43C6-8D52-E3059B8B2CDB}"
 	ProjectSection(SolutionItems) = preProject
+		..\nupkg\icon.png = ..\nupkg\icon.png
 		..\nupkg\readme.txt = ..\nupkg\readme.txt
 		..\nupkg\Unity3D.nuspec = ..\nupkg\Unity3D.nuspec
 	EndProjectSection
@@ -20,7 +21,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "buildMultiTargeting", "buil
 		..\nupkg\buildMultiTargeting\Unity3D.props = ..\nupkg\buildMultiTargeting\Unity3D.props
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMinimal", "TestMinimal\TestMinimal.csproj", "{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMinimalFromProject", "TestMinimalFromProject\TestMinimalFromProject.csproj", "{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{157D3502-954C-4200-81B5-4A381B9F4C80}"
 	ProjectSection(SolutionItems) = preProject
@@ -38,6 +39,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E365C332-8
 		UnityAssetsPath.props = UnityAssetsPath.props
 		UnityVersion.props = UnityVersion.props
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMinimalExplicit", "TestMinimalExplicit\TestMinimalExplicit.csproj", "{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -93,6 +96,26 @@ Global
 		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.Standard21_2021_2|Any CPU.Build.0 = Standard21_2021_2|Any CPU
 		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.Standard21_2021_3|Any CPU.ActiveCfg = Standard21_2021_3|Any CPU
 		{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}.Standard21_2021_3|Any CPU.Build.0 = Standard21_2021_3|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Net472_2020_3|Any CPU.ActiveCfg = Net472_2020_3|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Net472_2020_3|Any CPU.Build.0 = Net472_2020_3|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Net472_2021_1|Any CPU.ActiveCfg = Net472_2021_1|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Net472_2021_1|Any CPU.Build.0 = Net472_2021_1|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Net472_2021_2|Any CPU.ActiveCfg = Net472_2021_2|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Net472_2021_2|Any CPU.Build.0 = Net472_2021_2|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Net472_2021_3|Any CPU.ActiveCfg = Net472_2021_3|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Net472_2021_3|Any CPU.Build.0 = Net472_2021_3|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Net48_2021_2|Any CPU.ActiveCfg = Net48_2021_2|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Net48_2021_2|Any CPU.Build.0 = Net48_2021_2|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Net48_2021_3|Any CPU.ActiveCfg = Net48_2021_3|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Net48_2021_3|Any CPU.Build.0 = Net48_2021_3|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Standard20_2020_3|Any CPU.ActiveCfg = Standard20_2020_3|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Standard20_2020_3|Any CPU.Build.0 = Standard20_2020_3|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Standard20_2021_1|Any CPU.ActiveCfg = Standard20_2021_1|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Standard20_2021_1|Any CPU.Build.0 = Standard20_2021_1|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Standard21_2021_2|Any CPU.ActiveCfg = Standard21_2021_2|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Standard21_2021_2|Any CPU.Build.0 = Standard21_2021_2|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Standard21_2021_3|Any CPU.ActiveCfg = Standard21_2021_3|Any CPU
+		{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}.Standard21_2021_3|Any CPU.Build.0 = Standard21_2021_3|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

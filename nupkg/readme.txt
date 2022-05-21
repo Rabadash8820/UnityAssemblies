@@ -20,16 +20,23 @@
 
 Thank you for installing the Unity3D NuGet package!
 
-Example .csproj file (using Unity 2021.2.2f1, targeting .NET Standard 2.1 profile):
+To use this package, define a Directory.Build.props file in the same folder as your .csproj file (or any of its parent folders),
+replacing the Unity version with your version:
+
+    <Project>
+        <UnityVersion>2022.1.1f1</UnityVersion>
+    </Project
+
+Then, make sure your .csproj file looks something like this:
 
     <Project Sdk="Microsoft.NET.Sdk">
         <PropertyGroup>
             <TargetFramework>netstandard2.1</TargetFramework>
-            <UnityVersion>2021.2.2f1</UnityVersion>
         </PropertyGroup>
         <ItemGroup>
-            <PackageReference Include="Unity3D" Version="1.7.0" />
+            <PackageReference Include="Unity3D" Version="2.0.0-rc1" />
         </ItemGroup>
+        <!-- Other properties/items -->
     </Project>
 
 For complete documentation, see our README on GitHub: https://github.com/DerploidEntertainment/UnityAssemblies/blob/master/README.md

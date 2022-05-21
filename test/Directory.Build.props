@@ -1,7 +1,5 @@
 <Project>
 
-  <Import Project= "..\nupkg\build\Unity3D.props"/>
-
   <PropertyGroup>
     <Configurations>
       Standard21_2021_3;Net472_2021_3;Net48_2021_3;
