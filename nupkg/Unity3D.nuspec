@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
   <metadata minClientVersion="2.5">
     <id>Unity3D</id>
-    <version>1.7.0</version>
+    <version>2.0.0-rc1</version>
     <title>Unity</title>
     <authors>Unity Technologies</authors>
     <icon>icon.png</icon>

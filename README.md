@@ -34,14 +34,24 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
 ## Basic Usage
 
 ```xml
+<!-- Directory.Build.props -->
+<Project>
+    <PropertyGroup>
+        <UnityVersion>2022.1.1f1</UnityVersion>
+    </PropertyGroup>
+</Project>
+```
+
+```xml
+<!-- Your .csproj file -->
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
-        <UnityVersion>2021.2.2f1</UnityVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Unity3D" Version="1.7.0" />
+        <PackageReference Include="Unity3D" Version="2.0.0-rc1" />
     </ItemGroup>
+    <!-- Other properties/items -->
 </Project>
 ```
 
