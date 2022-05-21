@@ -3,13 +3,14 @@
   <metadata minClientVersion="2.5">
     <id>Unity3D</id>
     <version>1.7.0</version>
+    <title>Unity</title>
     <authors>Unity Technologies</authors>
-    <owners>DerploidEntertainment</owners>
     <icon>icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/DerploidEntertainment/UnityAssemblies</projectUrl>
     <description>Simple, forward-compatible references to ANY Unity assembly on ANY platform.</description>
+    <readme>README.md</readme>
     <releaseNotes>
       - Unity version can now be parsed automatically from the ProjectVersion.txt file in a Unity project, if not set explicitly.
       - UnityVersion property has been renamed to UnityEditorVersion
@@ -17,8 +18,12 @@
       - Reference Include paths no longer need to start with $(UnityInstallRoot)/$(UnityEditorVersion). Most paths will now use a single short-hand property
       - If neither UnityEditorVersion nor UnityProjectPath are explicitly set, then UnityEditorVersion is set to a constant string to explain the issue
     </releaseNotes>
-    <copyright>Copyright ©2019-2021 Derploid Entertainment, LLC</copyright>
+    <copyright>Copyright ©2019-2022 Derploid Entertainment, LLC</copyright>
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>
     <repository type="git" url="https://github.com/DerploidEntertainment/UnityAssemblies.git" />
   </metadata>
+  <files>
+    <file src="..\README.md" target="" />
+    <file src=".\**\*.*" target="" />
+  </files>
 </package>
