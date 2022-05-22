@@ -10,7 +10,6 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/DerploidEntertainment/UnityAssemblies</projectUrl>
     <description>Simple, forward-compatible references to ANY Unity assembly on ANY platform.</description>
-    <readme>README.md</readme>
     <releaseNotes>
       - Unity version can now be parsed automatically from the ProjectVersion.txt file in a Unity project, if not set explicitly.
       - Added many new short-hand properties, with better naming (relative paths end in "Dir" or "Assembly", absolute paths end in "Path")
@@ -22,8 +21,4 @@
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>
     <repository type="git" url="https://github.com/DerploidEntertainment/UnityAssemblies.git" />
   </metadata>
-  <files>
-    <file src="..\README.md" target="" />
-    <file src=".\**\*.*" target="" />
-  </files>
 </package>
