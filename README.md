@@ -19,34 +19,48 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
 - [Basic Usage](#basic-usage)
 - [Why Another NuGet Package for Unity?](#why-another-nuget-package-for-unity)
 - [Usage](#usage)
-  - [Editing the project file](#editing-the-project-file)
+  - [Editing the project files](#editing-the-project-file)
   - [Choosing a `TargetFramework`](#choosing-a-targetframework)
   - [Referencing additional Unity assemblies](#referencing-additional-unity-assemblies)
   - [Referencing assemblies stored in a Unity project](#referencing-assemblies-stored-in-a-unity-project)
   - [Referencing assemblies at non-default install locations](#referencing-assemblies-at-non-default-install-locations)
   - [Removing the default reference to UnityEngine.dll](#removing-the-default-reference-to-unityengine.dll)
   - [Referencing the Unity core modules](#referencing-the-unity-core-modules)
-- [Available Short-Hand Assembly Properties](#available-short-hand-assembly-properties)
+- [Available Short-Hand Properties](#available-short-hand-properties)
+  - [Versions 2.x](#versions-2x-properties)
+  - [Versions 1.x](#versions-1x-properties)
 - [FAQ](#faq)
 - [Contributing](#contributing)
 - [License](#license)
 
 ## Basic Usage
 
+[Install this package](https://docs.microsoft.com/en-us/nuget/consume-packages/overview-and-workflow#ways-to-install-a-nuget-package)
+then follow the steps below for the version you installed. Replace `UnityVersion` with your installed Unity Editor version.
+
+### Version 2.x
+
+Add a `Directory.Build.props` file in the same folder as your .csproj file (or any of its parent folders), with content like the following:
+
 ```xml
-<!-- Directory.Build.props -->
 <Project>
     <PropertyGroup>
+        <UnityProjectPath>/path/to/UnityProject</UnityProjectPath>
+        <!-- Or -->
         <UnityVersion>2022.1.1f1</UnityVersion>
     </PropertyGroup>
 </Project>
 ```
 
+### Version 1.x
+
+Add a `<UnityVersion>` property to your project file, so it looks something like:
+
 ```xml
-<!-- Your .csproj file -->
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
         <TargetFramework>netstandard2.1</TargetFramework>
+        <UnityVersion>2022.1.1f1</UnityVersion>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="Unity3D" Version="2.0.0-rc1" />
@@ -57,39 +71,93 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
 
 ## Why Another NuGet Package for Unity?
 
-Yes, it's true, there are a number of good NuGet packages for Unity already available on [nuget.org](https://www.nuget.org/packages?q=unity3d). Unfortunately, most of these packages are no longer being updated and have a number of issues. Almost all of them fall into one of two categories:
+It's true, there are a number of good NuGet packages for Unity [already available on nuget.org](https://www.nuget.org/packages?q=unity3d).
+Unfortunately, most of these packages are no longer being updated and have a number of issues. Almost all of them fall into one of two categories:
 
-1. **Containing the actual Unity binaries within the package.** These packages include [Unity3D.SDK](https://www.nuget.org/packages/Unity3D.SDK/) by amelkor, [UnityEngine](https://www.nuget.org/packages/UnityEngine/) by Leanwork, [Unity3D.UnityEngine](https://www.nuget.org/packages/Unity3D.UnityEngine/) and [Unity3D.UnityEngine.UI](https://www.nuget.org/packages/Unity3D.UnityEngine.UI) by Dzmitry Lahoda, and [UnityEngine5](https://www.nuget.org/packages/UnityEngine5/) by Taiyoung Jang. The problem with these packages (aside from the questionable legality of re-distributing Unity Technologies' binaries), is that a new version of the package must be pushed for each new version of Unity. When these packages stop being updated (which has happened in almost every case), then they are no longer useful because they don't allow you to program against the latest Unity APIs. Most of them do not have versions for Unity 2019.1+, and/or do not support the modern .NET Standard profiles.
-2. **Containing some kind of script that adds references to assemblies from a particular installed version of Unity.** The main package in this category is [Unity3D.DLLs](https://www.nuget.org/packages/Unity3D.DLLs/) by Precision Mojo, LLC. This package uses a PowerShell script to add references to the latest version of Unity installed on a user's machine. This is powerful, as it theoretically makes the package forward-compatible with all versions of Unity yet to come. Unfortunately, this package has not been updated since 2013, meaning that many of the NuGet/PowerShell conventions that it relied upon are no longer supported in the newest versions of Visual Studio. Even when the package was current, it located the Unity assemblies in a brittle and complex (though clever) manner that does not support the newer Unity Hub install locations, assumed that there was only one Unity installation per machine, and, more importantly, only worked on Windows (using the Windows registry).
+1. **Containing the actual Unity binaries within the package.** These packages include:
+    - [Unity3D.SDK](https://www.nuget.org/packages/Unity3D.SDK/) by amelkor
+    - [UnityEngine](https://www.nuget.org/packages/UnityEngine/) by Leanwork
+    - [Unity3D.UnityEngine](https://www.nuget.org/packages/Unity3D.UnityEngine/)
+    - [Unity3D.UnityEngine.UI](https://www.nuget.org/packages/Unity3D.UnityEngine.UI) by Dzmitry Lahoda
+    - [UnityEngine5](https://www.nuget.org/packages/UnityEngine5/) by Taiyoung Jang.
 
-Moreover, only Dzmitry Lahoda's packages seem to recognize the need for _other_ Unity assemblies besides just `UnityEngine`. As more advanced Unity users will know, `UnityEngine.dll` doesn't contain everything. Editor scripts also require a reference to `UnityEditor.dll`; UI types like `Text` and `Button` require a reference to `UnityEngine.UI.dll`; assemblies from Asset Store assets are stored in the project folder under `Assets/`; and more and more types from `UnityEngine.dll` are being split into other assemblies as Unity continues to break up editor features into Packages.
+    The problem with these packages (aside from the questionable legality of re-distributing Unity Technologies' binaries),
+    is that a new version of the package must be pushed for each new version of Unity.
+    When these packages stop being updated (which has happened in almost every case),
+    then they are no longer useful because they don't allow you to program against the latest Unity APIs.
+    Most of them do not have versions for Unity 2019.1+, and/or do not support the modern .NET Standard profiles.
+2. **Containing some kind of script that adds references to assemblies from a particular installed version of Unity.**
+    The main package in this category is [Unity3D.DLLs](https://www.nuget.org/packages/Unity3D.DLLs/) by Precision Mojo, LLC.
+    This package uses a PowerShell script to add references to the latest version of Unity installed on a user's machine.
+    which is powerful, as it theoretically makes the package forward-compatible with all versions of Unity yet to come.
+    Unfortunately, this package has not been updated since 2013, meaning that many of the NuGet/PowerShell conventions that it relied upon are no longer supported in the newest versions of Visual Studio.
+    Even when the package was current, it located the Unity assemblies in a clever but brittle manner that does not support the newer Unity Hub install locations,
+    assumed that there was only one Unity installation per machine, and, more importantly, only worked on Windows (using the Windows registry).
 
-Thus, here at Derploid Entertainment, we created the `Unity3D` package with the following goals:
+Moreover, only Dzmitry Lahoda's packages seem to recognize the need for _other_ Unity assemblies besides just `UnityEngine`.
+As more advanced Unity users will know, `UnityEngine.dll` doesn't contain everything.
+Editor scripts also require a reference to `UnityEditor.dll`,
+UI types like `Text` and `Button` require a reference to `UnityEngine.UI.dll`,
+assemblies from Asset Store assets are stored in the project folder under `Assets/`,
+and many types were split from the Unity assemblies as Unity broke up editor features into Packages.
 
-- Add the Unity assembly references programmatically, so that the package is forward-compatible
-- Use standard MSBuild tooling to add the references, rather than clunky scripts written in another language that may not be supported by future versions of Visual Studio
-- Easily reference additional Unity assemblies by adding simple `Reference` items to the project file, rather than finding and calling some obscure script
-- All references must work cross-platform (on Windows/MacOS/Linux)
-- Configuration should be minimal: just a Unity version, a project path for assemblies stored in the Unity project, and an optional install location for non-default cases.
+Thus, the `Unity3D` package was designed with the following goals:
+
+- Add Unity assembly references programmatically, so that the package is forward-compatible
+- Add references via standard MSBuild tooling, rather than clunky scripts in unfamiliar or unsupported programming languages
+- Allow devs to reference additional Unity assemblies with simple `Reference` items in the project file, rather than by calling some obscure script
+- Provide short-hand MSBuild properties for the most common Unity assemblies, with paths that resolve on all dev platforms (Windows/MacOS/Linux)
+- Require minimal configuration: just a Unity version or Unity project path, and an optional install path for non-default setups
 
 ## Usage
 
 **Don't freak out!** The [basic usage](#basic-usage) example above will satisfy the large majority of use cases. The usage options below are for more advanced setups.
 
-### Editing the project file
-
-As shown in the basic example above, our package only requires a `UnityVersion` property to be up and running. `UnityVersion` must be a complete version string, in the format used by Unity Hub (the values boxed in red in the screenshot below).
+As shown in the basic example above, this package only requires a `UnityVersion` or `UnityProjectPath` (new in v2) property to be up and running.
+`UnityVersion` must be a complete version string, in the format used by Unity Hub (the values boxed in red in the screenshot below).
 
 ![Unity version strings highlighted in the Unity Hub interface](./images/unity-versions.png)
+
+In versions 1.x, this property should be added to your .csproj file. In versions 2.x, it _must_ be added to a `Directory.Build.props` file.
+See the next section for instructions.
+
+If you're working with a specific Unity project, we recommend setting `UnityProjectPath` rather than `UnityVersion`.
+Unity3D will then look up the project's Unity version from its `ProjectSettings/ProjectVersion.txt` file.
+That way, when you update the project to a new Unity version, your assembly references will stay up-to-date as well.
+`UnityProjectPath` must be the path (absolute or relative to the `Directory.Build.props` file) to a Unity project folder, not the `Assets/` subfolder.
+Try to define the path relative to `Directory.Build.props` so that it resolves across platforms
+(this works well when your MSBuild/Visual Studio project and Unity project are in the same repository).
+
+If both `UnityVersion` and `UnityProjectPath` are provided, then the explicit version will take precedence.
+If you do not set `UnityVersion` _or_ `UnityProjectPath`, then `UnityVersion` will default to `SET_VERSION_OR_PROJECT`.
+If you see this text in the paths of assembly references in your IDE, then you know that those properties are missing or inaccessible to Unity3D.
+Make sure that one of these properties is defined in `Directory.Build.props` for versions 2.x, and _not_ in your .csproj file.
+
+### Editing the project files
 
 To edit a project file in Visual Studio:
 
 - **When targeting .NET Standard (recommended):** just double-click on the project in the Solution Explorer
-- **When targeting .NET 4.x:** right click on the project in the Solution Explorer, click `Unload project`, then right click again to select `Edit <YourProject>.csproj`. When you're done editing the file, right click on the project again and select `Reload project`. Having to unload the project to edit it can be cumbersome, so check out this excellent [article by Scott Hanselman](https://www.hanselman.com/blog/UpgradingAnExistingNETProjectFilesToTheLeanNewCSPROJFormatFromNETCore.aspx) for instructions on migrating to the newer, leaner SDK syntax that .NET Standard uses.
+- **When targeting .NET 4.x:** right click on the project in the Solution Explorer, click `Unload project`, then right click again to select `Edit <YourProject>.csproj`. When you're done editing the file, right click on the project again and select `Reload project`. Having to unload the project before editing can be cumbersome, so check out this excellent [article by Scott Hanselman](https://www.hanselman.com/blog/UpgradingAnExistingNETProjectFilesToTheLeanNewCSPROJFormatFromNETCore.aspx) for instructions on migrating to the newer, leaner SDK syntax of .NET Standard.
+
+To add a `Directory.Build.props` file for version 2.x, simply create a text file and rename it.
+`.props` files are special files that .NET projects (specifically, MSBuild projects) can use to set additional build properties.
+`Directory.Build.props`, in particular, is a [standard `.props` file](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2022#directorybuildprops-and-directorybuildtargets) that MSBuild will import _before_ importing other NuGet packages.
+You must set `UnityVersion` or `UnityProjectPath` in `Directroy.Build.props` because that will make them available to Unity3D,
+which it will use to define a [bunch of properties of its own](#available-short-hand-properties) for the various Unity assembly paths.
+
+You can create the `Directory.Build.props` file in the same folder as your .csproj, or any of its parent folders.
+[MSBuild walks](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2022#search-scope) the directory structure upwards from your project location,
+stopping once it locates a `Directory.Build.props` file.
+
+**Warning:** You cannot use any of Unity3D's [available short-hand properties](available-short-hand-properties) in the `Directory.Build.props` file,
+as they are not in scope at that point. See the [MSBuild import order](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build#import-order) for more info.
 
 ### Choosing a `TargetFramework`
 
-For new projects, you should use the modern "SDK-style" .csproj files, which have a root `<Project Sdk="...">` element rather than `<Project ToolsVersion="...">`. This style yields smaller, more readable project files, and simplifies portability with projects built against other .NET runtimes. You should then use one of the following .NET Standard `TargetFramework`s:
+For new projects, you should use the modern "SDK-style" .csproj files, which have a root `<Project Sdk="...">` element rather than `<Project ToolsVersion="...">`.
+This style yields smaller, more readable project files, and simplifies portability with projects built against other .NET runtimes.
+You should then use one of the following .NET Standard `TargetFramework`s:
 
 - For Unity 2021.2+, use `netstandard2.1`
 - For Unity 2021.1 and below, use `netstandard2.0`
@@ -102,36 +170,65 @@ If, however, you are working with an existing, older project, then you may be fo
 
 If you don't, you will see errors like:
 
-> The primary reference ... could not be resolved because it has an indirect dependency on the assembly ... which was built against the ".NETFramework,Version=v4.[x]" framework. This is a higher version than the currently targeted framework ".NETFramework,Version=v4.[y]".
+> The primary reference ... could not be resolved because it has an indirect dependency on the assembly ...
+which was built against the ".NETFramework,Version=v4.[x]" framework.
+This is a higher version than the currently targeted framework ".NETFramework,Version=v4.[y]".
 
 ### Referencing additional Unity assemblies
 
-By default, we only add a reference to `UnityEngine.dll`, but there are several other Unity assemblies that you might need to reference for your project. These include, but are certainly not limited to, `UnityEditor.dll` for writing custom editors, or `UnityEngine.UI.dll` for referencing UI types like `Text` and `Button`. To reference these assemblies, add `Reference` items to your `.csproj`, like so:
+By default, this package only adds a reference to `UnityEngine.dll`. However, there are several other Unity assemblies that your project might need to reference.
+These include `UnityEditor.dll` for writing custom editors, or `UnityEngine.UI.dll` for referencing UI types like `Text` and `Button`.
+To reference these assemblies, add `Reference` items to your `.csproj`, like so:
+
+```xml
+<ItemGroup>
+    <Reference Include="$(UnityEditorPath)" Private="false" />  <!-- Versions 2.x -->
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEditorPath)" Private="false" />  <!-- Versions 1.x -->
+</ItemGroup>
+```
+
+Note the use of the `*Path` MSBuild properties.
+These properties spare you from remembering the default Unity install path or the relative paths to any Unity assemblies,
+and they also make the references work across platforms (Windows/MacOS/Linux).
+See below for a [list of short-hand properties](#available-short-hand-properties) that we provide.
+
+Also note the use of [`Private="false"`](https://docs.microsoft.com/en-us/visualstudio/msbuild/common-msbuild-project-items#reference).
+This basically means "don't copy the referenced assembly to the output folder".
+This is recommended, so that Unity assemblies aren't being copied around unnecessarily, since they're automatically linked with managed plugins inside the Unity Editor.
+
+If you want to reference a Unity assembly for which there is no short-hand property, you can just hard-code the path into a `Reference` item yourself.
+If it is one of Unity's built-in assemblies, then we recommend starting the path with `$(UnityInstallRoot)\$(UnityVersion)\`,
+so that it resolves across platforms, and so that your Unity version is defined in one place.
+If it is an assembly under your `UnityProjectPath` then see the next section.
+
+### Referencing assemblies stored in a Unity project
+
+You may need to reference assemblies stored in a Unity project folder (i.e., under `Assets/` or `Library/`).
+This is especially common when your code and Unity project are stored in the same repository,
+and you want to reference assemblies from Asset Store assets or Packages that you've installed.
+In these cases, the path in your `Reference` items should be relative paths, so that they resolve across platforms.
+We recommend defining an MSBuild property called `$(UnityProjectPath)` to store this relative path, so that you can use it as a short-hand for multiple `Reference`s.
+Moreover, we provide a [couple short-hand properties](#available-short-hand-properties) for common assembly paths under the project root.
+For example, if you want to raise Standard Events with the [Analytics package](https://docs.unity3d.com/Manual/com.unity.analytics.html)
+and use the [Addressables](https://docs.unity3d.com/Manual/com.unity.addressables.html) workflow, then your `.csproj` would look something like:
+
+In versions 2.x (`UnityProjectPath` defined in `Directory.Build.props`):
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
-    <!-- Same as above... -->
     <ItemGroup>
-        <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEditorPath)" Private="false" />
-        <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEngineUIPath)" Private="false" />
+        <Reference Include="$(UnityAnalyticsStandardEventsPath)" Private="false" />
+        <Reference Include="$(UnityScriptAssembliesPath)\Unity.Addressables.dll" Private="false" />
     </ItemGroup>
 </Project>
 ```
 
-Note the use of the `UnityInstallRoot`, `UnityVersion`, and `*Path` MSBuild properties. These properties spare you from having to remember the default Unity install path or the relative paths for any Unity assemblies, and they also let the references work across platforms (Windows/MacOS/Linux). See below for a [list of short-hand assembly properties](#available-short-hand-assembly-properties) that we provide.
-
-Also note the use of [`Private="false"`](https://docs.microsoft.com/en-us/visualstudio/msbuild/common-msbuild-project-items#reference). This basically means "don't copy the referenced assembly to the output folder". This is recommended, so that Unity assemblies aren't being copied around unnecessarily, since they're automatically linked with managed plugins inside Unity.
-
-If you want to reference a Unity assembly for which there is no short-hand property, you can just hard-code the path into the `Reference` item yourself. We always recommend starting with the `$(UnityInstallRoot)\$(UnityVersion)\` properties though, as they let your project files build cross-platform, and let you edit your Unity version string in one place.
-
-### Referencing assemblies stored in a Unity project
-
-You may need to reference assemblies stored in a Unity project folder (i.e., under `Assets/` or `Library/`). This is especially common when your code and Unity project are stored in the same repository, and you want to reference assemblies in Asset Store assets or Packages that you've installed. In these cases, the path in your `Reference` items should be relative paths, so that they stay cross-platform. We recommend defining an MSBuild property called `$(UnityProjectPath)` to store this relative path, so that you can use it as a short-hand for multiple `Reference`s. Moreover, we provide a couple short-hand properties for common assembly locations under the project root. For example, if you want to raise Standard Events with the [Analytics package](https://docs.unity3d.com/Manual/com.unity.analytics.html) and use the  [Addressables](https://docs.unity3d.com/Manual/com.unity.addressables.html) workflow, then your `.csproj` would look something like:
+In versions 1.x:
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
     <PropertyGroup>
-        <!-- Same as above... -->
+        <!-- Other properties... -->
         <UnityProjectPath>/relative/path/to/unity/project</UnityProjectPath>
     </PropertyGroup>
     <ItemGroup>
@@ -141,72 +238,131 @@ You may need to reference assemblies stored in a Unity project folder (i.e., und
 </Project>
 ```
 
-Make sure the project has been opened in Unity recently, so that the `Library/` folder actually contains the necessary assemblies!
+**Note: the Unity project must have been built recently, so that the `Library/` folder actually contains the imported assemblies!**
 
-Also note that, while we do provide short-hand properties for a couple assemblies under the `PackageCache` folder (see [full list](#available-short-hand-assembly-properties) below), we do *not* provide short-hand properties for assemblies stored in the `ScriptAssemblies` folder. That folder is completely flat, so you can just reference assemblies there by filename.
+Also note that, while we do provide short-hand properties for a couple assemblies under the `PackageCache` folder (see the [full list](#available-short-hand-properties)),
+we do _not_ provide short-hand properties for assemblies stored in the `ScriptAssemblies` folder.
+That folder is completely flat, so you can just reference assemblies there by filename.
 
 ### Referencing assemblies at non-default install locations
 
-Because Unity Hub is the tool [recommended by Unity Technologies](https://docs.unity3d.com/Manual/GettingStartedInstallingUnity.html) for installing Unity, we check for Unity assemblies within the Hub's default install locations (using the `UnityInstallRoot` property). If you are not using Unity Hub, or you are using a non-default install location, just set `UnityInstallRoot` to a different path. For example, if you were using a Windows machine and your Unity version was installed without the Hub in a `Unity\` folder on your `V:` drive, then your `.csproj` would look something like:
+Because Unity Hub is the tool [recommended by Unity Technologies](https://docs.unity3d.com/Manual/GettingStartedInstallingUnity.html) for installing Unity,
+we check for Unity assemblies within the Hub's default install locations using the `UnityInstallRootPath` property (`UnityInstallRoot` in versions 1.x).
+If you are not using Unity Hub, or you are using a non-default install location, just set `UnityInstallRoot[Path]` to a different path.
+
+For example, if you were using a Windows machine and your Unity version was installed without the Hub in a `Unity\` folder on your `V:` drive,
+then you would need the following code.
+In versions 2.x, this code must be in `Directory.Build.props`; in versions 1.x, you can just put it in your .csproj file.
+
+**Warning: When changing the `UnityInstallRoot[Path]` property (or `OSInstallRoot[Path]`), it is up to you to keep the paths cross-platform.**
 
 ```xml
-<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <UnityVersion>2021.2.2f1</UnityVersion>
-        <UnityInstallRoot>V:\Unity</UnityInstallRoot>
-    </PropertyGroup>
-    <!-- etc. -->
-</Project>
+<PropertyGroup>
+    <!-- Other properties... -->
+    <UnityInstallRootPath>V:\Unity</UnityInstallRootPath>   <!-- Versions 2.x -->
+    <UnityInstallRoot>V:\Unity</UnityInstallRoot>   <!-- Versions 1.x -->
+</PropertyGroup>
 ```
-
-**Warning: When changing the `UnityInstallRoot` property (or `OSInstallRoot`), it is up to you to keep the paths cross-platform.**
 
 ### Removing the default reference to UnityEngine.dll
 
-You may not want to keep our default reference to `UnityEngine.dll`, e.g., if you only need a reference to some other Unity assembly, or want to reference Unity's module assemblies directly. To remove the `Reference` from your project, simply use the MSBuild Item remove syntax, i.e., add the following line to an `<ItemGroup>` in your `.csproj`:
+You may not want to keep our default reference to `UnityEngine.dll`, e.g., if you only need a reference to some other Unity assembly,
+or want to reference Unity's module assemblies directly.
+To remove the `Reference` from your project, simply use the MSBuild Item remove syntax, i.e., add the following line to an `<ItemGroup>` in your `.csproj`:
+
+**Warning: If using directory imports, be sure to put the above line in `Directory.Build.targets`, not `Directory.Build.props`,
+otherwise you'll be trying to remove the Reference before it's been added!**
 
 ```xml
-<Reference Remove="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)" />
+<Reference Remove="$(UnityEnginePath)" />   <!-- Versions 2.x -->
+<Reference Remove="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)" />   <!-- Versions 1.x -->
 ```
-
-**Warning: If using directory imports, be sure to put the above line in `Directory.Build.targets`, not `Directory.Build.props`, otherwise you'll be trying to remove the Reference before it's been added!**
 
 ### Referencing the Unity core modules
 
-`UnityEngine.dll` is actually built up from multiple smaller "module" assemblies stored in the `UnityModulesPath`. These modules contain types related to Audio, Animation, Particle Systems, Navigation, etc. If you are writing a managed plugin that references assemblies from a Package, you may get confusing compiler errors when using APIs from the Package that return types defined in a module. For example, if you reference the Unity UI Package from Unity 2019.2+, and use it to access `ScrollRect.velocity` (which returns a `Vector2`), you would see an error like `Error CS0012 The type 'Vector2' is defined in an assembly that is not referenced. You must add a reference to assembly 'UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null'.`. This is because the Unity UI Package's assembly doesn't use the `Vector2` type from `UnityEngine.dll`, it uses the type from `UnityEngine.CoreModule`, which is a module assembly. Therefore, the default reference to `UnityEngine.dll` added by this NuGet package does not satisfy the compiler.
+`UnityEngine.dll` is actually built up from multiple smaller "module" assemblies stored in the `UnityModulesPath`.
+These modules contain types related to Audio, Animation, Particle Systems, Navigation, etc.
+If you are writing a managed plugin that references assemblies from a Package, you may get confusing compiler errors when using APIs from the Package with types defined in a module.
+For example, if you reference the Unity UI Package from Unity 2019.2+, and use it to access `ScrollRect.velocity` (which returns a `Vector2`),
+you would see an error like:
 
-The solution is to [remove our default reference](#removing-the-default-reference-to-unityengine.dll) to `UnityEngine.dll`, and then reference each module that you need individually. So, for this particular example, your `.csproj` might look like the following:
+> Error CS0012 The type 'Vector2' is defined in an assembly that is not referenced. You must add a reference to assembly 'UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null'.
+
+This error is shown because Unity UI's assembly doesn't use the `Vector2` type from `UnityEngine.dll`; it uses the type from the _module assembly_ `UnityEngine.CoreModule`.
+Therefore, the default reference to `UnityEngine.dll` added by Unity3D does not satisfy the compiler.
+
+The solution is to [remove our default reference](#removing-the-default-reference-to-unityengine.dll) to `UnityEngine.dll`,
+and then reference each module that you need individually.
+So, for this particular example, your `.csproj` might look like the following.
+
+In versions 2.x:
 
 ```xml
-<Project Sdk="Microsoft.NET.Sdk">
-    <!-- Same as above... -->
-    <ItemGroup>
-        <Reference Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll" Private="false" />
-        <!-- Other Package assembly references -->
-        <Reference Remove="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)" />
-        <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.CoreModule.dll" Private="false" />
-        <!-- Other module references -->
-    </ItemGroup>
-</Project>
+<ItemGroup>
+    <!-- Other Package assembly references -->
+    <Reference Include="$(UnityScriptAssembliesPath)\UnityEngine.UI.dll" Private="false" />
+
+    <Reference Remove="$(UnityEnginePath)" />
+    <Reference Include="$(UnityModulesPath)\UnityEngine.CoreModule.dll" Private="false" />
+    <!-- Other module references -->
+</ItemGroup>
 ```
 
-We do *not* provide short-hand properties for assemblies stored in `UnityModulesPath`. The folder is completely flat, so you can just reference assemblies there by filename. If you're unsure of which modules to reference, check out the Unity Scripting Manual. Every type includes an `Implemented in` note at the top of the page, telling you in which of Unity's core modules the type is implemented. For example, here is a screenshot of the manual page for `Vector2`:
+In versions 1.x:
+
+```xml
+<ItemGroup>
+    <!-- Other Package assembly references -->
+    <Reference Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll" Private="false" />
+
+    <Reference Remove="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)" />
+    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.CoreModule.dll" Private="false" />
+    <!-- Other module references -->
+</ItemGroup>
+```
+
+We do _not_ provide short-hand properties for assemblies stored in `UnityModulesPath`. The folder is completely flat, so you can just reference assemblies there by filename.
+If you're unsure of which modules to reference, check out the Unity Scripting Manual.
+Every type includes an `Implemented in` note at the top of the page, telling you in which of Unity's core modules the type is implemented.
+For example, here is a screenshot of the manual page for `Vector2`:
+
+**Warning: There is a Unity module assembly named `UnityEngine.dll`.
+This is not to be confused with the `UnityEngine.dll` assembly under `$(UnityInstallRoot)/Editor/Data/Managed`!
+Even if you have [removed the default `UnityEngine.dll`](#removing-the-default-reference-to-unityengine.dll) reference from your project,
+you may still need to reference this module for types like `GUIElement`, `Network`, `ProceduralMaterial`, etc.**
 
 ![Unity Scripting Manual page for Vector2, showing that the type is implemented in UnityEngine.CoreModule](./images/unity-modules-docs.png)
 
-**Warning: There is a Unity module called `UnityEngine.dll`. This is not to be confused with the `UnityEngine.dll` under `$(UnityInstallRoot)/Editor/Data/Managed`. If you have [removed the default UnityEngine.dll](#removing-the-default-reference-to-unityengine.dll) from your project, then you may still need to reference this module, for types like `GUIElement`, `Network`, `ProceduralMaterial`, etc.**
+## Available Short-Hand Properties
 
-## Available Short-Hand Assembly Properties
-
-Note that *all* of the following properties can be overwritten by setting the property manually in your project file. For example, in a `PropertyGroup` in your `.csproj`:
+Note that, unless otherwise noted, _any_ of the following properties can be overwritten by setting the property manually.
+For versions 2.x, you set this in `Directory.Build.props`; for versions 1.x, you can set it directly in your .csproj file.
+For example, to change the UI assembly's path, you could set:
 
 ```xml
 <UnityEngineUIPath>path/to/UnityEngine.UI.dll</UnityEngineUIPath>
 ```
 
-Just be aware of which properties expect absolute paths, and which expect relative paths. As assembly paths change in future versions of Unity, you can continue referencing them by overwriting these properties, until we update the properties ourselves. This ability is why this NuGet package is "forward-compatible".
+As assembly paths change in future versions of Unity, you can continue referencing them by overwriting these properties, until we update the properties ourselves.
+This ability is why Unity3D is "forward-compatible".
+You can manually override the property for a single assembly (e.g., `UnityEnginePath`),
+or for many assemblies under some absolute/relative base path (e.g., `UnityModulesPath` or `UnityModulesDir`).
 
-The assembly paths under the `PackageCache` use the `*` wildcard. This saves you from hard-coding a package version and having to update it each time you update from Unity's Package Manager Window. Unity only stores one version of a Package in the `PackageCache` folder, so you don't need to worry about multiple versions of the same Package being referenced by the wildcard.
+Generally, properties named `*Path` are absolute paths, and properties named `*Dir` or `*Assembly` are relative paths.
+Most assembly path properties (e.g., `UnityPackageCachePath`) are a combination of a relative path property (e.g., `UnityPackageCacheDir`)
+and a base path, which might be another short-hand property.
+Through clever use of these properties, you can even reference assemblies from more than one Unity project.
+You might do this if you wanted to reference an assembly from a Unity project in the same repository under some conditions,
+but from a shared project in a different repository under other conditions.
+You could use the same _relative_ short-hand property in both cases, but set the base path conditionally.
+
+The assembly paths under the `PackageCache` use the `*` wildcard.
+This saves you from hard-coding a package version and having to update it each time you update from Unity's Package Manager Window.
+Unity only stores one version of a Package in the `PackageCache` folder, so you don't need to worry about multiple versions of the same Package being referenced by the wildcard.
+
+**Note: It is worth repeating that, unless otherwise noted, _any_ of these properties can be manually overridden.**
+
+### Versions 2.x properties
 
 | Property | Unity Version | Default value | Comments |
 |:---------|---------------|:--------------|:---------|
@@ -234,21 +390,77 @@ The assembly paths under the `PackageCache` use the `*` wildcard. This saves you
 | `UnityEditoriOSExtensionsCommonPath` | Any | `$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Common.dll` | See types under `UnityEditor > UnityEditor.iOS` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
 | `UnityEditoriOSExtensionsXcodePath` | Any | `$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Xcode.dll` | See types under `UnityEditor > UnityEditor.iOS` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
 
+### Versions 1.x properties
+
+| Property | Unity Version | Default value | Comments |
+|:---------|---------------|:--------------|:---------|
+| `OSInstallRoot` | Any | `C:\Program Files` on Windows, `/Application` on MacOS, or `/home/<username>` on Linux. |  |
+| `UnityInstallRoot` | Any | `$(OSInstallRoot)\Unity\Hub\Editor` |  |
+| `UnityManagedPath` | Any | `Editor\Data\Managed` on Linux/Windows or `Unity.app\Contents\Managed` on MacOS. |  |
+| `UnityModulesPath` | Any | `$(UnityManagedPath)\UnityEngine` | This folder contains assemblies for Unity's core modules like the Audio, Animation, and ParticleSystem modules. |
+| `UnityExtensionsPath` | Any | `Editor\Data\UnityExtensions\Unity` on Linux/Windows or `Unity.app\Contents\UnityExtensions\Unity` on MacOS. |  |
+| `UnityPlaybackEnginesPath` | Any | `Editor\Data\PlaybackEngines` | This folder contains target-platform-specific assemblies, e.g. those for iOS/Android. |
+| `UnityAndroidPlayerPath` | Any | `$(UnityPlaybackEnginesPath)\AndroidPlayer` |  |
+| `UnityiOSSupportPath` | Any | `$(UnityPlaybackEnginesPath)\iOSSupport` |  |
+| `UnityBuiltInPackagesPath` | >= 2017.2 | `Editor\Data\Resources\PackageManager\BuiltInPackages` | This folder contains assemblies from Unity's built-in Packages, like IMGUI and TerrainPhysics (for all other UPM Package assemblies, see `UnityPackageCachePath`). |
+| `UnityEnginePath` | Any | `$(UnityManagedPath)\UnityEngine.dll` | This reference is added by default. See above for [instructions to remove it](#removing-the-default-reference-to-unityengine.dll). |
+| `UnityEditorPath` | Any | `$(UnityManagedPath)\UnityEditor.dll` |  |
+| `UnityEngineUIPath` | <= 2019.2 | `$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll`. | In Unity 2019.3+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll` instead. |
+| `UnityEngineTestRunnerPath` | <= 2019.2 | `$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll` | In Unity 2019.3+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll` instead. |
+| `UnityProjectPath` | Any | N/A | This property has no default value. Point it at the root folder of your Unity project, so that you can more easily reference Package and Asset Store assemblies (as [described above](#referencing-assemblies-stored-in-a-unity-project)). |
+| `UnityPackageCachePath` | >= 2017.2 | `Library\PackageCache` | This folder contains assemblies from UPM packages (for built-in Packages, see `UnityBuiltInPackagesPath`). |
+| `UnityScriptAssembliesPath` | Any | `Library\ScriptAssemblies` |  |
+| `NewtonsoftJsonPath` | >= 2019.3 | `$(UnityPackageCachePath)\com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll` | Requires installation of the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner package. |
+| `NunitPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. |
+| `MoqPath` | 2019.2, 2019.3 | `$(UnityPackageCachePath)\nuget.moq*\Moq.dll` | Required installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. In Unity 2020.1+, [download Moq from NuGet](https://www.nuget.org/packages/moq/) and import it as a managed plugin. |
+| `UnityAnalyticsStandardEventsPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` | Requires installation of the [Analytics Library](https://docs.unity3d.com/Packages/com.unity.analytics@3.3/manual/index.html) package. |
+| `UnityEditorAndroidExtensionsPath` | Any | `$(UnityAndroidPlayerPath)\UnityEditor.Android.Extensions.dll` | See types under `UnityEditor > UnityEditor.Android` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
+| `UnityEditoriOSExtensionsCommonPath` | Any | `$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Common.dll` | See types under `UnityEditor > UnityEditor.iOS` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
+| `UnityEditoriOSExtensionsXcodePath` | Any | `$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Xcode.dll` | See types under `UnityEditor > UnityEditor.iOS` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
+
 ## FAQ
 
-1. **Why would I use this NuGet package?** The primary, intended use case for this NuGet is for Unity developers writing [managed plugins](https://docs.unity3d.com/Manual/UsingDLL.html) (pre-compiled DLLs that will be imported into Unity) that also depend on Unity APIs. It allows developers to reference the Unity assemblies via `Reference` items in their project file, just like they might reference any other NuGet package or local assembly, but without having to remember Unity's assembly paths or keep them up-to-date and cross-platform. With the option to [use Unity as a library](https://blogs.unity3d.com/2019/06/17/add-features-powered-by-unity-to-native-mobile-apps/) in 2019.3+, developers might also use this package in native mobile apps created with [Xamarin](https://dotnet.microsoft.com/apps/xamarin), or in really any library or executable that needs access to the Unity APIs.
-1. **How does this work?** This NuGet package [imports an MSBuild .props file](https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package#including-msbuild-props-and-targets-in-a-package) into your project, which adds the various properties and `Reference` items at build time.
-1. **Are the `Reference` paths really cross-platform?** Yes, but only paths that begin with the default `$(OSInstallRoot)` or `$(UnityInstallRoot)` properties. This works through a magical little combination of [MSBuild Conditions](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditions) and the [`IsOsPlatform()` Property Function](https://docs.microsoft.com/en-us/visualstudio/msbuild/property-functions#msbuild-property-functions). Open the [Unity3D.props](./nupkg/build/Unity3D.props) file to see how we do it. :wink:
-1. **Is this package officially maintained by Unity Technologies?** No, it is maintained by a few wild and crazy guys at Derploid Entertainment. However, we will be submitting this package to Unity Technologies as it gains traction, **_so that maybe we can finally have an officially supported NuGet package from Unity!_**
-1. **If not, how is this legal?** We're not actually distributing the Unity assembly binaries, just MSBuild files that reference them. This NuGet package won't add anything if you don't actually have a version of Unity installed on your machine.
-1. **Why don't you use MSBuild `<Target>`s?** Targets _would_ allow us to do some fun things: we could read the `$(UnityVersion)` from a text file so there's not duplication with Unity's `ProjectVersion.txt` file, we could append `$(UnityVersion)` to reference paths automatically so you don't have type them all out, etc. However, a major goal of this package was to make things as _transparent_ as possible, including showing the referenced Unity assemblies under the "Dependencies" node in Visual Studio's Solution Explorer just like other references. As of VS 2019, this does not work with references added by MSBuild targets, unfortunately. However, we are actively researching alternatives in this space, because less verbose reference paths would be awesome!
-1. **Can you help me solve [error] in Unity version [version]?** Possibly. We only test compatibility with, and offer support for, the latest Unity [LTS releases](https://unity3d.com/unity/qa/lts-releases) and the TECH stream releases of the current year. Unity does not officially support versions older than that, so neither do we! That said, if you're having an issue with an older version of Unity, there's a good chance that we've seen it ourselves, so feel free to [open an Issue](https://github.com/DerploidEntertainment/UnityAssemblies/issues)!
-1. **With which Unity versions has this NuGet package been officially tested?** In the following:
-    - 2018.4 LTS
+1. **Why would I use this NuGet package?**
+    The primary, intended use case for this NuGet is for Unity developers writing [managed plugins](https://docs.unity3d.com/Manual/UsingDLL.html)
+    (pre-compiled DLLs that will be imported into Unity) that also depend on Unity APIs.
+    It allows developers to reference the Unity assemblies via `Reference` items in their project file, just like they might reference any other NuGet package or local assembly,
+    without having to remember Unity's assembly paths or keep them up-to-date and cross-platform.
+    With the option to [use Unity as a library](https://blogs.unity3d.com/2019/06/17/add-features-powered-by-unity-to-native-mobile-apps/) in 2019.3+,
+    developers might also use this package in native mobile apps created with [Xamarin](https://dotnet.microsoft.com/apps/xamarin),
+    or in really any library or executable that needs access to the Unity APIs.
+1. **How does this work?**
+    This NuGet package [imports an MSBuild .props file](https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package#including-msbuild-props-and-targets-in-a-package) into your project,
+    which adds the various properties and `Reference` items at build time.
+    In versions 2.x and above, these properties can use the `UnityVersion` property that you define in `Directory.Build.props` because that file is imported before NuGet packages.
+    And when you set `UnityProjectPath`, the Unity version can instead be parsed from the `ProjectVersion.txt` file therein using `File.ReadAllText`
+    in an [MSBuild static property function](https://docs.microsoft.com/en-us/visualstudio/msbuild/property-functions?static-property-functions).
+1. **Are the `Reference` paths really cross-platform?**
+    Yes, but only paths that begin with the default `$(OSInstallRoot)` or `$(UnityInstallRoot)` properties, or with a custom relative or cross-platform base path that you define.
+    This works through a magical little combination of [MSBuild Conditions](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditions)
+    and the [`IsOsPlatform()` Property Function](https://docs.microsoft.com/en-us/visualstudio/msbuild/property-functions#msbuild-property-functions).
+1. **Is this package officially maintained by Unity Technologies?**
+    No, it is maintained by Derploid Entertainment. However, we will be submitting this package to Unity Technologies as it gains traction,
+    **_so that maybe we can finally have an officially supported NuGet package for Unity!_**
+1. **If not, how is this package legal?**
+    Well, we're not actually distributing the Unity assembly binaries, just MSBuild files that reference them.
+    This NuGet package won't add anything if you haven't actually installed a version of Unity on your machine.
+1. **Can you help me solve [error] in Unity version [version]?**
+    Possibly. We only test compatibility with, and offer support for, the latest Unity [LTS releases](https://unity3d.com/unity/qa/lts-releases) and the TECH stream releases of the current year.
+    Unity does not officially support versions older than that, so neither do we!
+    That said, if you're having an issue with an older version of Unity, there's a good chance that we've seen it ourselves,
+    so feel free to [open an Issue](https://github.com/DerploidEntertainment/UnityAssemblies/issues)!
+1. **With which Unity versions has this NuGet package been officially tested?**
+    In the following:
+    - 2022.1
+    - 2021.3 LTS, 2021.2, 2021.1
+    - 2020.3 LTS, 2020.1
     - 2019.4 LTS
-    - 2020.1, 2020.3 LTS
-    - 2021.1, 2021.2, 2021.3 LTS
-3. **Why hasn't this repository been updated since [date]?** The Unity3D NuGet package is very simple, with most of its functionality contained in a [single small file](./nupkg/build/Unity3D.props). Between that, and the package's use of forward-compatible properties like `UnityVersion` that can be tweaked at design time, this repository simply does not require frequent updates. This does _not_ mean that this project is dead; at Derploid, we still use the package in almost every project. Most changes going forward will be to add more short-hand assembly properties, especially for popular third-party assemblies published on the Asset Store, and to add test projects for new versions of Unity.
+    - 2018.4 LTS
+1. **Why hasn't this repository been updated since [date]?**
+    The Unity3D NuGet package is very simple, with most of its functionality contained in a [single small file](./nupkg/build/Unity3D.props).
+    Between that, and the package's use of forward-compatible properties like `UnityVersion` that can be tweaked at design time,
+    this repository simply does not require frequent updates.
+    Most changes going forward will be to add more short-hand properties, and to add test projects for new versions of Unity.
 
 ## Contributing
 
