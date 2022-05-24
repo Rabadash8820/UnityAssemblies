@@ -11,15 +11,15 @@
     <projectUrl>https://github.com/DerploidEntertainment/UnityAssemblies</projectUrl>
     <description>Simple, forward-compatible references to ANY Unity assembly on ANY platform.</description>
     <releaseNotes>
-      - Unity version can now be parsed automatically from the ProjectVersion.txt file in a Unity project, if not set explicitly.
-      - Added many new short-hand properties, with more consistent naming (relative paths end in "Dir" or "Assembly", absolute paths end in "Path")
-      - Renamed "OSInstallRoot" property to "OSInstallRootPath" and "UnityInstallRoot" to "UnityInstallRootPath", to be consistent with other prop names
-      - Reference Include paths no longer need to start with $(UnityInstallRoot)/$(UnityVersion). Most paths will now use a single short-hand property
-      - If neither UnityVersion nor UnityProjectPath are explicitly set, then UnityVersion is set to a constant string to explain the issue
-      - Add UnityVersionMajor, UnityVersionMinor, UnityVersionPatch, and UnityVersionAsNumber props for manipulation of Unity versions as numbers
-      - Assembly short-hand properties are now conditionally defined based on UnityVersion
-      - Updated usage notes in all Readme documents
-      - Added test projects for Tech Stream Unity releases up through 2022.1
+- Unity version can now be parsed automatically from the ProjectVersion.txt file in a Unity project, if not set explicitly.
+- Added many new short-hand properties, with more consistent naming (relative paths end in "Dir" or "Assembly", absolute paths end in "Path")
+- Renamed "OSInstallRoot" property to "OSInstallRootPath" and "UnityInstallRoot" to "UnityInstallRootPath", to be consistent with other prop names
+- Reference Include paths no longer need to start with $(UnityInstallRoot)/$(UnityVersion). Most paths will now use a single short-hand property
+- If neither UnityVersion nor UnityProjectPath are explicitly set, then UnityVersion is set to a constant string to explain the issue
+- Add UnityVersionMajor, UnityVersionMinor, UnityVersionPatch, and UnityVersionAsNumber props for manipulation of Unity versions as numbers
+- Assembly short-hand properties are now conditionally defined based on UnityVersion
+- Updated usage notes in all Readme documents
+- Added test projects for Tech Stream Unity releases up through 2022.1
     </releaseNotes>
     <copyright>Copyright ©2019-2022 Derploid Entertainment, LLC</copyright>
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>
