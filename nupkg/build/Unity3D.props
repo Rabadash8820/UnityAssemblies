@@ -78,41 +78,53 @@
     <UnityiOSSupportDir Condition="'$(UnityiOSSupportDir)'==''">$(UnityPlaybackEnginesDir)\iOSSupport</UnityiOSSupportDir>
     <UnityiOSSupportPath Condition="'$(UnityiOSSupportPath)'==''">$(UnityVersionInstallPath)\$(UnityiOSSupportDir)</UnityiOSSupportPath>
 
-    <UnityBuiltInPackagesDir Condition="'$(UnityBuiltInPackagesDir)'==''">Editor\Data\Resources\PackageManager\BuiltInPackages</UnityBuiltInPackagesDir>
-    <UnityBuiltInPackagesPath Condition="'$(UnityBuiltInPackagesPath)'==''">$(UnityVersionInstallPath)\$(UnityBuiltInPackagesDir)</UnityBuiltInPackagesPath>
-
-    <UnityPackageCacheDir Condition="'$(UnityPackageCacheDir)'==''">Library\PackageCache</UnityPackageCacheDir>
-    <UnityPackageCachePath Condition="'$(UnityPackageCachePath)'==''">$(UnityProjectPath)\$(UnityPackageCacheDir)</UnityPackageCachePath>
-
     <UnityScriptAssembliesDir Condition="'$(UnityScriptAssembliesDir)'==''">Library\ScriptAssemblies</UnityScriptAssembliesDir>
     <UnityScriptAssembliesPath Condition="'$(UnityScriptAssembliesPath)'==''">$(UnityProjectPath)\$(UnityScriptAssembliesDir)</UnityScriptAssembliesPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2017.2'">
+    <UnityBuiltInPackagesDir Condition="'$(UnityBuiltInPackagesDir)'==''">Editor\Data\Resources\PackageManager\BuiltInPackages</UnityBuiltInPackagesDir>
+    <UnityBuiltInPackagesPath Condition="'$(UnityBuiltInPackagesPath)'==''">$(UnityVersionInstallPath)\$(UnityBuiltInPackagesDir)</UnityBuiltInPackagesPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2017.2'">
+    <UnityPackageCacheDir Condition="'$(UnityPackageCacheDir)'==''">Library\PackageCache</UnityPackageCacheDir>
+    <UnityPackageCachePath Condition="'$(UnityPackageCachePath)'==''">$(UnityProjectPath)\$(UnityPackageCacheDir)</UnityPackageCachePath>
   </PropertyGroup>
 
   <!-- Set default paths of specific Unity assemblies -->
   <PropertyGroup>
     <UnityEnginePath Condition="'$(UnityEnginePath)'==''">$(UnityManagedPath)\UnityEngine.dll</UnityEnginePath>
     <UnityEditorPath Condition="'$(UnityEditorPath)'==''">$(UnityManagedPath)\UnityEditor.dll</UnityEditorPath>
-    <UnityEngineUIPath Condition="'$(UnityEngineUIPath)'==''">$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll</UnityEngineUIPath>
-    <UnityEngineTestRunnerPath Condition="'$(UnityEngineTestRunnerPath)'==''">$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll</UnityEngineTestRunnerPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityEngineUIPath)'==''">
+    <UnityEngineUIPath>$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll</UnityEngineUIPath>
+    <UnityEngineUIPath Condition="'$(UnityVersionAsNumber)'>='2019.3'">$(UnityScriptAssembliesPath)\UnityEngine.UI.dll</UnityEngineUIPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityEngineTestRunnerPath)'==''">
+    <UnityEngineTestRunnerPath Condition="'$(UnityVersionAsNumber)'>='2019.3'">$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll</UnityEngineTestRunnerPath>
+    <UnityEngineTestRunnerPath Condition="'$(UnityVersionAsNumber)'&lt;'2019.3'">$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll</UnityEngineTestRunnerPath>
   </PropertyGroup>
 
   <!-- Set default paths of specific PackageCache assemblies -->
   <PropertyGroup>
-    <NewtonsoftJsonAssembly Condition="'$(NewtonsoftJsonAssembly)'==''">com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll</NewtonsoftJsonAssembly>
-    <NewtonsoftJsonPath Condition="'$(NewtonsoftJsonPath)'==''">$(UnityPackageCachePath)\$(NewtonsoftJsonAssembly)</NewtonsoftJsonPath>
-
-    <NunitAssembly Condition="'$(NunitAssembly)'==''">com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll</NunitAssembly>
-    <NunitPath Condition="'$(NunitPath)'==''">$(UnityPackageCachePath)\$(NunitAssembly)</NunitPath>
-
-    <MoqAssembly Condition="'$(MoqAssembly)'==''">nuget.moq*\Moq.dll</MoqAssembly>
-    <MoqPath Condition="'$(MoqPath)'==''">$(UnityPackageCachePath)\$(MoqAssembly)</MoqPath>
-
-    <UnityAnalyticsStandardEventsAssembly Condition="'$(UnityAnalyticsStandardEventsAssembly)'==''">com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</UnityAnalyticsStandardEventsAssembly>
-    <UnityAnalyticsStandardEventsPath Condition="'$(UnityAnalyticsStandardEventsPath)'==''">$(UnityPackageCachePath)\$(UnityAnalyticsStandardEventsAssembly)</UnityAnalyticsStandardEventsPath>
-
     <UnityEditorAndroidExtensionsPath Condition="'$(UnityEditorAndroidExtensionsPath)'==''">$(UnityAndroidPlayerPath)\UnityEditor.Android.Extensions.dll</UnityEditorAndroidExtensionsPath>
     <UnityEditoriOSExtensionsCommonPath Condition="'$(UnityEditoriOSExtensionsCommonPath)'==''">$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Common.dll</UnityEditoriOSExtensionsCommonPath>
     <UnityEditoriOSExtensionsXcodePath Condition="'$(UnityEditoriOSExtensionsXcodePath)'==''">$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Xcode.dll</UnityEditoriOSExtensionsXcodePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.3'">
+    <NewtonsoftJsonAssembly Condition="'$(NewtonsoftJsonAssembly)'==''">com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll</NewtonsoftJsonAssembly>
+    <NewtonsoftJsonPath Condition="'$(NewtonsoftJsonPath)'==''">$(UnityPackageCachePath)\$(NewtonsoftJsonAssembly)</NewtonsoftJsonPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.2'">
+    <NunitAssembly Condition="'$(NunitAssembly)'==''">com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll</NunitAssembly>
+    <NunitPath Condition="'$(NunitPath)'==''">$(UnityPackageCachePath)\$(NunitAssembly)</NunitPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'=='2019.2' Or '$(UnityVersionAsNumber)'=='2019.3'">
+    <MoqAssembly Condition="'$(MoqAssembly)'==''">nuget.moq*\Moq.dll</MoqAssembly>
+    <MoqPath Condition="'$(MoqPath)'==''">$(UnityPackageCachePath)\$(MoqAssembly)</MoqPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.2'">
+    <UnityAnalyticsStandardEventsAssembly Condition="'$(UnityAnalyticsStandardEventsAssembly)'==''">com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</UnityAnalyticsStandardEventsAssembly>
+    <UnityAnalyticsStandardEventsPath Condition="'$(UnityAnalyticsStandardEventsPath)'==''">$(UnityPackageCachePath)\$(UnityAnalyticsStandardEventsAssembly)</UnityAnalyticsStandardEventsPath>
   </PropertyGroup>
 
   <!-- Add default Unity references -->
