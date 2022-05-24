@@ -4,21 +4,21 @@
   <Choose>
     <When Condition="$([MSBuild]::IsOsPlatform(Windows))">
       <PropertyGroup>
-        <OSInstallRoot Condition="'$(OSInstallRoot)'==''">C:\Program Files</OSInstallRoot>
+        <OSInstallRootPath Condition="'$(OSInstallRootPath)'==''">C:\Program Files</OSInstallRootPath>
         <UnityManagedDir Condition="'$(UnityManagedDir)'==''">Editor\Data\Managed</UnityManagedDir>
         <UnityExtensionsDir Condition="'$(UnityExtensionsDir)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsDir>
       </PropertyGroup>
     </When>
     <When Condition="$([MSBuild]::IsOsPlatform(OSX))">
       <PropertyGroup>
-        <OSInstallRoot Condition="'$(OSInstallRoot)'==''">/Applications</OSInstallRoot>
+        <OSInstallRootPath Condition="'$(OSInstallRootPath)'==''">/Applications</OSInstallRootPath>
         <UnityManagedDir Condition="'$(UnityManagedDir)'==''">Unity.app\Contents\Managed</UnityManagedDir>
         <UnityExtensionsDir Condition="'$(UnityExtensionsDir)'==''">Editor\Unity.app\Contents\UnityExtensions\Unity</UnityExtensionsDir>
       </PropertyGroup>
     </When>
     <When Condition="$([MSBuild]::IsOsPlatform(Linux))">
       <PropertyGroup>
-        <OSInstallRoot Condition="'$(OSInstallRoot)'==''">$([System.Environment]::GetFolderPath('System.Environment+SpecialFolder.UserProfile'))</OSInstallRoot>
+        <OSInstallRootPath Condition="'$(OSInstallRootPath)'==''">$([System.Environment]::GetFolderPath('System.Environment+SpecialFolder.UserProfile'))</OSInstallRootPath>
         <UnityManagedDir Condition="'$(UnityManagedDir)'==''">Editor\Data\Managed</UnityManagedDir>
         <UnityExtensionsDir Condition="'$(UnityExtensionsDir)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsDir>
       </PropertyGroup>
@@ -45,9 +45,9 @@
   <!-- Set default Unity absolte/relative folder paths -->
   <PropertyGroup>
     <UnityInstallRootDir Condition="'$(UnityInstallRootDir)'==''">Unity\Hub\Editor</UnityInstallRootDir>
-    <UnityInstallRoot Condition="'$(UnityInstallRoot)'==''">$(OSInstallRoot)\$(UnityInstallRootDir)</UnityInstallRoot>
+    <UnityInstallRootPath Condition="'$(UnityInstallRootPath)'==''">$(OSInstallRootPath)\$(UnityInstallRootDir)</UnityInstallRootPath>
 
-    <UnityVersionInstallPath Condition="'$(UnityVersionInstallPath)'==''">$(UnityInstallRoot)\$(UnityVersion)</UnityVersionInstallPath>
+    <UnityVersionInstallPath Condition="'$(UnityVersionInstallPath)'==''">$(UnityInstallRootPath)\$(UnityVersion)</UnityVersionInstallPath>
     <UnityManagedPath Condition="'$(UnityManagedPath)'==''">$(UnityVersionInstallPath)\$(UnityManagedDir)</UnityManagedPath>
     <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">$(UnityVersionInstallPath)\$(UnityExtensionsDir)</UnityExtensionsPath>
 
@@ -55,10 +55,10 @@
     <UnityModulesPath Condition="'$(UnityModulesPath)'==''">$(UnityManagedPath)\$(UnityModulesDir)</UnityModulesPath>
 
     <UnityPlaybackEnginesDir Condition="'$(UnityPlaybackEnginesDir)'==''">Editor\Data\PlaybackEngines</UnityPlaybackEnginesDir>
-    <UnityAndroidPlayerDir Condition="'$(UnityAndroidPlayerDir)'==''">$(UnityPlaybackEnginesDir)\AndroidPlayer</UnityAndroidPlayerDir>
-    <UnityiOSSupportDir Condition="'$(UnityiOSSupportDir)'==''">$(UnityPlaybackEnginesDir)\iOSSupport</UnityiOSSupportDir>
     <UnityPlaybackEnginesPath Condition="'$(UnityPlaybackEnginesPath)'==''">$(UnityVersionInstallPath)\$(UnityPlaybackEnginesDir)</UnityPlaybackEnginesPath>
+    <UnityAndroidPlayerDir Condition="'$(UnityAndroidPlayerDir)'==''">$(UnityPlaybackEnginesDir)\AndroidPlayer</UnityAndroidPlayerDir>
     <UnityAndroidPlayerPath Condition="'$(UnityAndroidPlayerPath)'==''">$(UnityVersionInstallPath)\$(UnityAndroidPlayerDir)</UnityAndroidPlayerPath>
+    <UnityiOSSupportDir Condition="'$(UnityiOSSupportDir)'==''">$(UnityPlaybackEnginesDir)\iOSSupport</UnityiOSSupportDir>
     <UnityiOSSupportPath Condition="'$(UnityiOSSupportPath)'==''">$(UnityVersionInstallPath)\$(UnityiOSSupportDir)</UnityiOSSupportPath>
 
     <UnityBuiltInPackagesDir Condition="'$(UnityBuiltInPackagesDir)'==''">Editor\Data\Resources\PackageManager\BuiltInPackages</UnityBuiltInPackagesDir>
