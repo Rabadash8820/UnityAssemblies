@@ -44,7 +44,7 @@
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2018_4'">20184</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net461_2018_4'">20184</ConfigurationVersionNum>
 
-    <DefineConstants>v$(ConfigurationVersionNum)</DefineConstants>
+    <DefineConstants>$(DefineConstants);v$(ConfigurationVersionNum)</DefineConstants>
 
     <!-- Set TargetFramework -->
     <TargetFramework Condition="'$(Configuration)'=='Standard21_2022_1'">netstandard2.1</TargetFramework>
