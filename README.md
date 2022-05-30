@@ -65,7 +65,7 @@ Add a `UnityVersion` property to your .csproj, so it looks like the following:
         <UnityVersion>2022.1.1f1</UnityVersion>
     </PropertyGroup>
     <ItemGroup>
-        <PackageReference Include="Unity3D" Version="2.0.0-rc1" />
+        <PackageReference Include="Unity3D" Version="2.0.0-rc2" />
     </ItemGroup>
     <!-- Other properties/items -->
 </Project>
