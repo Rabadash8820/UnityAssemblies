@@ -25,6 +25,8 @@ replacing the Unity version with your version:
 
     <Project>
         <UnityVersion>2022.1.1f1</UnityVersion>
+        <!-- or -->
+        <UnityProjectPath>path\to\UnityProject</UnityProjectPath>
     </Project
 
 Then, make sure your .csproj file looks something like this:
