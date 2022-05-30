@@ -17,6 +17,7 @@
 - Added UnityVersionMajor, UnityVersionMinor, UnityVersionPatch, and UnityVersionAsNumber props for manipulation of Unity versions as numbers
 - Updated usage notes in all Readme documents
 - Added test projects for Tech Stream Unity releases up through 2022.1
+- Added a changelog with release notes for all versions thus far, based on Keep a Changelog
 - BREAKING CHANGES:
   - Renamed "OSInstallRoot" property to "OSInstallRootPath" and "UnityInstallRoot" to "UnityInstallRootPath", to be consistent with other prop names
   - Reference Include paths no longer need to start with $(UnityInstallRoot)/$(UnityVersion). Most paths will now use a single short-hand property
