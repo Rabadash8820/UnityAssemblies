@@ -26,6 +26,7 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
   - [Referencing assemblies at non-default install locations](#referencing-assemblies-at-non-default-install-locations)
   - [Removing the default reference to UnityEngine.dll](#removing-the-default-reference-to-unityengine.dll)
   - [Referencing the Unity core modules](#referencing-the-unity-core-modules)
+  - [Referencing assemblies in specific Unity versions](#referencing-assemblies-in-specific-unity-versions)
 - [Available Short-Hand Properties](#available-short-hand-properties)
   - [Versions 2.x](#versions-2x-properties)
   - [Versions 1.x](#versions-1x-properties)
@@ -333,6 +334,46 @@ After [removing the default `UnityEngine.dll`](#removing-the-default-reference-t
 you may still need to reference this module for types like `GUIElement`, `Network`, `ProceduralMaterial`, etc.**
 
 ![Unity Scripting Manual page for Vector2, showing that the type is implemented in UnityEngine.CoreModule](./images/unity-modules-docs.png)
+
+### Referencing assemblies in specific Unity versions
+
+**Note: this section does not apply to versions 1.x.**
+
+Unity assembly paths sometimes change between versions: new assemblies are added, old ones are removed or broken up into UPM packages.
+If your managed plugin must support multiple versions of Unity, then you may want to say
+"reference this assembly, but only in these Unity versions" or "reference this assembly using the correct version-specific path".
+For scenarios like these, we added new MSBuild properties in v2 that expose the major, minor, and patch versions of your project's `UnityVersion`:
+
+1. `UnityVersionMajor`: e.g., `2021` in `2021.3.5f1`
+2. `UnityVersionMinor`: e.g., `3` in `2021.3.5f1`
+3. `UnityVersionPatch`: e.g., `5f1` in `2021.3.5f1`
+4. `UnityVersionAsNumber`: equals `$(UnityVersionMajor).$(UnityVersionMinor)`, e.g., `2021.3` in `2021.3.5f1`
+
+These properties cannot be overriden, since they are parsed directly from the `UnityVersion` that you provide
+(or from the `ProjectVersion.txt` file under the `UnityProjectPath` that you provide).
+
+The major, minor, and `UnityVersionAsNumber` properties are numeric, so you can use them in range inequalities in your project files.
+For example, suppose you wanted to reference NUnit in an editor plugin that supports multiple versions of Unity.
+The Unity Test Framework has included NUnit since version 2019.2, but for older versions of Unity, you would have to import NUnit yourself.
+Therefore, to reference NUnit in _any_ Unity version, you could use [MSBuild Conditions](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditions) like the following in your project file:
+
+**Warning: "less than" (`<`) inequalities must be escaped with `&lt;`, since MSBuild project files are still XML files.**
+
+```xml
+<ItemGroup>
+    <!-- Other References -->
+    <Reference Include="custom\path\to\nunit.framework.dll" Private="False" />
+    <Reference Condition="'$(UnityVersionAsNumber)'>='2019.2'" Include="$(NunitPath)" Private="False" />
+</ItemGroup>
+```
+
+The second `Reference` will overwrite the first for projects referencing Unity 2019.2+ assemblies.
+
+For assembly paths that change between Unity versions (e.g., `UnityEngineUIPath`),
+our short-hand properties adjust according to the provided (or parsed) `UnityVersion`, using code much like above,
+so you don't need to worry about conditionally setting the paths yourself.
+If a path is not applicable in a particular Unity version (such as `NunitPath` in Unity 2019.1 and below),
+then its MSBuild property will be undefined for that version (e.g., `$(NunitPath)` would be empty).
 
 ## Available Short-Hand Properties
 
