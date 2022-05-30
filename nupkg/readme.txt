@@ -21,7 +21,7 @@
 Thank you for installing the Unity3D NuGet package!
 
 To use this package, define a Directory.Build.props file in the same folder as your .csproj file (or any of its parent folders),
-replacing the Unity version with your version:
+and add code like the following:
 
     <Project>
         <UnityVersion>2022.1.1f1</UnityVersion>
