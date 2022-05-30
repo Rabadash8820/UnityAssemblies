@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <Configurations>
+      Standard21_2022_1;Net472_2022_1;Net48_2022_1;
       Standard21_2021_3;Net472_2021_3;Net48_2021_3;
       Standard21_2021_2;Net472_2021_2;Net48_2021_2;
       Standard20_2021_1;Net472_2021_1;
@@ -13,6 +14,10 @@
     </Configurations>
 
     <!-- Define Unity version number constants -->
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard21_2022_1'">20221</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Net48_2022_1'">20221</ConfigurationVersionNum>
+    <ConfigurationVersionNum Condition="'$(Configuration)'=='Net472_2022_1'">20221</ConfigurationVersionNum>
+    
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard21_2021_3'">20213</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net48_2021_3'">20213</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net472_2021_3'">20213</ConfigurationVersionNum>
@@ -39,9 +44,10 @@
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Standard20_2018_4'">20184</ConfigurationVersionNum>
     <ConfigurationVersionNum Condition="'$(Configuration)'=='Net461_2018_4'">20184</ConfigurationVersionNum>
 
-    <DefineConstants>v$(ConfigurationVersionNum)</DefineConstants>
+    <DefineConstants>$(DefineConstants);v$(ConfigurationVersionNum)</DefineConstants>
 
     <!-- Set TargetFramework -->
+    <TargetFramework Condition="'$(Configuration)'=='Standard21_2022_1'">netstandard2.1</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard21_2021_3'">netstandard2.1</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard21_2021_2'">netstandard2.1</TargetFramework>
 
@@ -52,9 +58,11 @@
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2019_4'">netstandard2.0</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Standard20_2018_4'">netstandard2.0</TargetFramework>
 
+    <TargetFramework Condition="'$(Configuration)'=='Net48_2022_1'">net48</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net48_2021_3'">net48</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net48_2021_2'">net48</TargetFramework>
 
+    <TargetFramework Condition="'$(Configuration)'=='Net472_2022_1'">net472</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net472_2021_3'">net472</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net472_2021_2'">net472</TargetFramework>
     <TargetFramework Condition="'$(Configuration)'=='Net472_2021_1'">net472</TargetFramework>

@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
   <metadata minClientVersion="2.5">
     <id>Unity3D</id>
-    <version>2.0.0-rc1</version>
+    <version>2.0.0-rc2</version>
     <title>Unity</title>
     <authors>Unity Technologies</authors>
     <icon>icon.png</icon>
@@ -10,19 +10,20 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/DerploidEntertainment/UnityAssemblies</projectUrl>
     <description>Simple, forward-compatible references to ANY Unity assembly on ANY platform.</description>
-    <readme>README.md</readme>
     <releaseNotes>
-      - Unity version can now be parsed automatically from the ProjectVersion.txt file in a Unity project, if not set explicitly.
-      - Added many new short-hand properties, with better naming (relative paths end in "Dir" or "Assembly", absolute paths end in "Path")
-      - Reference Include paths no longer need to start with $(UnityInstallRoot)/$(UnityVersion). Most paths will now use a single short-hand property
-      - If neither UnityVersion nor UnityProjectPath are explicitly set, then UnityVersion is set to a constant string to explain the issue
+- Unity version can now be parsed automatically from the ProjectVersion.txt file in a Unity project, if not set explicitly.
+- Added many new short-hand properties, with more consistent naming (relative paths end in "Dir" or "Assembly", absolute paths end in "Path")
+- If neither UnityVersion nor UnityProjectPath are explicitly set, then UnityVersion is set to a constant string to explain the issue
+- Added UnityVersionMajor, UnityVersionMinor, UnityVersionPatch, and UnityVersionAsNumber props for manipulation of Unity versions as numbers
+- Updated usage notes in all Readme documents
+- Added test projects for Tech Stream Unity releases up through 2022.1
+- BREAKING CHANGES:
+  - Renamed "OSInstallRoot" property to "OSInstallRootPath" and "UnityInstallRoot" to "UnityInstallRootPath", to be consistent with other prop names
+  - Reference Include paths no longer need to start with $(UnityInstallRoot)/$(UnityVersion). Most paths will now use a single short-hand property
+  - Assembly short-hand properties are now conditionally defined based on UnityVersion
     </releaseNotes>
     <copyright>Copyright ©2019-2022 Derploid Entertainment, LLC</copyright>
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>
     <repository type="git" url="https://github.com/DerploidEntertainment/UnityAssemblies.git" />
   </metadata>
-  <files>
-    <file src="..\README.md" target="" />
-    <file src=".\**\*.*" target="" />
-  </files>
 </package>

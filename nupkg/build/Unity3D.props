@@ -4,50 +4,67 @@
   <Choose>
     <When Condition="$([MSBuild]::IsOsPlatform(Windows))">
       <PropertyGroup>
-        <OSInstallRoot Condition="'$(OSInstallRoot)'==''">C:\Program Files</OSInstallRoot>
+        <OSInstallRootPath Condition="'$(OSInstallRootPath)'==''">C:\Program Files</OSInstallRootPath>
         <UnityManagedDir Condition="'$(UnityManagedDir)'==''">Editor\Data\Managed</UnityManagedDir>
         <UnityExtensionsDir Condition="'$(UnityExtensionsDir)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsDir>
       </PropertyGroup>
     </When>
     <When Condition="$([MSBuild]::IsOsPlatform(OSX))">
       <PropertyGroup>
-        <OSInstallRoot Condition="'$(OSInstallRoot)'==''">/Applications</OSInstallRoot>
+        <OSInstallRootPath Condition="'$(OSInstallRootPath)'==''">/Applications</OSInstallRootPath>
         <UnityManagedDir Condition="'$(UnityManagedDir)'==''">Unity.app\Contents\Managed</UnityManagedDir>
         <UnityExtensionsDir Condition="'$(UnityExtensionsDir)'==''">Editor\Unity.app\Contents\UnityExtensions\Unity</UnityExtensionsDir>
       </PropertyGroup>
     </When>
     <When Condition="$([MSBuild]::IsOsPlatform(Linux))">
       <PropertyGroup>
-        <OSInstallRoot Condition="'$(OSInstallRoot)'==''">$([System.Environment]::GetFolderPath('System.Environment+SpecialFolder.UserProfile'))</OSInstallRoot>
+        <OSInstallRootPath Condition="'$(OSInstallRootPath)'==''">$([System.Environment]::GetFolderPath('System.Environment+SpecialFolder.UserProfile'))</OSInstallRootPath>
         <UnityManagedDir Condition="'$(UnityManagedDir)'==''">Editor\Data\Managed</UnityManagedDir>
         <UnityExtensionsDir Condition="'$(UnityExtensionsDir)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsDir>
       </PropertyGroup>
     </When>
   </Choose>
 
-  <!--
-    Parse editor version from ProjectVersion.txt file in Unity project. Its contents look like this (minus indent):
-        m_EditorVersion: 2021.3.2f1
-        m_EditorVersionWithRevision: 2021.3.2f1 (d6360bedb9a0)
+  <!-- Get or set Unity version, as necessary -->
+  <Choose>
+    <When Condition="'$(UnityVersion)'=='' And '$(UnityProjectPath)'==''">
+      <PropertyGroup>
+        <UnityVersion>SET_VERSION_OR_PROJECT</UnityVersion>
+        <UnityVersionMajor>0</UnityVersionMajor>
+        <UnityVersionMinor>0</UnityVersionMinor>
+        <UnityVersionPatch>0</UnityVersionPatch>
+        <UnityVersionAsNumber>0.0</UnityVersionAsNumber>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup Condition="'$(UnityVersion)'==''">
+        <!--
+          Parse editor version from ProjectVersion.txt file in Unity project. Its contents look like this (minus indent):
+              m_EditorVersion: 2021.3.2f1
+              m_EditorVersionWithRevision: 2021.3.2f1 (d6360bedb9a0)
 
-    We first condense this to single "CSV" line, e.g.: m_EditorVersion,2021.3.2f1,m_EditorVersionWithRevision,2021.3.2f1 (d6360bedb9a0)
-    Then pluck out the versions by splitting on comma
-  -->
-  <PropertyGroup Condition="'$(UnityVersion)'=='' And '$(UnityProjectPath)'!=''">
-    <UnityProjectVersionTxt>$([System.IO.File]::ReadAllText(`$(UnityProjectPath)\ProjectSettings\ProjectVersion.txt`))</UnityProjectVersionTxt>
-    <UnityProjectVersionCsv>$([System.Text.RegularExpressions.Regex]::Replace(`$(UnityProjectVersionTxt)`, `\r\n|\r|\n|: `, `,`))</UnityProjectVersionCsv>
-    <UnityVersion>$(UnityProjectVersionCsv.Split(`,`)[1].Trim())</UnityVersion>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(UnityVersion)'=='' And '$(UnityProjectPath)'==''">
-    <UnityVersion>SET_VERSION_OR_PROJECT</UnityVersion>
-  </PropertyGroup>
+          We first condense this to single "CSV" line, e.g.: m_EditorVersion,2021.3.2f1,m_EditorVersionWithRevision,2021.3.2f1 (d6360bedb9a0)
+          Then pluck out the versions by splitting on comma
+        -->
+        <UnityProjectVersionTxt>$([System.IO.File]::ReadAllText(`$(UnityProjectPath)\ProjectSettings\ProjectVersion.txt`))</UnityProjectVersionTxt>
+        <UnityProjectVersionCsv>$([System.Text.RegularExpressions.Regex]::Replace(`$(UnityProjectVersionTxt)`, `\r\n|\r|\n|: `, `,`))</UnityProjectVersionCsv>
+        <UnityVersion>$(UnityProjectVersionCsv.Split(`,`)[1].Trim())</UnityVersion>
+      </PropertyGroup>
+      <PropertyGroup>
+        <UnityVersionMajor>$(UnityVersion.Split(`.`)[0])</UnityVersionMajor>
+        <UnityVersionMinor>$(UnityVersion.Split(`.`)[1])</UnityVersionMinor>
+        <UnityVersionPatch>$(UnityVersion.Split(`.`)[2])</UnityVersionPatch>
+        <UnityVersionAsNumber>$(UnityVersionMajor).$(UnityVersionMinor)</UnityVersionAsNumber>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
 
   <!-- Set default Unity absolte/relative folder paths -->
   <PropertyGroup>
     <UnityInstallRootDir Condition="'$(UnityInstallRootDir)'==''">Unity\Hub\Editor</UnityInstallRootDir>
-    <UnityInstallRoot Condition="'$(UnityInstallRoot)'==''">$(OSInstallRoot)\$(UnityInstallRootDir)</UnityInstallRoot>
+    <UnityInstallRootPath Condition="'$(UnityInstallRootPath)'==''">$(OSInstallRootPath)\$(UnityInstallRootDir)</UnityInstallRootPath>
 
-    <UnityVersionInstallPath Condition="'$(UnityVersionInstallPath)'==''">$(UnityInstallRoot)\$(UnityVersion)</UnityVersionInstallPath>
+    <UnityVersionInstallPath Condition="'$(UnityVersionInstallPath)'==''">$(UnityInstallRootPath)\$(UnityVersion)</UnityVersionInstallPath>
     <UnityManagedPath Condition="'$(UnityManagedPath)'==''">$(UnityVersionInstallPath)\$(UnityManagedDir)</UnityManagedPath>
     <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">$(UnityVersionInstallPath)\$(UnityExtensionsDir)</UnityExtensionsPath>
 
@@ -55,47 +72,59 @@
     <UnityModulesPath Condition="'$(UnityModulesPath)'==''">$(UnityManagedPath)\$(UnityModulesDir)</UnityModulesPath>
 
     <UnityPlaybackEnginesDir Condition="'$(UnityPlaybackEnginesDir)'==''">Editor\Data\PlaybackEngines</UnityPlaybackEnginesDir>
-    <UnityAndroidPlayerDir Condition="'$(UnityAndroidPlayerDir)'==''">$(UnityPlaybackEnginesDir)\AndroidPlayer</UnityAndroidPlayerDir>
-    <UnityiOSSupportDir Condition="'$(UnityiOSSupportDir)'==''">$(UnityPlaybackEnginesDir)\iOSSupport</UnityiOSSupportDir>
     <UnityPlaybackEnginesPath Condition="'$(UnityPlaybackEnginesPath)'==''">$(UnityVersionInstallPath)\$(UnityPlaybackEnginesDir)</UnityPlaybackEnginesPath>
+    <UnityAndroidPlayerDir Condition="'$(UnityAndroidPlayerDir)'==''">$(UnityPlaybackEnginesDir)\AndroidPlayer</UnityAndroidPlayerDir>
     <UnityAndroidPlayerPath Condition="'$(UnityAndroidPlayerPath)'==''">$(UnityVersionInstallPath)\$(UnityAndroidPlayerDir)</UnityAndroidPlayerPath>
+    <UnityiOSSupportDir Condition="'$(UnityiOSSupportDir)'==''">$(UnityPlaybackEnginesDir)\iOSSupport</UnityiOSSupportDir>
     <UnityiOSSupportPath Condition="'$(UnityiOSSupportPath)'==''">$(UnityVersionInstallPath)\$(UnityiOSSupportDir)</UnityiOSSupportPath>
-
-    <UnityBuiltInPackagesDir Condition="'$(UnityBuiltInPackagesDir)'==''">Editor\Data\Resources\PackageManager\BuiltInPackages</UnityBuiltInPackagesDir>
-    <UnityBuiltInPackagesPath Condition="'$(UnityBuiltInPackagesPath)'==''">$(UnityVersionInstallPath)\$(UnityBuiltInPackagesDir)</UnityBuiltInPackagesPath>
-
-    <UnityPackageCacheDir Condition="'$(UnityPackageCacheDir)'==''">Library\PackageCache</UnityPackageCacheDir>
-    <UnityPackageCachePath Condition="'$(UnityPackageCachePath)'==''">$(UnityProjectPath)\$(UnityPackageCacheDir)</UnityPackageCachePath>
 
     <UnityScriptAssembliesDir Condition="'$(UnityScriptAssembliesDir)'==''">Library\ScriptAssemblies</UnityScriptAssembliesDir>
     <UnityScriptAssembliesPath Condition="'$(UnityScriptAssembliesPath)'==''">$(UnityProjectPath)\$(UnityScriptAssembliesDir)</UnityScriptAssembliesPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2017.2'">
+    <UnityBuiltInPackagesDir Condition="'$(UnityBuiltInPackagesDir)'==''">Editor\Data\Resources\PackageManager\BuiltInPackages</UnityBuiltInPackagesDir>
+    <UnityBuiltInPackagesPath Condition="'$(UnityBuiltInPackagesPath)'==''">$(UnityVersionInstallPath)\$(UnityBuiltInPackagesDir)</UnityBuiltInPackagesPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2017.2'">
+    <UnityPackageCacheDir Condition="'$(UnityPackageCacheDir)'==''">Library\PackageCache</UnityPackageCacheDir>
+    <UnityPackageCachePath Condition="'$(UnityPackageCachePath)'==''">$(UnityProjectPath)\$(UnityPackageCacheDir)</UnityPackageCachePath>
   </PropertyGroup>
 
   <!-- Set default paths of specific Unity assemblies -->
   <PropertyGroup>
     <UnityEnginePath Condition="'$(UnityEnginePath)'==''">$(UnityManagedPath)\UnityEngine.dll</UnityEnginePath>
     <UnityEditorPath Condition="'$(UnityEditorPath)'==''">$(UnityManagedPath)\UnityEditor.dll</UnityEditorPath>
-    <UnityEngineUIPath Condition="'$(UnityEngineUIPath)'==''">$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll</UnityEngineUIPath>
-    <UnityEngineTestRunnerPath Condition="'$(UnityEngineTestRunnerPath)'==''">$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll</UnityEngineTestRunnerPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityEngineUIPath)'==''">
+    <UnityEngineUIPath>$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll</UnityEngineUIPath>
+    <UnityEngineUIPath Condition="'$(UnityVersionAsNumber)'>='2019.3'">$(UnityScriptAssembliesPath)\UnityEngine.UI.dll</UnityEngineUIPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityEngineTestRunnerPath)'==''">
+    <UnityEngineTestRunnerPath Condition="'$(UnityVersionAsNumber)'>='2019.3'">$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll</UnityEngineTestRunnerPath>
+    <UnityEngineTestRunnerPath Condition="'$(UnityVersionAsNumber)'&lt;'2019.3'">$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll</UnityEngineTestRunnerPath>
   </PropertyGroup>
 
   <!-- Set default paths of specific PackageCache assemblies -->
   <PropertyGroup>
-    <NewtonsoftJsonAssembly Condition="'$(NewtonsoftJsonAssembly)'==''">com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll</NewtonsoftJsonAssembly>
-    <NewtonsoftJsonPath Condition="'$(NewtonsoftJsonPath)'==''">$(UnityPackageCachePath)\$(NewtonsoftJsonAssembly)</NewtonsoftJsonPath>
-
-    <NunitAssembly Condition="'$(NunitAssembly)'==''">com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll</NunitAssembly>
-    <NunitPath Condition="'$(NunitPath)'==''">$(UnityPackageCachePath)\$(NunitAssembly)</NunitPath>
-
-    <MoqAssembly Condition="'$(MoqAssembly)'==''">nuget.moq*\Moq.dll</MoqAssembly>
-    <MoqPath Condition="'$(MoqPath)'==''">$(UnityPackageCachePath)\$(MoqAssembly)</MoqPath>
-
-    <UnityAnalyticsStandardEventsAssembly Condition="'$(UnityAnalyticsStandardEventsAssembly)'==''">com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</UnityAnalyticsStandardEventsAssembly>
-    <UnityAnalyticsStandardEventsPath Condition="'$(UnityAnalyticsStandardEventsPath)'==''">$(UnityPackageCachePath)\$(UnityAnalyticsStandardEventsAssembly)</UnityAnalyticsStandardEventsPath>
-
     <UnityEditorAndroidExtensionsPath Condition="'$(UnityEditorAndroidExtensionsPath)'==''">$(UnityAndroidPlayerPath)\UnityEditor.Android.Extensions.dll</UnityEditorAndroidExtensionsPath>
     <UnityEditoriOSExtensionsCommonPath Condition="'$(UnityEditoriOSExtensionsCommonPath)'==''">$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Common.dll</UnityEditoriOSExtensionsCommonPath>
     <UnityEditoriOSExtensionsXcodePath Condition="'$(UnityEditoriOSExtensionsXcodePath)'==''">$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Xcode.dll</UnityEditoriOSExtensionsXcodePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.3'">
+    <NewtonsoftJsonAssembly Condition="'$(NewtonsoftJsonAssembly)'==''">com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll</NewtonsoftJsonAssembly>
+    <NewtonsoftJsonPath Condition="'$(NewtonsoftJsonPath)'==''">$(UnityPackageCachePath)\$(NewtonsoftJsonAssembly)</NewtonsoftJsonPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.2'">
+    <NunitAssembly Condition="'$(NunitAssembly)'==''">com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll</NunitAssembly>
+    <NunitPath Condition="'$(NunitPath)'==''">$(UnityPackageCachePath)\$(NunitAssembly)</NunitPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'=='2019.2' Or '$(UnityVersionAsNumber)'=='2019.3'">
+    <MoqAssembly Condition="'$(MoqAssembly)'==''">nuget.moq*\Moq.dll</MoqAssembly>
+    <MoqPath Condition="'$(MoqPath)'==''">$(UnityPackageCachePath)\$(MoqAssembly)</MoqPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.2'">
+    <UnityAnalyticsStandardEventsAssembly Condition="'$(UnityAnalyticsStandardEventsAssembly)'==''">com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</UnityAnalyticsStandardEventsAssembly>
+    <UnityAnalyticsStandardEventsPath Condition="'$(UnityAnalyticsStandardEventsPath)'==''">$(UnityPackageCachePath)\$(UnityAnalyticsStandardEventsAssembly)</UnityAnalyticsStandardEventsPath>
   </PropertyGroup>
 
   <!-- Add default Unity references -->
