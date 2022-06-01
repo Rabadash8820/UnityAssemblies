@@ -63,7 +63,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ### Changed
 
 - Contributor Covenant to v2.0
-- Clarified Unity versions that we officially support in main README
+- Clarified which Unity versions are officially supported in main README
 
 ### Fixed
 

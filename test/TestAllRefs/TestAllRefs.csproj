@@ -14,7 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <!-- All Unity assembly references for which we provide short-hand properties -->
+    <!-- All Unity assembly references for which short-hand properties are provided -->
     <Reference Condition="'$(ConfigurationVersionNum)'>='20184'" Include="$(UnityEditorPath)" Private="false" />
 
     <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(UnityScriptAssembliesPath)\UnityEngine.UI.dll" Private="false" />
@@ -33,7 +33,7 @@
     <!-- One ScriptAssemblies reference, to make sure those work -->
     <Reference Condition="'$(ConfigurationVersionNum)'>='20184'" Include="$(UnityScriptAssembliesPath)\Unity.TextMeshPro.dll" Private="false" />
 
-    <!-- All PackageCache references for which we provide short-hand properties -->
+    <!-- All PackageCache references for which short-hand properties are provided -->
     <Reference Condition="'$(ConfigurationVersionNum)'>='20193'" Include="$(NewtonsoftJsonPath)" Private="false" />
     <Reference Condition="'$(ConfigurationVersionNum)'>='20192'" Include="$(NunitPath)" Private="false" />
     <Reference Condition="'$(ConfigurationVersionNum)'=='20192' Or '$(ConfigurationVersionNum)'=='20193'" Include="$(MoqPath)" Private="false" />

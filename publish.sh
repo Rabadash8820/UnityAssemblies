@@ -145,7 +145,7 @@ nugetSign() {
 }
 
 nugetPush() {
-    read derp  # This hacky piece of sh*t is just here to catch an [Enter], that I have no idea where is coming from...
+    read derp  # This hacky piece of sh*t is just here to catch an [Enter]; who knows where it is coming from...
 
     defaultNuGetSource="nuget.org"
     echo ""

@@ -124,7 +124,7 @@ As shown in the basic example above, this package only requires a `UnityVersion`
 In versions 1.x, this property should be added to your .csproj file. See the next section for instructions.
 
 In versions 2.x, it _must_ be added to a `Directory.Build.props` file.
-If you're working with a specific Unity project, we recommend setting `UnityProjectPath` rather than `UnityVersion`.
+If you're working with a specific Unity project, the recommendation is to set `UnityProjectPath` rather than `UnityVersion`.
 This NuGet package will then look up the project's Unity version from its `ProjectSettings/ProjectVersion.txt` file,
 so that when you update the project to a new Unity version, your assembly references will also update.
 `UnityProjectPath` must be the path to a Unity project folder, not the `Assets/` subfolder.
@@ -192,14 +192,14 @@ To reference these assemblies, add `Reference` items to your `.csproj`, like so:
 Note the use of the `*Path` MSBuild properties.
 These properties spare you from remembering the default Unity install path or the relative paths to any Unity assemblies,
 and they also make the references work across platforms (Windows/MacOS/Linux).
-See below for a [list of short-hand properties](#available-short-hand-properties) that we provide.
+See below for the full list of [provided short-hand properties](#available-short-hand-properties).
 
 Also note the use of [`Private="false"`](https://docs.microsoft.com/en-us/visualstudio/msbuild/common-msbuild-project-items#reference).
 This basically means "don't copy the referenced assembly to the output folder".
 This is recommended, so that Unity assemblies aren't being copied around unnecessarily, since they're automatically linked with managed plugins inside the Unity Editor.
 
 If you want to reference a Unity assembly for which there is no short-hand property, you can just hard-code its path into a `Reference` item yourself.
-If it is one of Unity's built-in assemblies, then we recommend starting the path with `$(UnityInstallRoot)\$(UnityVersion)\`,
+If it is one of Unity's built-in assemblies, then the path should start with `$(UnityInstallRoot)\$(UnityVersion)\`,
 so that it resolves across platforms, and so you're not duplicating the Unity version in multiple paths.
 If it is an assembly under your `UnityProjectPath` then see the next section.
 
@@ -210,7 +210,7 @@ This is especially common when your code and Unity project are stored in the sam
 and you want to reference assemblies from Asset Store assets or Packages that you've installed.
 In these cases, the paths in your `Reference` items should be relative paths, so that they resolve across platforms.
 When you define an MSBuild property named `$(UnityProjectPath)` to store this relative path, you can use it as a short-hand for multiple `Reference`s.
-Moreover, we provide a [couple short-hand properties](#available-short-hand-properties) for common assembly paths under `UnityProjectPath`.
+Moreover, there are a [couple short-hand properties](#available-short-hand-properties) for common assembly paths under `UnityProjectPath`.
 For example, if you want to raise Standard Events with the [Analytics package](https://docs.unity3d.com/Manual/com.unity.analytics.html)
 and use the [Addressables](https://docs.unity3d.com/Manual/com.unity.addressables.html) workflow, then your `.csproj` would look something like:
 
@@ -242,14 +242,14 @@ In versions 1.x:
 
 **Note: the Unity project must have been built recently, so that the `Library/` folder actually contains the imported assemblies!**
 
-Also note that, while we do provide short-hand properties for a couple assemblies under the `PackageCache` folder (see the [full list](#available-short-hand-properties)),
-we do _not_ provide short-hand properties for assemblies stored in the `ScriptAssemblies` folder.
+Also note that, while there are short-hand properties for a couple assemblies under the `PackageCache` folder (see the [full list](#available-short-hand-properties)),
+there are _no_ short-hand properties for assemblies stored in the `ScriptAssemblies` folder.
 That folder is completely flat, so you can just reference assemblies there by filename.
 
 ### Referencing assemblies at non-default install locations
 
 Because Unity Hub is the tool [recommended by Unity Technologies](https://docs.unity3d.com/Manual/GettingStartedInstallingUnity.html) for installing Unity,
-we check for Unity assemblies at the Hub's default install locations using the `UnityInstallRootPath` property (`UnityInstallRoot` in versions 1.x).
+this package checks for Unity assemblies at the Hub's default install locations using the `UnityInstallRootPath` property (`UnityInstallRoot` in versions 1.x).
 If you are not using Unity Hub, or you are using a non-default install location, just set `UnityInstallRoot[Path]` to a different path.
 
 For example, if you were using a Windows machine and your Unity version was installed without the Hub in a `Unity\` folder on your `V:` drive,
@@ -268,7 +268,7 @@ In versions 2.x, this code must be in `Directory.Build.props`; in versions 1.x, 
 
 ### Removing the default reference to UnityEngine.dll
 
-You may not want to keep our default reference to `UnityEngine.dll`, e.g., if you only need a reference to some other Unity assembly,
+You may not want to keep the default reference to `UnityEngine.dll`, e.g., if you only need a reference to some other Unity assembly,
 or want to reference Unity's module assemblies directly.
 To remove the `Reference` from your project, simply use the MSBuild Item remove syntax, i.e., add the following line to an `<ItemGroup>` in your `.csproj`:
 
@@ -294,7 +294,7 @@ This error is shown because Unity UI's assembly doesn't use the `Vector2` type f
 Therefore, the default reference to `UnityEngine.dll` added by this NuGet package does not satisfy the compiler.
 However, if you reference both `UnityEngine.dll` _and_ the module assembly, then you'll get compiler errors about duplicate type definitions.
 
-The solution is to [remove our default reference](#removing-the-default-reference-to-unityengine.dll) to `UnityEngine.dll`,
+The solution is to [remove the default reference](#removing-the-default-reference-to-unityengine.dll) to `UnityEngine.dll`,
 and then reference each module that you need individually.
 So, for this particular example, your `.csproj` might look like the following.
 
@@ -324,7 +324,7 @@ In versions 1.x:
 </ItemGroup>
 ```
 
-We do _not_ provide short-hand properties for assemblies stored in `$(UnityModulesPath)`. The folder is completely flat, so you can just reference assemblies there by filename.
+There are _no_ short-hand properties for assemblies stored in `$(UnityModulesPath)`. The folder is completely flat, so you can just reference assemblies there by filename.
 If you're unsure of which modules to reference, check out the Unity Scripting Manual.
 Every type includes an `Implemented in` note at the top of the page, telling you in which of Unity's core modules the type is implemented.
 For example, see the screenshot below of the manual page for `Vector2`:
@@ -343,7 +343,7 @@ you may still need to reference this module for types like `GUIElement`, `Networ
 Unity assembly paths sometimes change between versions: new assemblies are added, old ones are removed or broken up into UPM packages.
 If your managed plugin must support multiple versions of Unity, then you may want to say
 "reference this assembly, but only in these Unity versions" or "reference this assembly using the correct version-specific path".
-For scenarios like these, we added new MSBuild properties in v2 that expose the major, minor, and patch versions of your project's `UnityVersion`:
+For scenarios like these, there are new MSBuild properties in v2 that expose the major, minor, and patch versions of your project's `UnityVersion`:
 
 1. `UnityVersionMajor`: e.g., `2021` in `2021.3.5f1`
 2. `UnityVersionMinor`: e.g., `3` in `2021.3.5f1`
@@ -371,7 +371,7 @@ Therefore, to reference NUnit in _any_ Unity version, you could use [MSBuild Con
 The second `Reference` will overwrite the first for projects referencing Unity 2019.2+ assemblies.
 
 For assembly paths that change between Unity versions (e.g., `UnityEngineUIPath`),
-our short-hand properties adjust according to the provided (or parsed) `UnityVersion`, using code much like above,
+the short-hand properties adjust according to the provided (or parsed) `UnityVersion`, using code much like above,
 so you don't need to worry about conditionally setting the paths yourself.
 If a path is not applicable in a particular Unity version (such as `NunitPath` in Unity 2019.1 and below),
 then its MSBuild property will be undefined for that version (e.g., `$(NunitPath)` would be empty).
@@ -386,7 +386,7 @@ For example, to change the UI assembly's path, you could set:
 <UnityEngineUIPath>path\to\UnityEngine.UI.dll</UnityEngineUIPath>
 ```
 
-As assembly paths change in future versions of Unity, you can continue referencing them by overwriting these properties, until we update the properties ourselves.
+As assembly paths change in future versions of Unity, you can continue referencing them by overwriting these properties, until the properties are updated in this package.
 This ability makes this NuGet package truly "forward-compatible".
 You can manually override the property for a single assembly (e.g., `UnityEnginePath`),
 or for many assemblies under the same absolute/relative base path (e.g., `UnityModulesPath` or `UnityModulesDir`).
@@ -500,15 +500,16 @@ Unity only stores one version of a Package in the `PackageCache` folder, so you 
     This works through a magical little combination of [MSBuild Conditions](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditions)
     and the [`IsOsPlatform()` Property Function](https://docs.microsoft.com/en-us/visualstudio/msbuild/property-functions#msbuild-property-functions).
 1. **Is this package officially maintained by Unity Technologies?**
-    No, it is maintained by Derploid Entertainment. However, we will be submitting this package to Unity Technologies as it gains traction,
+    No, it is maintained by Derploid Entertainment.
+    However, this package will be submitted to Unity Technologies as it gains traction,
     **_so that maybe we can finally have an officially supported NuGet package for Unity assemblies!_**
 1. **If not, how is this package legal?**
-    Well, we're not actually distributing the Unity assembly binaries, just MSBuild files that reference them.
+    Well, it's 'not actually distributing the Unity assembly binaries, just MSBuild files that reference them.
     This NuGet package won't add anything if you haven't actually installed a version of Unity on your machine.
 1. **Can you help me solve [error] in Unity version [version]?**
-    Possibly. We only test compatibility with, and offer support for, the latest Unity [LTS releases](https://unity3d.com/unity/qa/lts-releases) and the TECH stream releases of the current year.
-    Unity does not officially support versions older than that, so neither do we!
-    That said, if you're having an issue with an older version of Unity, there's a good chance that we've seen it ourselves,
+    Possibly. Compatibility is only tested with, and support offered for, the latest Unity [LTS releases](https://unity3d.com/unity/qa/lts-releases) and the TECH stream releases of the current year.
+    Unity does not officially support versions older than that, so neither does this package!
+    That said, if you're having an issue with an older version of Unity, there's a good chance that someone in this community has seen it before,
     so feel free to [open an Issue](https://github.com/DerploidEntertainment/UnityAssemblies/issues)!
 1. **With which Unity versions has this NuGet package been officially tested?**
     In the following:
@@ -529,7 +530,7 @@ Issues and support questions may be posted on this repository's [Issues page](ht
 
 ## Contributing
 
-Please refer to our [Contributing guide](./CONTRIBUTING.md).
+Please refer to the [Contributing guide](./CONTRIBUTING.md).
 
 ## License
 

@@ -41,4 +41,4 @@ Then, make sure your .csproj file looks something like this:
         <!-- Other properties/items -->
     </Project>
 
-For complete documentation, see our README on GitHub: https://github.com/DerploidEntertainment/UnityAssemblies/blob/master/README.md
+For complete documentation, see the README on GitHub: https://github.com/DerploidEntertainment/UnityAssemblies/blob/master/README.md

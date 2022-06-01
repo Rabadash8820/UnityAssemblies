@@ -43,7 +43,7 @@
               m_EditorVersion: 2021.3.2f1
               m_EditorVersionWithRevision: 2021.3.2f1 (d6360bedb9a0)
 
-          We first condense this to single "CSV" line, e.g.: m_EditorVersion,2021.3.2f1,m_EditorVersionWithRevision,2021.3.2f1 (d6360bedb9a0)
+          First condense this to single "CSV" line, e.g.: m_EditorVersion,2021.3.2f1,m_EditorVersionWithRevision,2021.3.2f1 (d6360bedb9a0)
           Then pluck out the versions by splitting on comma
         -->
         <UnityProjectVersionTxt>$([System.IO.File]::ReadAllText(`$(UnityProjectPath)\ProjectSettings\ProjectVersion.txt`))</UnityProjectVersionTxt>
