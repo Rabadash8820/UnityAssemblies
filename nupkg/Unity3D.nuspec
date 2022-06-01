@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
   <metadata minClientVersion="2.5">
     <id>Unity3D</id>
-    <version>2.0.0-rc2</version>
+    <version>2.0.0</version>
     <title>Unity</title>
     <authors>Unity Technologies</authors>
     <icon>icon.png</icon>
@@ -14,9 +14,16 @@
 - Unity version can now be parsed automatically from the ProjectVersion.txt file in a Unity project, if not set explicitly.
 - Added many new short-hand properties, with more consistent naming (relative paths end in "Dir" or "Assembly", absolute paths end in "Path")
 - If neither UnityVersion nor UnityProjectPath are explicitly set, then UnityVersion is set to a constant string to explain the issue
+- UnityVersion or UnityProjectPath must be set in a Directory.Build.props, not the project file.
 - Added UnityVersionMajor, UnityVersionMinor, UnityVersionPatch, and UnityVersionAsNumber props for manipulation of Unity versions as numbers
 - Updated usage notes in all Readme documents
-- Added test projects for Tech Stream Unity releases up through 2022.1
+- Internal: added test projects for Tech Stream Unity releases up through 2022.1
+- Added a changelog with release notes for all versions thus far, based on Keep a Changelog
+- Added Documentation on using the numeric Unity version properties in MSBuild files
+- Added Support documentation to main README
+- Added a changelog to the repo based on Keep a Changelog
+- Updated ASCII art in package readme.txt to use new Unity logo
+- Updated package icon to use new Unity logo
 - BREAKING CHANGES:
   - Renamed "OSInstallRoot" property to "OSInstallRootPath" and "UnityInstallRoot" to "UnityInstallRootPath", to be consistent with other prop names
   - Reference Include paths no longer need to start with $(UnityInstallRoot)/$(UnityVersion). Most paths will now use a single short-hand property
