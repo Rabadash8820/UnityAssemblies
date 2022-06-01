@@ -36,7 +36,7 @@ Then, make sure your .csproj file looks something like this:
             <TargetFramework>netstandard2.1</TargetFramework>
         </PropertyGroup>
         <ItemGroup>
-            <PackageReference Include="Unity3D" Version="2.0.0" />
+            <PackageReference Include="Unity3D" Version="2.0.1" />
         </ItemGroup>
         <!-- Other properties/items -->
     </Project>
