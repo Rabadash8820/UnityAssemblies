@@ -13,6 +13,10 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
 
 `Unity3D` allows developers to effectively reference assemblies of the Unity game engine (e.g., `UnityEngine.dll`) as NuGet packages.
 
+If you find this package useful, consider supporting its development!
+
+<a href="https://www.buymeacoffee.com/shundra882n" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+
 _Unity® and the Unity logo are trademarks of Unity Technologies._
 
 ## Contents
