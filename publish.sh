@@ -2,7 +2,7 @@
 
 verifyReleaseNotes() {
     echo ""
-    echo "Verify that the <releaseNotes/> element of nuspec is up-to-date"
+    echo "Verify that CHANGELOG.md and the <releaseNotes/> element of nuspec are up-to-date"
     echo ""
     read -p "Press [Enter] when you're done..."
 }
@@ -186,7 +186,9 @@ main() {
     cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
     # Make sure user has updated package info
-    verifyReleaseNotes && bumpVersions && bumpCurrentYear
+    verifyReleaseNotes && \
+    bumpVersions && \
+    bumpCurrentYear
 
     echo ""
     echo "Commit the changes to version/year that this script just made"
