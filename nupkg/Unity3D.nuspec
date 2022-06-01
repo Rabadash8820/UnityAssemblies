@@ -8,7 +8,7 @@
     <icon>icon.png</icon>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <license type="expression">MIT</license>
-    <projectUrl>https://github.com/DerploidEntertainment/UnityAssemblies</projectUrl>
+    <projectUrl>https://github.com/Rabadash8820/UnityAssemblies</projectUrl>
     <description>Simple, forward-compatible references to ANY Unity assembly on ANY platform.</description>
     <releaseNotes>
 - Unity version can now be parsed automatically from the ProjectVersion.txt file in a Unity project, if not set explicitly.
@@ -29,8 +29,8 @@
   - Reference Include paths no longer need to start with $(UnityInstallRoot)/$(UnityVersion). Most paths will now use a single short-hand property
   - Assembly short-hand properties are now conditionally defined based on UnityVersion
     </releaseNotes>
-    <copyright>Copyright ©2019-2022 Derploid Entertainment, LLC</copyright>
+    <copyright>Copyright ©2019-2022 Daniel Vicarel</copyright>
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>
-    <repository type="git" url="https://github.com/DerploidEntertainment/UnityAssemblies.git" />
+    <repository type="git" url="https://github.com/Rabadash8820/UnityAssemblies.git" />
   </metadata>
 </package>

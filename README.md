@@ -5,9 +5,9 @@
 [![NuGet package](https://img.shields.io/nuget/v/Unity3D.svg)](https://nuget.org/packages/Unity3D)
 [![NuGet downloads](https://img.shields.io/packagecontrol/dd/Unity3D.svg)](https://nuget.org/packages/Unity3D)
 [![Keep a Changelog v2.0.0 badge](https://img.shields.io/badge/changelog-v2.0.0-blue.svg)](./CHANGELOG.md)
-[![License](https://img.shields.io/github/license/DerploidEntertainment/UnityAssemblies.svg)](./LICENSE)
+[![License](https://img.shields.io/github/license/Rabadash8820/UnityAssemblies.svg)](./LICENSE)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
-[![Issues closed](https://img.shields.io/github/issues-closed/DerploidEntertainment/UnityAssemblies)](https://github.com/DerploidEntertainment/UnityAssemblies/issues)
+[![Issues closed](https://img.shields.io/github/issues-closed/Rabadash8820/UnityAssemblies)](https://github.com/Rabadash8820/UnityAssemblies/issues)
 
 This repository contains the source code for the [`Unity3D` NuGet package](https://www.nuget.org/packages/Unity3D).
 
@@ -500,7 +500,7 @@ Unity only stores one version of a Package in the `PackageCache` folder, so you 
     This works through a magical little combination of [MSBuild Conditions](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditions)
     and the [`IsOsPlatform()` Property Function](https://docs.microsoft.com/en-us/visualstudio/msbuild/property-functions#msbuild-property-functions).
 1. **Is this package officially maintained by Unity Technologies?**
-    No, it is maintained by Derploid Entertainment.
+    No, it is maintained by [one wild and crazy guy](https://github.com/Rabadash8820).
     However, this package will be submitted to Unity Technologies as it gains traction,
     **_so that maybe we can finally have an officially supported NuGet package for Unity assemblies!_**
 1. **If not, how is this package legal?**
@@ -510,7 +510,7 @@ Unity only stores one version of a Package in the `PackageCache` folder, so you 
     Possibly. Compatibility is only tested with, and support offered for, the latest Unity [LTS releases](https://unity3d.com/unity/qa/lts-releases) and the TECH stream releases of the current year.
     Unity does not officially support versions older than that, so neither does this package!
     That said, if you're having an issue with an older version of Unity, there's a good chance that someone in this community has seen it before,
-    so feel free to [open an Issue](https://github.com/DerploidEntertainment/UnityAssemblies/issues)!
+    so feel free to [open an Issue](https://github.com/Rabadash8820/UnityAssemblies/issues)!
 1. **With which Unity versions has this NuGet package been officially tested?**
     In the following:
     - 2022.1
@@ -526,7 +526,8 @@ Unity only stores one version of a Package in the `PackageCache` folder, so you 
 
 ## Support
 
-Issues and support questions may be posted on this repository's [Issues page](https://github.com/DerploidEntertainment/UnityAssemblies/issues). Please check if your Issue has already been answered/addressed by a previous Issue before creating a new one. 🙏
+Issues and support questions may be posted on this repository's [Issues page](https://github.com/Rabadash8820/UnityAssemblies/issues).
+Please check if your Issue has already been answered/addressed by a previous Issue before creating a new one. 🙏
 
 ## Contributing
 

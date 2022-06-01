@@ -11,15 +11,15 @@ Thanks for contributing! :heart: :heart: :heart:
 
 ### Did you find a bug?
 
-* **Ensure the bug was not already reported** by searching [previous Issues](https://github.com/DerploidEntertainment/UnityAssemblies/issues).
-* If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/DerploidEntertainment/UnityAssemblies/issues/new).
+* **Ensure the bug was not already reported** by searching [previous Issues](https://github.com/Rabadash8820/UnityAssemblies/issues).
+* If you're unable to find an open issue addressing the problem, [open a new one](https://github.com/Rabadash8820/UnityAssemblies/issues/new).
     Be sure to include a **title and clear description**, as much relevant information as possible,
     and a **code sample** or an **executable test case** demonstrating the expected behavior that is not occurring.
 
 ### Did you write a patch that fixes a bug?
 
 * Awesome! Thank you!
-* Open a new GitHub [Pull Request](https://github.com/DerploidEntertainment/UnityAssemblies/pulls) with the patch.
+* Open a new GitHub [Pull Request](https://github.com/Rabadash8820/UnityAssemblies/pulls) with the patch.
 * Ensure the PR description clearly describes the problem and solution. Include the relevant issue number if applicable.
 * Before submitting, please ensure you have not introduced any other regressions by reading the [testing](#testing) guidelines below.
 
@@ -90,7 +90,7 @@ The solution contains the following:
 
 "Running" the tests consists of building the solution in each of the defined solution configurations.
 If all builds succeed, then the tests passed! To do this, just change the active solution configuration in Visual Studio and select "Build > Build Solution".
-Consult the [troubleshooting](#troubleshooting) guidelines (or past [Issues](https://github.com/DerploidEntertainment/UnityAssemblies/issues)) if you run into any problems.
+Consult the [troubleshooting](#troubleshooting) guidelines (or past [Issues](https://github.com/Rabadash8820/UnityAssemblies/issues)) if you run into any problems.
 
 ### Troubleshooting
 
