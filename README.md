@@ -1,4 +1,4 @@
-# Unity Assemblies
+# Unity3D NuGet Package
 
 ![Unity logo, trademarked by Unity Technologies](./nupkg/icon.png)
 
@@ -15,7 +15,7 @@ This repository contains the source code for the [`Unity3D` NuGet package](https
 
 If you find this package useful, consider supporting its development!
 
-<a href="https://www.buymeacoffee.com/shundra882n" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
+<a href="https://www.buymeacoffee.com/shundra882n" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 40px !important;width: 145px !important;" ></a>
 
 _Unity® and the Unity logo are trademarks of Unity Technologies._
 
