@@ -24,7 +24,7 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
 - [Basic Usage](#basic-usage)
 - [Why Another NuGet Package for Unity?](#why-another-nuget-package-for-unity)
 - [Usage](#usage)
-  - [Editing the project files](#editing-the-project-file)
+  - [Editing the project files](#editing-the-project-files)
   - [Choosing a `TargetFramework`](#choosing-a-targetframework)
   - [Referencing additional Unity assemblies](#referencing-additional-unity-assemblies)
   - [Referencing assemblies stored in a Unity project](#referencing-assemblies-stored-in-a-unity-project)
