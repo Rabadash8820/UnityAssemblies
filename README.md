@@ -252,23 +252,54 @@ That folder is completely flat, so you can just reference assemblies there by fi
 
 ### Referencing assemblies at non-default install locations
 
-Because Unity Hub is the tool [recommended by Unity Technologies](https://docs.unity3d.com/Manual/GettingStartedInstallingUnity.html) for installing Unity,
-this package checks for Unity assemblies at the Hub's default install locations using the `UnityInstallRootPath` property (`UnityInstallRoot` in versions 1.x).
-If you are not using Unity Hub, or you are using a non-default install location, just set `UnityInstallRoot[Path]` to a different path.
+Because Unity Hub is the installation tool [recommended by Unity Technologies](https://docs.unity3d.com/Manual/GettingStartedInstallingUnity.html),
+this package checks for Unity assemblies at Unity Hub's default install locations by default.
+If you are not using Unity Hub, or are using non-default install locations, then you can override the path where this package searches for Unity assemblies
+by setting the `UnityInstallRootPath` and/or `OSInstallRootPath` MSBuild properties (`UnityInstallRoot` or `OSInstallRoot` for versions 1.x).
+See the [list of short-hand properties](#available-short-hand-properties) to understand these properties' default values and how they are interpreted.
 
-For example, if you were using a Windows machine and your Unity version was installed without the Hub in a `Unity\` folder on your `V:` drive,
-then you would need the following code.
-In versions 2.x, this code must be in `Directory.Build.props`; in versions 1.x, you can just put it in your .csproj file.
+For example, if you were using a Windows machine and you installed a Unity version without Unity Hub on your `V:` drive,
+or set the "Installs location" to your `V:` drive in Unity Hub preferences, then you would need the following code:
 
-**Warning: When changing the `UnityInstallRoot[Path]` property (or `OSInstallRoot[Path]`), it is up to you to keep the paths cross-platform.**
+Versions 2.x:
 
 ```xml
+<!-- In `Directory.Build.props` -->
 <PropertyGroup>
+    <UnityInstallRootPath>V:\</UnityInstallRootPath>
     <!-- Other properties... -->
-    <UnityInstallRootPath>V:\Unity</UnityInstallRootPath>   <!-- Versions 2.x -->
-    <UnityInstallRoot>V:\Unity</UnityInstallRoot>   <!-- Versions 1.x -->
 </PropertyGroup>
 ```
+
+Versions 1.x:
+
+```xml
+<!-- In your `.csproj` file -->
+<PropertyGroup>
+    <UnityInstallRoot>V:\</UnityInstallRoot>
+    <!-- Other properties... -->
+</PropertyGroup>
+```
+
+On collaborative projects, hard-coding paths is insufficient, as contributors may be using a mixture of default and non-default install locations.
+To support user-specific Unity install locations, you can use MSBuild [property functions](https://learn.microsoft.com/en-us/visualstudio/msbuild/property-functions) in your version-controlled `UnityInstallRoot[Path]` and/or `OSInstallRoot[Path]` properties.
+For example, you could read the path from a `UNITY_OS_INSTALL_ROOT` environment variable. Each collaborator would need to define that variable on their machine.
+Then, your versioned MSBuild property would be:
+
+Versions 2.x:
+
+```xml
+<UnityInstallRootPath>$([System.Environment]::GetEnvironmentVariable('UNITY_OS_INSTALL_ROOT'))</UnityInstallRootPath>
+```
+
+Versions 1.x:
+
+```xml
+<UnityInstallRoot>$([System.Environment]::GetEnvironmentVariable('UNITY_OS_INSTALL_ROOT'))</UnityInstallRoot>
+```
+
+**Warning: If your property function returns `null` or an empty string (e.g., if a collaborator did _not_ set the required environment variable),
+then this package still uses the default `UnityInstallRoot[Path]` and/or `OSInstallRoot[Path]`.**
 
 ### Removing the default reference to UnityEngine.dll
 
