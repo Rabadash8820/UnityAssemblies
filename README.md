@@ -29,7 +29,7 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
   - [Referencing additional Unity assemblies](#referencing-additional-unity-assemblies)
   - [Referencing assemblies stored in a Unity project](#referencing-assemblies-stored-in-a-unity-project)
   - [Referencing assemblies at non-default install locations](#referencing-assemblies-at-non-default-install-locations)
-  - [Removing the default reference to UnityEngine.dll](#removing-the-default-reference-to-unityengine.dll)
+  - [Removing the default reference to UnityEngine.dll](#removing-the-default-reference-to-unityenginedll)
   - [Referencing the Unity core modules](#referencing-the-unity-core-modules)
   - [Referencing assemblies in specific Unity versions](#referencing-assemblies-in-specific-unity-versions)
 - [Available Short-Hand Properties](#available-short-hand-properties)
@@ -329,7 +329,7 @@ This error is shown because Unity UI's assembly doesn't use the `Vector2` type f
 Therefore, the default reference to `UnityEngine.dll` added by this NuGet package does not satisfy the compiler.
 However, if you reference both `UnityEngine.dll` _and_ the module assembly, then you'll get compiler errors about duplicate type definitions.
 
-The solution is to [remove the default reference](#removing-the-default-reference-to-unityengine.dll) to `UnityEngine.dll`,
+The solution is to [remove the default reference](#removing-the-default-reference-to-unityenginedll) to `UnityEngine.dll`,
 and then reference each module that you need individually.
 So, for this particular example, your `.csproj` might look like the following.
 
@@ -366,7 +366,7 @@ For example, see the screenshot below of the manual page for `Vector2`:
 
 **Warning: There is a Unity module assembly named `UnityEngine.dll`.
 This is not to be confused with the `UnityEngine.dll` assembly under `$(UnityManagedPath)`!
-After [removing the default `UnityEngine.dll`](#removing-the-default-reference-to-unityengine.dll) reference from your project,
+After [removing the default `UnityEngine.dll`](#removing-the-default-reference-to-unityenginedll) reference from your project,
 you may still need to reference this module for types like `GUIElement`, `Network`, `ProceduralMaterial`, etc.**
 
 ![Unity Scripting Manual page for Vector2, showing that the type is implemented in UnityEngine.CoreModule](./images/unity-modules-docs.png)
@@ -470,7 +470,7 @@ Unity only stores one version of a Package in the `PackageCache` folder, so you 
 | `UnityProjectPath` | N/A | This property has no default value. Set it to the absolute path of the root folder of your Unity project, so that you can easily reference Package and Asset Store assemblies (as [described above](#referencing-assemblies-stored-in-a-unity-project)). |
 | `UnityPackageCacheDir` | `Library\PackageCache` | Referenced by `UnityPackageCachePath`. Only defined if `UnityVersion` is >= 2017.2. |
 | `UnityPackageCachePath` | `$(UnityProjectPath)\$(UnityPackageCacheDir)` | This folder contains assemblies from UPM packages (for built-in Packages, see `UnityBuiltInPackagesPath`). Only defined if `UnityVersion` is >= 2017.2. |
-| `UnityEnginePath` | `$(UnityManagedPath)\UnityEngine.dll` | This reference is added by default. See [instructions to remove it](#removing-the-default-reference-to-unityengine.dll). |
+| `UnityEnginePath` | `$(UnityManagedPath)\UnityEngine.dll` | This reference is added by default. See [instructions to remove it](#removing-the-default-reference-to-unityenginedll). |
 | `UnityEditorPath` | `$(UnityManagedPath)\UnityEditor.dll` |  |
 | `UnityEngineUIPath` | `$(UnityScriptAssembliesPath)\UnityEngine.UI.dll` for Unity 2019.3+, `$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll` for Unity 2019.2 and below |
 | `UnityEngineTestRunnerPath` | `$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll` for Unity 2019.3+, `$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll` for Unity 2019.2 and below |
@@ -499,7 +499,7 @@ Unity only stores one version of a Package in the `PackageCache` folder, so you 
 | `UnityAndroidPlayerPath` | Any | `$(UnityPlaybackEnginesPath)\AndroidPlayer` |  |
 | `UnityiOSSupportPath` | Any | `$(UnityPlaybackEnginesPath)\iOSSupport` |  |
 | `UnityBuiltInPackagesPath` | >= 2017.2 | `Editor\Data\Resources\PackageManager\BuiltInPackages` | This folder contains assemblies from Unity's built-in Packages, like IMGUI and TerrainPhysics (for all other UPM Package assemblies, see `UnityPackageCachePath`). |
-| `UnityEnginePath` | Any | `$(UnityManagedPath)\UnityEngine.dll` | This reference is added by default. See above for [instructions to remove it](#removing-the-default-reference-to-unityengine.dll). |
+| `UnityEnginePath` | Any | `$(UnityManagedPath)\UnityEngine.dll` | This reference is added by default. See above for [instructions to remove it](#removing-the-default-reference-to-unityenginedll). |
 | `UnityEditorPath` | Any | `$(UnityManagedPath)\UnityEditor.dll` |  |
 | `UnityEngineUIPath` | <= 2019.2 | `$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll`. | In Unity 2019.3+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll` instead. |
 | `UnityEngineTestRunnerPath` | <= 2019.2 | `$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll` | In Unity 2019.3+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll` instead. |
