@@ -450,7 +450,7 @@ Unity only stores one version of a Package in the `PackageCache` folder, so you 
 | `UnityVersionAsNumber` | 0.0 | Equals `$(UnityVersionMajor).$(UnityVersionMinor)`. Cannot be overriden. Useful for making numeric comparisons against the Unity version in MSBuild Conditions. |
 | `UnityInstallRootDir` | `Unity\Hub\Editor` | Referenced by `UnityInstallRootPath`. |
 | `UnityInstallRootPath` | `$(OSInstallRootPath)\$(UnityInstallRootDir)` |  |
-| `UnityVersionInstallPath` | `$(OSInstallRootPath)\$(UnityVersion)` |  |
+| `UnityVersionInstallPath` | `$(UnityInstallRootPath)\$(UnityVersion)` |  |
 | `UnityManagedDir` | `Editor\Data\Managed` on Linux/Windows or `Unity.app\Contents\Managed` on MacOS. | Referenced by `UnityManagedPath`. |
 | `UnityManagedPath` | `$(UnityVersionInstallPath)\$(UnityManagedDir)` |  |
 | `UnityExtensionsDir` | `Editor\Data\UnityExtensions\Unity` on Linux/Windows or `Unity.app\Contents\UnityExtensions\Unity` on MacOS. | Referenced by `UnityExtensionsPath`. |
