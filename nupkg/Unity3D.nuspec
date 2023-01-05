@@ -10,9 +10,7 @@
     <license type="expression">MIT</license>
     <projectUrl>https://github.com/Rabadash8820/UnityAssemblies</projectUrl>
     <description>Simple, forward-compatible references to ANY Unity assembly on ANY platform.</description>
-    <releaseNotes>
-- All documentation and package details now reference the Rabadash8820 GitHub repository (transferred from DerploidEntertainment)
-    </releaseNotes>
+    <releaseNotes>See current and archived release notes at https://github.com/Rabadash8820/UnityAssemblies/blob/main/CHANGELOG.md</releaseNotes>
     <copyright>Copyright ©2019-2022 Daniel Vicarel</copyright>
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>
     <repository type="git" url="https://github.com/Rabadash8820/UnityAssemblies.git" />
