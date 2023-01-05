@@ -12,6 +12,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Newtonsoft.Json short-hand properties now use the path in Unity's install folder for Unity 2022.2+
 - All short-hand properties for UPM assemblies now include `@` in the name, to prevent name conflicts for assemblies with "nested namespace" names
 
+### Removed
+
+- Readme content specifically for 1.x versions of this package, as they are now deprecated
+
 ## 2.0.1 - 2022-06-01
 
 ### Changed
