@@ -111,19 +111,20 @@
     <UnityEditoriOSExtensionsXcodePath Condition="'$(UnityEditoriOSExtensionsXcodePath)'==''">$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Xcode.dll</UnityEditoriOSExtensionsXcodePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.3'">
-    <NewtonsoftJsonAssembly Condition="'$(NewtonsoftJsonAssembly)'==''">com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll</NewtonsoftJsonAssembly>
-    <NewtonsoftJsonPath Condition="'$(NewtonsoftJsonPath)'==''">$(UnityPackageCachePath)\$(NewtonsoftJsonAssembly)</NewtonsoftJsonPath>
+    <NewtonsoftJsonAssembly Condition="'$(NewtonsoftJsonAssembly)'=='' And '$(UnityVersionAsNumber)'&lt;'2022.2'">com.unity.nuget.newtonsoft-json%40*\Runtime\Newtonsoft.Json.dll</NewtonsoftJsonAssembly>
+    <NewtonsoftJsonPath Condition="'$(NewtonsoftJsonPath)'=='' And '$(UnityVersionAsNumber)'&lt;'2022.2'">$(UnityPackageCachePath)\$(NewtonsoftJsonAssembly)</NewtonsoftJsonPath>
+    <NewtonsoftJsonPath Condition="'$(NewtonsoftJsonPath)'=='' And '$(UnityVersionAsNumber)'>='2022.2'">$(UnityManagedPath)\Newtonsoft.Json.dll</NewtonsoftJsonPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.2'">
-    <NunitAssembly Condition="'$(NunitAssembly)'==''">com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll</NunitAssembly>
+    <NunitAssembly Condition="'$(NunitAssembly)'==''">com.unity.ext.nunit%40*\net35\unity-custom\nunit.framework.dll</NunitAssembly>
     <NunitPath Condition="'$(NunitPath)'==''">$(UnityPackageCachePath)\$(NunitAssembly)</NunitPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(UnityVersionAsNumber)'=='2019.2' Or '$(UnityVersionAsNumber)'=='2019.3'">
-    <MoqAssembly Condition="'$(MoqAssembly)'==''">nuget.moq*\Moq.dll</MoqAssembly>
+    <MoqAssembly Condition="'$(MoqAssembly)'==''">nuget.moq%40*\Moq.dll</MoqAssembly>
     <MoqPath Condition="'$(MoqPath)'==''">$(UnityPackageCachePath)\$(MoqAssembly)</MoqPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.2'">
-    <UnityAnalyticsStandardEventsAssembly Condition="'$(UnityAnalyticsStandardEventsAssembly)'==''">com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</UnityAnalyticsStandardEventsAssembly>
+    <UnityAnalyticsStandardEventsAssembly Condition="'$(UnityAnalyticsStandardEventsAssembly)'==''">com.unity.analytics%40*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</UnityAnalyticsStandardEventsAssembly>
     <UnityAnalyticsStandardEventsPath Condition="'$(UnityAnalyticsStandardEventsPath)'==''">$(UnityPackageCachePath)\$(UnityAnalyticsStandardEventsAssembly)</UnityAnalyticsStandardEventsPath>
   </PropertyGroup>
 
