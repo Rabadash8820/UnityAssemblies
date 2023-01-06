@@ -58,9 +58,9 @@ The solution contains the following:
     These configurations use the naming convention `<Framework>_<UnityVersion>`, with Unity verions containing only the major and minor version separated by an underscore.
     For example, the configuration to test a .NET Standard 2.0 project against Unity 2021.1.x is called `Standard20_2021_1`.
     The file contains mappings from these configuration names to the correct `TargetFramework` values.
-    The file also maps configuration names to custom `ConfigurationVersionNum` properties,
-    which represent the target Unity version as a number for numeric comparisons (e.g., `20211` for 2021.1.x).
-  * `UnityAssetsPath.props`: contains the actual relative paths to the test Unity projects for each supported Unity version.
+    The file also defines the custom `ConfigurationVersionNum` property,
+    which represents the target Unity version as a number for numeric comparisons (e.g., `20211` for 2021.1.x).
+  * `UnityAssetsPath.props`: contains the actual relative path to the test Unity project for the current configuration's Unity version.
     Several of the short-hand MSBuild properties reference assemblies stored within a Unity project's `Library/` folder.
     Therefore, a collection of test Unity projects is maintained under the `unity/` folder so that those references can be satisfied.
     These projects use the naming convention `Unity3D_<Version>`, where the verion contains only the major and minor version separated by an underscore.
