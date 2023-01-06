@@ -1,5 +1,6 @@
 ﻿<Project>
   <PropertyGroup>
+    <UnityProjectPath Condition="'$(ConfigurationVersionNum)'=='20222'">$(SolutionDir)\..\unity\Unity3D_2022_2</UnityProjectPath>
     <UnityProjectPath Condition="'$(ConfigurationVersionNum)'=='20221'">$(SolutionDir)\..\unity\Unity3D_2022_1</UnityProjectPath>
     <UnityProjectPath Condition="'$(ConfigurationVersionNum)'=='20213'">$(SolutionDir)\..\unity\Unity3D_2021_3</UnityProjectPath>
     <UnityProjectPath Condition="'$(ConfigurationVersionNum)'=='20212'">$(SolutionDir)\..\unity\Unity3D_2021_2</UnityProjectPath>
