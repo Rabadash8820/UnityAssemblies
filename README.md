@@ -50,7 +50,7 @@ Add a `Directory.Build.props` file in the same folder as your .csproj file (or a
     <PropertyGroup>
         <UnityProjectPath>path\to\UnityProject</UnityProjectPath>
         <!-- Or -->
-        <UnityVersion>2022.1.1f1</UnityVersion>
+        <UnityVersion>2022.2.3f1</UnityVersion>
     </PropertyGroup>
 </Project>
 ```
@@ -128,12 +128,12 @@ To edit a project file in Visual Studio:
 
 To add a `Directory.Build.props` file, simply create a text file and rename it.
 `.props` files are special files that .NET projects (specifically, MSBuild projects) can use to set additional build properties.
-`Directory.Build.props`, in particular, is a [standard `.props` file](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2022#directorybuildprops-and-directorybuildtargets) that MSBuild will import _before_ importing other NuGet packages.
+`Directory.Build.props`, in particular, is a [standard `.props` file](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build#directorybuildprops-and-directorybuildtargets) that MSBuild will import _before_ importing other NuGet packages.
 You must set the `UnityVersion` or `UnityProjectPath` property in `Directroy.Build.props`, so that it is available to this NuGet package
 for defining a [bunch of its own properties](#available-short-hand-properties) for the various Unity assembly paths.
 
 You can create the `Directory.Build.props` file in the same folder as your .csproj, or any of its parent folders.
-[MSBuild walks](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2022#search-scope) the directory structure upwards from your project location,
+[MSBuild walks](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build#search-scope) the directory structure upwards from your project location,
 stopping once it locates a `Directory.Build.props` file.
 
 **Warning:** You cannot use any of this NuGet package's [available short-hand properties](available-short-hand-properties) in the `Directory.Build.props` file,

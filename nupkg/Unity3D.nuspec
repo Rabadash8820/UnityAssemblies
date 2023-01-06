@@ -2,7 +2,7 @@
 <package xmlns="http://schemas.microsoft.com/packaging/2013/01/nuspec.xsd">
   <metadata minClientVersion="2.5">
     <id>Unity3D</id>
-    <version>2.0.1</version>
+    <version>2.1.0</version>
     <title>Unity</title>
     <authors>Unity Technologies</authors>
     <icon>icon.png</icon>
@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/Rabadash8820/UnityAssemblies</projectUrl>
     <description>Simple, forward-compatible references to ANY Unity assembly on ANY platform.</description>
     <releaseNotes>See current and archived release notes at https://github.com/Rabadash8820/UnityAssemblies/blob/main/CHANGELOG.md</releaseNotes>
-    <copyright>Copyright ©2019-2022 Daniel Vicarel</copyright>
+    <copyright>Copyright ©2019-2023 Daniel Vicarel</copyright>
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>
     <repository type="git" url="https://github.com/Rabadash8820/UnityAssemblies.git" />
   </metadata>
