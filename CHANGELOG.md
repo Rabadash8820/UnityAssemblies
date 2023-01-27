@@ -5,6 +5,17 @@ All notable changes to the [Unity3D NuGet package](https://www.nuget.org/package
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.1.0 - 2023-01-27
+
+### Changed
+
+- Newtonsoft.Json short-hand properties now use the path in Unity's install folder for Unity 2022.2+
+- All short-hand properties for UPM assemblies now include `@` in the name, to prevent name conflicts for assemblies with "nested namespace" names
+
+### Removed
+
+- Readme content specifically for 1.x versions of this package, as they are now deprecated
+
 ## 2.0.1 - 2022-06-01
 
 ### Changed

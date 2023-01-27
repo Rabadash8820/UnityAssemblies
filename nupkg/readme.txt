@@ -24,7 +24,7 @@ To use this package, define a Directory.Build.props file in the same folder as y
 and add code like the following:
 
     <Project>
-        <UnityVersion>2022.1.1f1</UnityVersion>
+        <UnityVersion>2022.2.3f1</UnityVersion>
         <!-- or -->
         <UnityProjectPath>path\to\UnityProject</UnityProjectPath>
     </Project
@@ -36,7 +36,7 @@ Then, make sure your .csproj file looks something like this:
             <TargetFramework>netstandard2.1</TargetFramework>
         </PropertyGroup>
         <ItemGroup>
-            <PackageReference Include="Unity3D" Version="2.0.1" />
+            <PackageReference Include="Unity3D" Version="2.1.0" />
         </ItemGroup>
         <!-- Other properties/items -->
     </Project>

@@ -33,8 +33,6 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
   - [Referencing the Unity core modules](#referencing-the-unity-core-modules)
   - [Referencing assemblies in specific Unity versions](#referencing-assemblies-in-specific-unity-versions)
 - [Available Short-Hand Properties](#available-short-hand-properties)
-  - [Versions 2.x](#versions-2x-properties)
-  - [Versions 1.x](#versions-1x-properties)
 - [FAQ](#faq)
 - [Support](#support)
 - [Contributing](#contributing)
@@ -45,8 +43,6 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
 [Install this package](https://docs.microsoft.com/en-us/nuget/consume-packages/overview-and-workflow#ways-to-install-a-nuget-package)
 then follow the steps below for the version you installed. Replace `UnityVersion` with your installed Unity Editor version.
 
-### Version 2.x
-
 Add a `Directory.Build.props` file in the same folder as your .csproj file (or any of its parent folders), with content like the following:
 
 ```xml
@@ -54,27 +50,13 @@ Add a `Directory.Build.props` file in the same folder as your .csproj file (or a
     <PropertyGroup>
         <UnityProjectPath>path\to\UnityProject</UnityProjectPath>
         <!-- Or -->
-        <UnityVersion>2022.1.1f1</UnityVersion>
+        <UnityVersion>2022.2.3f1</UnityVersion>
     </PropertyGroup>
 </Project>
 ```
 
-### Version 1.x
-
-Add a `UnityVersion` property to your .csproj, so it looks like the following:
-
-```xml
-<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <TargetFramework>netstandard2.1</TargetFramework>
-        <UnityVersion>2022.1.1f1</UnityVersion>
-    </PropertyGroup>
-    <ItemGroup>
-        <PackageReference Include="Unity3D" Version="2.0.1" />
-    </ItemGroup>
-    <!-- Other properties/items -->
-</Project>
-```
+**Note:** Versions 1.x of this package are deprecated and no longer maintained.
+The latest 1.x documentation is available on the [v1.7.0 tag](https://github.com/Rabadash8820/UnityAssemblies/blob/v1.7.0/README.md) of this repo.
 
 ## Why Another NuGet Package for Unity?
 
@@ -125,9 +107,7 @@ As shown in the basic example above, this package only requires a `UnityVersion`
 
 ![Unity version strings highlighted in the Unity Hub interface](./images/unity-versions.png)
 
-In versions 1.x, this property should be added to your .csproj file. See the next section for instructions.
-
-In versions 2.x, it _must_ be added to a `Directory.Build.props` file.
+This property must be added to a `Directory.Build.props` file.
 If you're working with a specific Unity project, the recommendation is to set `UnityProjectPath` rather than `UnityVersion`.
 This NuGet package will then look up the project's Unity version from its `ProjectSettings/ProjectVersion.txt` file,
 so that when you update the project to a new Unity version, your assembly references will also update.
@@ -137,7 +117,7 @@ Try to define the path relative to `Directory.Build.props` so that it resolves a
 If both `UnityVersion` and `UnityProjectPath` are provided, then the explicit version will take precedence.
 If you do not set `UnityVersion` _or_ `UnityProjectPath`, then `UnityVersion` will default to the constant string "SET_VERSION_OR_PROJECT".
 If you see this text in the paths of assembly references in your IDE, then you'll know that those properties are missing or inaccessible to this NuGet package.
-Make sure that one of these properties is defined in `Directory.Build.props` for versions 2.x, and _not_ in your .csproj file.
+Make sure that one of these properties is defined in `Directory.Build.props`, and _not_ in your .csproj file.
 
 ### Editing the project files
 
@@ -146,14 +126,14 @@ To edit a project file in Visual Studio:
 - **When targeting .NET Standard (recommended):** just double-click on the project in the Solution Explorer
 - **When targeting .NET 4.x:** right click on the project in the Solution Explorer, click `Unload project`, then right click again to select `Edit <YourProject>.csproj`. When you're done editing the file, right click on the project again and select `Reload project`. Having to unload the project before editing can be cumbersome, so check out this excellent [article by Scott Hanselman](https://www.hanselman.com/blog/UpgradingAnExistingNETProjectFilesToTheLeanNewCSPROJFormatFromNETCore.aspx) for instructions on migrating to the newer, leaner SDK syntax of .NET Standard.
 
-To add a `Directory.Build.props` file for version 2.x, simply create a text file and rename it.
+To add a `Directory.Build.props` file, simply create a text file and rename it.
 `.props` files are special files that .NET projects (specifically, MSBuild projects) can use to set additional build properties.
-`Directory.Build.props`, in particular, is a [standard `.props` file](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2022#directorybuildprops-and-directorybuildtargets) that MSBuild will import _before_ importing other NuGet packages.
+`Directory.Build.props`, in particular, is a [standard `.props` file](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build#directorybuildprops-and-directorybuildtargets) that MSBuild will import _before_ importing other NuGet packages.
 You must set the `UnityVersion` or `UnityProjectPath` property in `Directroy.Build.props`, so that it is available to this NuGet package
 for defining a [bunch of its own properties](#available-short-hand-properties) for the various Unity assembly paths.
 
 You can create the `Directory.Build.props` file in the same folder as your .csproj, or any of its parent folders.
-[MSBuild walks](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build?view=vs-2022#search-scope) the directory structure upwards from your project location,
+[MSBuild walks](https://docs.microsoft.com/en-us/visualstudio/msbuild/customize-your-build#search-scope) the directory structure upwards from your project location,
 stopping once it locates a `Directory.Build.props` file.
 
 **Warning:** You cannot use any of this NuGet package's [available short-hand properties](available-short-hand-properties) in the `Directory.Build.props` file,
@@ -188,8 +168,7 @@ To reference these assemblies, add `Reference` items to your `.csproj`, like so:
 
 ```xml
 <ItemGroup>
-    <Reference Include="$(UnityEditorPath)" Private="false" />  <!-- Versions 2.x -->
-    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEditorPath)" Private="false" />  <!-- Versions 1.x -->
+    <Reference Include="$(UnityEditorPath)" Private="false" />
 </ItemGroup>
 ```
 
@@ -216,30 +195,14 @@ In these cases, the paths in your `Reference` items should be relative paths, so
 When you define an MSBuild property named `$(UnityProjectPath)` to store this relative path, you can use it as a short-hand for multiple `Reference`s.
 Moreover, there are a [couple short-hand properties](#available-short-hand-properties) for common assembly paths under `UnityProjectPath`.
 For example, if you want to raise Standard Events with the [Analytics package](https://docs.unity3d.com/Manual/com.unity.analytics.html)
-and use the [Addressables](https://docs.unity3d.com/Manual/com.unity.addressables.html) workflow, then your `.csproj` would look something like:
-
-In versions 2.x (`UnityProjectPath` defined in `Directory.Build.props`):
+and use the [Addressables](https://docs.unity3d.com/Manual/com.unity.addressables.html) workflow,
+then your `.csproj` would look something like (`UnityProjectPath` defined in `Directory.Build.props`):
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
         <Reference Include="$(UnityAnalyticsStandardEventsPath)" Private="false" />
         <Reference Include="$(UnityScriptAssembliesPath)\Unity.Addressables.dll" Private="false" />
-    </ItemGroup>
-</Project>
-```
-
-In versions 1.x:
-
-```xml
-<Project Sdk="Microsoft.NET.Sdk">
-    <PropertyGroup>
-        <!-- Other properties... -->
-        <UnityProjectPath>/relative/path/to/unity/project</UnityProjectPath>
-    </PropertyGroup>
-    <ItemGroup>
-        <Reference Include="$(UnityProjectPath)\$(UnityAnalyticsStandardEventsPath)" Private="false" />
-        <Reference Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\Unity.Addressables.dll" Private="false" />
     </ItemGroup>
 </Project>
 ```
@@ -255,13 +218,11 @@ That folder is completely flat, so you can just reference assemblies there by fi
 Because Unity Hub is the installation tool [recommended by Unity Technologies](https://docs.unity3d.com/Manual/GettingStartedInstallingUnity.html),
 this package checks for Unity assemblies at Unity Hub's default install locations by default.
 If you are not using Unity Hub, or are using non-default install locations, then you can override the path where this package searches for Unity assemblies
-by setting the `UnityInstallRootPath` and/or `OSInstallRootPath` MSBuild properties (`UnityInstallRoot` or `OSInstallRoot` for versions 1.x).
+by setting the `UnityInstallRootPath` and/or `OSInstallRootPath` MSBuild properties.
 See the [list of short-hand properties](#available-short-hand-properties) to understand these properties' default values and how they are interpreted.
 
 For example, if you were using a Windows machine and you installed a Unity version without Unity Hub on your `V:` drive,
 or set the "Installs location" to your `V:` drive in Unity Hub preferences, then you would need the following code:
-
-Versions 2.x:
 
 ```xml
 <!-- In `Directory.Build.props` -->
@@ -271,31 +232,13 @@ Versions 2.x:
 </PropertyGroup>
 ```
 
-Versions 1.x:
-
-```xml
-<!-- In your `.csproj` file -->
-<PropertyGroup>
-    <UnityInstallRoot>V:\</UnityInstallRoot>
-    <!-- Other properties... -->
-</PropertyGroup>
-```
-
 On collaborative projects, hard-coding paths is insufficient, as contributors may be using a mixture of default and non-default install locations.
 To support user-specific Unity install locations, you can use MSBuild [property functions](https://learn.microsoft.com/en-us/visualstudio/msbuild/property-functions) in your version-controlled `UnityInstallRoot[Path]` and/or `OSInstallRoot[Path]` properties.
 For example, you could read the path from a `UNITY_OS_INSTALL_ROOT` environment variable. Each collaborator would need to define that variable on their machine.
 Then, your versioned MSBuild property would be:
 
-Versions 2.x:
-
 ```xml
 <UnityInstallRootPath>$([System.Environment]::GetEnvironmentVariable('UNITY_OS_INSTALL_ROOT'))</UnityInstallRootPath>
-```
-
-Versions 1.x:
-
-```xml
-<UnityInstallRoot>$([System.Environment]::GetEnvironmentVariable('UNITY_OS_INSTALL_ROOT'))</UnityInstallRoot>
 ```
 
 **Warning: If your property function returns `null` or an empty string (e.g., if a collaborator did _not_ set the required environment variable),
@@ -311,8 +254,7 @@ To remove the `Reference` from your project, simply use the MSBuild Item remove 
 otherwise you'll be trying to remove the Reference before it's been added!**
 
 ```xml
-<Reference Remove="$(UnityEnginePath)" />   <!-- Versions 2.x -->
-<Reference Remove="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)" />   <!-- Versions 1.x -->
+<Reference Remove="$(UnityEnginePath)" />
 ```
 
 ### Referencing the Unity core modules
@@ -333,8 +275,6 @@ The solution is to [remove the default reference](#removing-the-default-referenc
 and then reference each module that you need individually.
 So, for this particular example, your `.csproj` might look like the following.
 
-In versions 2.x:
-
 ```xml
 <ItemGroup>
     <!-- Other Package assembly references -->
@@ -342,19 +282,6 @@ In versions 2.x:
 
     <Reference Remove="$(UnityEnginePath)" />
     <Reference Include="$(UnityModulesPath)\UnityEngine.CoreModule.dll" Private="false" />
-    <!-- Other module references -->
-</ItemGroup>
-```
-
-In versions 1.x:
-
-```xml
-<ItemGroup>
-    <!-- Other Package assembly references -->
-    <Reference Include="$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll" Private="false" />
-
-    <Reference Remove="$(UnityInstallRoot)\$(UnityVersion)\$(UnityEnginePath)" />
-    <Reference Include="$(UnityInstallRoot)\$(UnityVersion)\$(UnityModulesPath)\UnityEngine.CoreModule.dll" Private="false" />
     <!-- Other module references -->
 </ItemGroup>
 ```
@@ -372,8 +299,6 @@ you may still need to reference this module for types like `GUIElement`, `Networ
 ![Unity Scripting Manual page for Vector2, showing that the type is implemented in UnityEngine.CoreModule](./images/unity-modules-docs.png)
 
 ### Referencing assemblies in specific Unity versions
-
-**Note: this section does not apply to versions 1.x.**
 
 Unity assembly paths sometimes change between versions: new assemblies are added, old ones are removed or broken up into UPM packages.
 If your managed plugin must support multiple versions of Unity, then you may want to say
@@ -413,8 +338,7 @@ then its MSBuild property will be undefined for that version (e.g., `$(NunitPath
 
 ## Available Short-Hand Properties
 
-Note that, unless otherwise noted, _any_ of the following properties can be overwritten by setting the property manually.
-For versions 2.x, set them in `Directory.Build.props`; for versions 1.x, you can set them directly in your .csproj file.
+Note that, unless otherwise noted, _any_ of the following properties can be overwritten by setting the property manually in `Directory.Build.props`.
 For example, to change the UI assembly's path, you could set:
 
 ```xml
@@ -433,13 +357,16 @@ Through clever use of these properties, you can even reference assemblies from m
 You might do this if you wanted to reference an assembly at the same relative path in two different Unity projects under different conditions.
 You could use the same _relative_ short-hand property in both cases, but set the base path conditionally.
 
-The assembly paths under the `PackageCache` use the `*` wildcard.
-This saves you from hard-coding a UPM package version and updating it each time you update from Unity's Package Manager Window.
+The assembly paths under the `Library/PackageCache` folder use the `*` wildcard.
+This spares you from hard-coding a UPM package version and updating it every time you update the package in Unity's Package Manager window.
 Unity only stores one version of a Package in the `PackageCache` folder, so you don't need to worry about multiple versions of the same Package being referenced by the wildcard.
+When adding references to other UPM package assemblies, you should precede the `*` wildcard with `%40`
+(an [MSBuild-escaped](https://learn.microsoft.com/en-us/visualstudio/msbuild/how-to-escape-special-characters-in-msbuild#to-use-an-msbuild-special-character-as-a-literal-character) `@` character)
+to prevent conflicts with "sub-namespace" assembly names.
+For example, you could reference both `org.nuget.microsoft.extensions.logging%40*\Microsoft.Extensions.Logging.dll` and
+`org.nuget.microsoft.extensions.logging.abstractions%40*\Microsoft.Extensions.Logging.Abstractions.dll`, without the former's wildcard overwriting the latter.
 
 **Note: It is worth repeating that, unless otherwise noted, _any_ of these properties can be manually overridden.**
-
-### Versions 2.x properties
 
 | Property | Default value | Comments |
 |:---------|:--------------|:---------|
@@ -477,42 +404,14 @@ Unity only stores one version of a Package in the `PackageCache` folder, so you 
 | `UnityEditorAndroidExtensionsPath` | `$(UnityAndroidPlayerPath)\UnityEditor.Android.Extensions.dll` | See types under `UnityEditor > UnityEditor.Android` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
 | `UnityEditoriOSExtensionsCommonPath` | `$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Common.dll` | See types under `UnityEditor > UnityEditor.iOS` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
 | `UnityEditoriOSExtensionsXcodePath` | `$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Xcode.dll` | See types under `UnityEditor > UnityEditor.iOS` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
-| `NewtonsoftJsonAssembly` | `com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll` | Requires installation of the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner package. Referenced by `NewtonsoftJsonPath`. Only defined if `UnityVersion` is >= 2019.3. |
-| `NewtonsoftJsonPath` | `$(UnityPackageCachePath)\$(NewtonsoftJsonAssembly)` | Requires installation of the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner package. Only defined if `UnityVersion` is >= 2019.3. |
-| `NunitAssembly` | `com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. Referenced by `NunitPath`. Only defined if `UnityVersion` is >= 2019.2. |
+| `NewtonsoftJsonAssembly` | `com.unity.nuget.newtonsoft-json%40*\Runtime\Newtonsoft.Json.dll` | Requires installation of the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner package. Referenced by `NewtonsoftJsonPath`. Only defined if `UnityVersion` is between 2019.3 and 2022.1, inclusive. |
+| `NewtonsoftJsonPath` | `$(UnityPackageCachePath)\$(NewtonsoftJsonAssembly)` for Unity 2019.3-2022.1, `$(UnityManagedPath)\Newtonsoft.Json.dll` for Unity 2022.2+ | In Unity 2019.3-2022.1, requires installation of the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner package. No extra installations required in Unity 2022.2+. |
+| `NunitAssembly` | `com.unity.ext.nunit%40*\net35\unity-custom\nunit.framework.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. Referenced by `NunitPath`. Only defined if `UnityVersion` is >= 2019.2. |
 | `NunitPath` | `$(UnityPackageCachePath)\$(NunitAssembly)` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. Only defined if `UnityVersion` is >= 2019.2. |
-| `MoqAssembly` | `nuget.moq*\Moq.dll` | Required installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. In Unity 2020.1+, [download Moq from NuGet](https://www.nuget.org/packages/moq/) and import it as a managed plugin. Referenced by `MoqPath`. Only defined if `UnityVersion` is between 2019.2 and 2019.3. |
-| `MoqPath` | `$(UnityPackageCachePath)\$(MoqAssembly)` | Required installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. In Unity 2020.1+, [download Moq from NuGet](https://www.nuget.org/packages/moq/) and import it as a managed plugin. Only defined if `UnityVersion` is between 2019.2 and 2019.3. |
-| `UnityAnalyticsStandardEventsAssembly` | `com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` | Requires installation of the [Analytics Library](https://docs.unity3d.com/Packages/com.unity.analytics@3.3/manual/index.html) package. Referenced by `UnityAnalyticsStandardEventsPath`. Only defined if `UnityVersion` is >= 2019.2. |
+| `MoqAssembly` | `nuget.moq%40*\Moq.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. In Unity 2020.1+, [download Moq from NuGet](https://www.nuget.org/packages/moq/) and import it as a managed plugin. Referenced by `MoqPath`. Only defined if `UnityVersion` is between 2019.2 and 2019.3, inclusive. |
+| `MoqPath` | `$(UnityPackageCachePath)\$(MoqAssembly)` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. In Unity 2020.1+, [download Moq from NuGet](https://www.nuget.org/packages/moq/) and import it as a managed plugin. Only defined if `UnityVersion` is between 2019.2 and 2019.3, inclusive. |
+| `UnityAnalyticsStandardEventsAssembly` | `com.unity.analytics%40*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` | Requires installation of the [Analytics Library](https://docs.unity3d.com/Packages/com.unity.analytics@3.3/manual/index.html) package. Referenced by `UnityAnalyticsStandardEventsPath`. Only defined if `UnityVersion` is >= 2019.2. |
 | `UnityAnalyticsStandardEventsPath` | `$(UnityPackageCachePath)\$(UnityAnalyticsStandardEventsAssembly)` | Requires installation of the [Analytics Library](https://docs.unity3d.com/Packages/com.unity.analytics@3.3/manual/index.html) package. Only defined if `UnityVersion` is >= 2019.2. |
-
-### Versions 1.x properties
-
-| Property | Unity Version | Default value | Comments |
-|:---------|---------------|:--------------|:---------|
-| `OSInstallRoot` | Any | `C:\Program Files` on Windows, `/Application` on MacOS, or `/home/<username>` on Linux. |  |
-| `UnityInstallRoot` | Any | `$(OSInstallRoot)\Unity\Hub\Editor` |  |
-| `UnityManagedPath` | Any | `Editor\Data\Managed` on Linux/Windows or `Unity.app\Contents\Managed` on MacOS. |  |
-| `UnityModulesPath` | Any | `$(UnityManagedPath)\UnityEngine` | This folder contains assemblies for Unity's core modules like the Audio, Animation, and ParticleSystem modules. |
-| `UnityExtensionsPath` | Any | `Editor\Data\UnityExtensions\Unity` on Linux/Windows or `Unity.app\Contents\UnityExtensions\Unity` on MacOS. |  |
-| `UnityPlaybackEnginesPath` | Any | `Editor\Data\PlaybackEngines` | This folder contains target-platform-specific assemblies, e.g. those for iOS/Android. |
-| `UnityAndroidPlayerPath` | Any | `$(UnityPlaybackEnginesPath)\AndroidPlayer` |  |
-| `UnityiOSSupportPath` | Any | `$(UnityPlaybackEnginesPath)\iOSSupport` |  |
-| `UnityBuiltInPackagesPath` | >= 2017.2 | `Editor\Data\Resources\PackageManager\BuiltInPackages` | This folder contains assemblies from Unity's built-in Packages, like IMGUI and TerrainPhysics (for all other UPM Package assemblies, see `UnityPackageCachePath`). |
-| `UnityEnginePath` | Any | `$(UnityManagedPath)\UnityEngine.dll` | This reference is added by default. See above for [instructions to remove it](#removing-the-default-reference-to-unityenginedll). |
-| `UnityEditorPath` | Any | `$(UnityManagedPath)\UnityEditor.dll` |  |
-| `UnityEngineUIPath` | <= 2019.2 | `$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll`. | In Unity 2019.3+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.UI.dll` instead. |
-| `UnityEngineTestRunnerPath` | <= 2019.2 | `$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll` | In Unity 2019.3+, use `$(UnityProjectPath)\$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll` instead. |
-| `UnityProjectPath` | Any | N/A | This property has no default value. Point it at the root folder of your Unity project, so that you can more easily reference Package and Asset Store assemblies (as [described above](#referencing-assemblies-stored-in-a-unity-project)). |
-| `UnityPackageCachePath` | >= 2017.2 | `Library\PackageCache` | This folder contains assemblies from UPM packages (for built-in Packages, see `UnityBuiltInPackagesPath`). |
-| `UnityScriptAssembliesPath` | Any | `Library\ScriptAssemblies` |  |
-| `NewtonsoftJsonPath` | >= 2019.3 | `$(UnityPackageCachePath)\com.unity.nuget.newtonsoft-json*\Runtime\Newtonsoft.Json.dll` | Requires installation of the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner package. |
-| `NunitPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.ext.nunit*\net35\unity-custom\nunit.framework.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. |
-| `MoqPath` | 2019.2, 2019.3 | `$(UnityPackageCachePath)\nuget.moq*\Moq.dll` | Required installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. In Unity 2020.1+, [download Moq from NuGet](https://www.nuget.org/packages/moq/) and import it as a managed plugin. |
-| `UnityAnalyticsStandardEventsPath` | >= 2019.2 | `$(UnityPackageCachePath)\com.unity.analytics*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` | Requires installation of the [Analytics Library](https://docs.unity3d.com/Packages/com.unity.analytics@3.3/manual/index.html) package. |
-| `UnityEditorAndroidExtensionsPath` | Any | `$(UnityAndroidPlayerPath)\UnityEditor.Android.Extensions.dll` | See types under `UnityEditor > UnityEditor.Android` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
-| `UnityEditoriOSExtensionsCommonPath` | Any | `$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Common.dll` | See types under `UnityEditor > UnityEditor.iOS` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
-| `UnityEditoriOSExtensionsXcodePath` | Any | `$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Xcode.dll` | See types under `UnityEditor > UnityEditor.iOS` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
 
 ## FAQ
 
@@ -527,11 +426,11 @@ Unity only stores one version of a Package in the `PackageCache` folder, so you 
 1. **How does this work?**
     This NuGet package [imports an MSBuild .props file](https://docs.microsoft.com/en-us/nuget/create-packages/creating-a-package#including-msbuild-props-and-targets-in-a-package) into your project,
     which adds the various properties and `Reference` items at build time.
-    In versions 2.x and above, these properties can use the `UnityVersion` property that you define in `Directory.Build.props` because that file is imported before NuGet packages.
+    These properties can use the `UnityVersion` property that you define in `Directory.Build.props` because that file is imported before NuGet packages.
     And when you set `UnityProjectPath`, the Unity version can instead be parsed from the project's `ProjectVersion.txt` file using `File.ReadAllText`
     in an [MSBuild static property function](https://docs.microsoft.com/en-us/visualstudio/msbuild/property-functions?static-property-functions).
 1. **Are the `Reference` paths really cross-platform?**
-    Yes, but only paths that begin with the default `$(OSInstallRootPath)` and `$(UnityInstallRootPath)` properties (`$(OSInstallRoot)` or `$(UnityInstallRoot)` in versions 1.x), or with a custom relative or cross-platform base path that you define.
+    Yes, but only paths that begin with the default `$(OSInstallRootPath)` and `$(UnityInstallRootPath)` properties, or with a custom relative or cross-platform base path that you define.
     This works through a magical little combination of [MSBuild Conditions](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditions)
     and the [`IsOsPlatform()` Property Function](https://docs.microsoft.com/en-us/visualstudio/msbuild/property-functions#msbuild-property-functions).
 1. **Is this package officially maintained by Unity Technologies?**
@@ -548,7 +447,7 @@ Unity only stores one version of a Package in the `PackageCache` folder, so you 
     so feel free to [open an Issue](https://github.com/Rabadash8820/UnityAssemblies/issues)!
 1. **With which Unity versions has this package been officially tested?**
     In the following:
-    - 2022.1
+    - 2022.2, 2022.1
     - 2021.3 LTS, 2021.2, 2021.1
     - 2020.3 LTS, 2020.1
     - 2019.4 LTS
