@@ -131,12 +131,12 @@ nugetSign() {
     read -p "Enter the URL of an RFC 3161 timestamp server (or hit [ENTER] to use '$defaultTimestamper'): " timestamper
     if [ -z "$timestamper" ]; then timestamper=$defaultTimestamper; fi
 
-    certPrompt="Enter the file path to the certificate to be used while signing the package (probably a .p12 or .pfx file): "
+    certPrompt="Enter the file path to the certificate to be used while signing the package (probably a .p12 or .pfx file), or [ENTER] to skip signing (not recommended!): "
     read -p "$certPrompt" certPath
-    while [ -z "$certPath" ] ; do
-        echo "Certificate path cannot be empty."
-        read -p "$certPrompt" certPath
-    done
+    if [ -z "$certPath" ]; then
+        echo "Certificate path empty. Skipping signing (may have to hit [ENTER] again for some reason)..."
+        return 0
+    fi
 
     echo ""
     echo "Signing NuGet package..."
