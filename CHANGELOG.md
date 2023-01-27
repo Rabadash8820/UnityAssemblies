@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.1.0 - 2023-01-27
 
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.1.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.1.0).
+
 ### Changed
 
 - Newtonsoft.Json short-hand properties now use the path in Unity's install folder for Unity 2022.2+
@@ -18,11 +20,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## 2.0.1 - 2022-06-01
 
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.0.1) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.0.1).
+
 ### Changed
 
 - All documentation and package details now reference the Rabadash8820 GitHub repository (transferred from DerploidEntertainment)
 
 ## 2.0.0 - 2022-06-01
+
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.0.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.0.0).
 
 ### Added
 
@@ -33,6 +39,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Package icon to use new Unity logo
 
 ## 2.0.0-rc2 - 2022-05-30
+
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.0.0-rc2) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.0.0-rc2).
 
 ### Added
 
@@ -50,6 +58,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [2.0.0-rc1] - 2022-05-21
 
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.0.0-rc1) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.0.0-rc1).
+
 ### Added
 
 - Many new short-hand properties, with more consistent naming (relative paths end in `Dir` or `Assembly`, absolute paths end in `Path`)
@@ -64,11 +74,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.7.0] - 2020-12-31
 
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v1.7.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/1.7.0).
+
 ### Added
 
 - Root paths for Linux
 
 ## [1.6.0] - 2020-12-17
+
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v1.6.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/1.6.0).
 
 ### Added
 
@@ -86,11 +100,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.5.0] - 2020-08-24
 
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v1.5.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/1.5.0).
+
 ### Added
 
 - Short-hand properties for iOS- and Android-specific assemblies
 
 ## [1.4.0] - 2020-07-27
+
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v1.4.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/1.4.0).
 
 ### Added
 
@@ -103,6 +121,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.3.1] - 2020-03-11
 
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v1.3.1) or [nuget.org](https://www.nuget.org/packages/Unity3D/1.3.1).
+
 ### Added
 
 - Internal: test projects for Unity 2019.3.x
@@ -112,6 +132,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Some property conditions in the main `.props` file
 
 ## [1.3.0] - 2019-12-23
+
+Download from [nuget.org](https://www.nuget.org/packages/Unity3D/1.3.0).
 
 ### Added
 
@@ -135,6 +157,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.2.0] - 2019-08-21
 
+Download from [nuget.org](https://www.nuget.org/packages/Unity3D/1.2.0).
+
 ### Changed
 
 - All short-hand assembly properties now use the same casing as the referenced DLL files (e.g., `UnityEngineUIPath`, not `UnityEngineUiPath`)
@@ -145,18 +169,26 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [1.1.0] - 2019-06-20
 
+Download from [nuget.org](https://www.nuget.org/packages/Unity3D/1.1.0).
+
 First stable release.
 
 ## [1.1.0-rc2] - 2019-06-20
 
+Download from [nuget.org](https://www.nuget.org/packages/Unity3D/1.1.0-rc2).
+
 Final preparations for first stable version.
 
 ## [1.1.0-rc1] - 2019-06-19
+
+Download from [nuget.org](https://www.nuget.org/packages/Unity3D/1.1.0-rc1).
 
 ### Changed
 
 References are now added as `Reference` items, not magic MSBuild properties.
 
 ## [1.0.0-rc1] - 2019-06-17
+
+Download from [nuget.org](https://www.nuget.org/packages/Unity3D/1.0.0-rc1).
 
 Initial package release.
