@@ -46,6 +46,14 @@ bumpVersions() {
     errNum=$?
     if [ $errNum != 0 ]; then return $errNum; fi
 
+    findRegex="Changelog"
+    replaceTxt="$findRegex (currently v$newPkgVersion)](https://img.shields.io/badge/changelog-v$newPkgVersion-blue.svg)](./CHANGELOG.md)"
+
+    echo "    Changelog badge at top of '$mainReadmePath'..."
+    sed --expression="s|$findRegex.*|$replaceTxt|" --in-place "$mainReadmePath"
+    errNum=$?
+    if [ $errNum != 0 ]; then return $errNum; fi
+
     findRegex="<version>"
     replaceTxt="$findRegex$newPkgVersion</version>"
 
