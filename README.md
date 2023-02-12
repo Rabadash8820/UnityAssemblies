@@ -46,6 +46,7 @@ then follow the steps below for the version you installed. Replace `UnityVersion
 Add a `Directory.Build.props` file in the same folder as your .csproj file (or any of its parent folders), with content like the following:
 
 ```xml
+<!-- Directory.Build.props -->
 <Project>
     <PropertyGroup>
         <UnityProjectPath>path\to\UnityProject</UnityProjectPath>
@@ -66,8 +67,7 @@ Unfortunately, most of these packages are no longer being updated and have a num
 1. **Containing the actual Unity binaries within the package.** These packages include:
     - [Unity3D.SDK](https://www.nuget.org/packages/Unity3D.SDK/) by amelkor
     - [UnityEngine](https://www.nuget.org/packages/UnityEngine/) by Leanwork
-    - [Unity3D.UnityEngine](https://www.nuget.org/packages/Unity3D.UnityEngine/)
-    - [Unity3D.UnityEngine.UI](https://www.nuget.org/packages/Unity3D.UnityEngine.UI) by Dzmitry Lahoda
+    - [Unity3D.UnityEngine](https://www.nuget.org/packages/Unity3D.UnityEngine/) and [Unity3D.UnityEngine.UI](https://www.nuget.org/packages/Unity3D.UnityEngine.UI) by Dzmitry Lahoda
     - [UnityEngine5](https://www.nuget.org/packages/UnityEngine5/) by Taiyoung Jang.
 
     The problem with these packages (aside from the questionable legality of re-distributing Unity Technologies' binaries),
@@ -96,7 +96,7 @@ Therefore, this NuGet package was designed with the following goals:
 - Add references via standard MSBuild tooling, rather than clunky scripts in unfamiliar or unsupported programming languages
 - Allow devs to reference additional Unity assemblies with simple `Reference` items in the project file, rather than by calling some obscure script
 - Provide short-hand MSBuild properties for the most common Unity assemblies, with paths that resolve on all dev platforms (Windows/MacOS/Linux)
-- Require minimal configuration: just a Unity version or Unity project path, and an optional install path for non-default setups
+- Require minimal configuration: just a Unity version or Unity project path, and optional path overrides for non-default setups
 
 ## Usage
 

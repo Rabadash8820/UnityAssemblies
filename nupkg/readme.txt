@@ -23,6 +23,7 @@ Thank you for installing the Unity3D NuGet package!
 To use this package, define a Directory.Build.props file in the same folder as your .csproj file (or any of its parent folders),
 and add code like the following:
 
+    <!-- Directory.Build.props -->
     <Project>
         <UnityVersion>2022.2.3f1</UnityVersion>
         <!-- or -->
@@ -31,6 +32,7 @@ and add code like the following:
 
 Then, make sure your .csproj file looks something like this:
 
+    <!-- YourProject.csproj -->
     <Project Sdk="Microsoft.NET.Sdk">
         <PropertyGroup>
             <TargetFramework>netstandard2.1</TargetFramework>
