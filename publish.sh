@@ -20,7 +20,7 @@ bumpVersions() {
     done
 
     newUnityVersion=
-    prompt="Enter the latest Unity version (such as '2020.1.8f1'): "
+    prompt="Enter the latest Unity version (such as '2022.2.3f1'): "
     read -p "$prompt" newUnityVersion
     while [ -z "$newUnityVersion" ] ; do
         echo "Unity version string cannot be empty."
