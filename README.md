@@ -102,7 +102,7 @@ Therefore, this NuGet package was designed with the following goals:
 
 **Don't freak out!** The [basic usage](#basic-usage) example above will satisfy the large majority of use cases. The usage options below are for more advanced setups.
 
-As shown in the basic example above, this package only requires a `UnityVersion` or (in v2) `UnityProjectPath` property to be up and running.
+As shown in the basic example above, this package only requires a `UnityVersion` or `UnityProjectPath` property to be up and running.
 `UnityVersion` must be a complete version string, in the format used by Unity Hub (the values boxed in red in the screenshot below).
 
 ![Unity version strings highlighted in the Unity Hub interface](./images/unity-versions.png)
@@ -303,7 +303,7 @@ you may still need to reference this module for types like `GUIElement`, `Networ
 Unity assembly paths sometimes change between versions: new assemblies are added, old ones are removed or broken up into UPM packages.
 If your managed plugin must support multiple versions of Unity, then you may want to say
 "reference this assembly, but only in these Unity versions" or "reference this assembly using the correct version-specific path".
-For scenarios like these, there are new MSBuild properties in v2 that expose the major, minor, and patch versions of your project's `UnityVersion`:
+For scenarios like these, this package provides MSBuild properties that expose the major, minor, and patch versions of your project's `UnityVersion`:
 
 1. `UnityVersionMajor`: e.g., `2021` in `2021.3.5f1`
 2. `UnityVersionMinor`: e.g., `3` in `2021.3.5f1`
