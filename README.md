@@ -49,7 +49,7 @@ Add a `Directory.Build.props` file in the same folder as your .csproj file (or a
 <!-- Directory.Build.props -->
 <Project>
     <PropertyGroup>
-        <UnityProjectPath>path\to\UnityProject</UnityProjectPath>
+        <UnityProjectPath>relative\path\to\UnityProject</UnityProjectPath>
         <!-- Or -->
         <UnityVersion>2022.2.3f1</UnityVersion>
     </PropertyGroup>
