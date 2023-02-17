@@ -185,7 +185,8 @@ nugetPush() {
 
 remindTagRelease() {
     echo ""
-    echo "Don't forget to add a tag to the git repo and create a Release on GitHub!"
+    echo "Add a 'v$newPkgVersion' tag to the git repo and push it, then create a Release on GitHub for it."
+    echo "Don't forget to upload the NuGet package itself to that Release!"
     echo ""
     read -p "Press [Enter] when you're done..."
 }
