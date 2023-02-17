@@ -68,7 +68,8 @@ Unfortunately, most of these packages are no longer being updated and have a num
     - [Unity3D.SDK](https://www.nuget.org/packages/Unity3D.SDK/) by amelkor
     - [UnityEngine](https://www.nuget.org/packages/UnityEngine/) by Leanwork
     - [Unity3D.UnityEngine](https://www.nuget.org/packages/Unity3D.UnityEngine/) and [Unity3D.UnityEngine.UI](https://www.nuget.org/packages/Unity3D.UnityEngine.UI) by Dzmitry Lahoda
-    - [UnityEngine5](https://www.nuget.org/packages/UnityEngine5/) by Taiyoung Jang.
+    - [UnityEngine5](https://www.nuget.org/packages/UnityEngine5/) by Taiyoung Jang
+    - [Unity3D.Editor](https://www.nuget.org/packages/Unity3D.UnityEditor) by DavidTimber
 
     The problem with these packages (aside from the questionable legality of re-distributing Unity Technologies' binaries),
     is that a new version of the package must be pushed for each new version of Unity.
@@ -83,7 +84,7 @@ Unfortunately, most of these packages are no longer being updated and have a num
     Even when the package was current, it located the Unity assemblies in a clever but brittle manner that does not support the newer Unity Hub install locations,
     assumed that there was only one Unity installation per machine, and, more importantly, only worked on Windows (using the Windows registry).
 
-Moreover, only Dzmitry Lahoda's packages seem to recognize the need for _other_ Unity assemblies besides just `UnityEngine`.
+Moreover, only Dzmitry Lahoda's and DavidTimber's packages seem to recognize the need for _other_ Unity assemblies besides just `UnityEngine`.
 As more advanced Unity users will know, `UnityEngine.dll` doesn't contain everything.
 Editor scripts also require a reference to `UnityEditor.dll`,
 UI types like `Text` and `Button` require a reference to `UnityEngine.UI.dll`,
