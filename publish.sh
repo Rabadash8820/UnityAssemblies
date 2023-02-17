@@ -1,15 +1,12 @@
 #!/bin/bash
 
 verifyReleaseNotes() {
-    echo ""
     echo "Verify that CHANGELOG.md and the <releaseNotes/> element of nuspec are up-to-date"
     echo ""
     read -p "Press [Enter] when you're done..."
 }
 
 bumpVersions() {
-    echo ""
-
     # Get new version strings from user
     newPkgVersion=
     prompt="Enter the new package version (such as '1.0.0-rc1'): "
@@ -20,12 +17,9 @@ bumpVersions() {
     done
 
     newUnityVersion=
-    prompt="Enter the latest Unity version (such as '2022.2.3f1'): "
-    read -p "$prompt" newUnityVersion
-    while [ -z "$newUnityVersion" ] ; do
-        echo "Unity version string cannot be empty."
-        read -p "$prompt" newUnityVersion
-    done
+    defaultUnityVersion=2022.2.3f1
+    read -p "Enter the latest Unity version (or hit [ENTER] to use '$defaultUnityVersion'): " newUnityVersion
+    if [ -z "$newUnityVersion" ]; then newUnityVersion=$defaultUnityVersion; fi
 
     # Update package version strings to the provided one
     echo ""
@@ -91,7 +85,6 @@ bumpVersions() {
 
 bumpCurrentYear() {
     defaultCopyrightStartYear=2019
-    echo ""
     read -p "Enter the 'start year' of the copyright for this package (or hit [ENTER] to use '$defaultCopyrightStartYear'): " copyrightStartYear
     if [ -z "$copyrightStartYear" ]; then copyrightStartYear=$defaultCopyrightStartYear; fi
 
@@ -127,7 +120,6 @@ checkForNuGet() {
 }
 
 nugetPack() {
-    echo ""
     echo "Creating NuGet package..."
     "$nugetPath" pack "$cwd/nupkg/Unity3D.nuspec"
     return $?
@@ -135,7 +127,6 @@ nugetPack() {
 
 nugetSign() {
     defaultTimestamper="http://timestamp.digicert.com"
-    echo ""
     read -p "Enter the URL of an RFC 3161 timestamp server (or hit [ENTER] to use '$defaultTimestamper'): " timestamper
     if [ -z "$timestamper" ]; then timestamper=$defaultTimestamper; fi
 
@@ -156,12 +147,11 @@ nugetPush() {
     read derp  # This hacky piece of sh*t is just here to catch an [Enter]; who knows where it is coming from...
 
     defaultNuGetSource="nuget.org"
-    echo ""
     read -p "Enter the URL of the NuGet source (or hit [Enter] to use '$defaultNuGetSource'): " nugetSource
     if [ -z "$nugetSource" ]; then nugetSource=$defaultNuGetSource; fi
 
     keyPrompt="Enter the API key for the NuGet source: "
-    read -p "$keyPrompt" sourceApiKey
+    read -sp "$keyPrompt" sourceApiKey
     while [ -z "$sourceApiKey" ] ; do
         echo "API key cannot be empty."
         read -p "$keyPrompt" sourceApiKey
@@ -178,13 +168,13 @@ nugetPush() {
         echo "Now sign in to nuget.org, and copy over the documentation from the previous package version"
         echo "    This should basically be the contents of the packaged readme.txt file"
         echo "    Also be sure to increment the UnityVersion and PackageReference version strings therein!"
+        echo "    If you make any other substantive changes to the documentation, consider backporting them to older versions' documentation also."
         echo ""
         read -p "Press [Enter] when you're done..."
     fi
 }
 
 remindTagRelease() {
-    echo ""
     echo "Add a 'v$newPkgVersion' tag to the git repo and push it, then create a Release on GitHub for it."
     echo "Don't forget to upload the NuGet package itself to that Release!"
     echo ""
@@ -194,10 +184,12 @@ remindTagRelease() {
 main() {
     cwd="$( cd "$( dirname "${BASH_SOURCE[0]}" )" >/dev/null 2>&1 && pwd )"
 
+    numSteps=7
+
     # Make sure user has updated package info
-    verifyReleaseNotes && \
-    bumpVersions && \
-    bumpCurrentYear
+    echo "" && echo "Step 1 / $numSteps" && verifyReleaseNotes && \
+    echo "" && echo "Step 2 / $numSteps" && bumpVersions && \
+    echo "" && echo "Step 3 / $numSteps" && bumpCurrentYear
 
     echo ""
     echo "Commit the changes to version/year that this script just made"
@@ -215,12 +207,13 @@ main() {
     fi
 
     # Create the NuGet package
-    nugetPack
+    echo "" && echo "Step 4 / $numSteps" && nugetPack
     if [ $? != 0 ]; then return 1; fi
     nupkgPath="$cwd/Unity3D.$newPkgVersion.nupkg"
 
     # Sign and push the NuGet package
-    nugetSign && nugetPush
+    echo "" && echo "Step 5 / $numSteps" && nugetSign && \
+    echo "" && echo "Step 6 / $numSteps" && nugetPush
     errNum=$?
     if [ $errNum != 0 ] ; then
         echo ""
@@ -229,7 +222,7 @@ main() {
     fi
 
     # Remind user what to do after publishing
-    remindTagRelease
+    echo "" && echo "Step 7 / $numSteps" && remindTagRelease
 
     echo ""
     echo "Publish complete!"
