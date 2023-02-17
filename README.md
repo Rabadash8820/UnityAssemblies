@@ -83,6 +83,7 @@ Unfortunately, most of these packages are no longer being updated and have a num
     Unfortunately, this package has not been updated since 2013, meaning that many of the NuGet/PowerShell conventions that it relied upon are no longer supported in the newest versions of Visual Studio.
     Even when the package was current, it located the Unity assemblies in a clever but brittle manner that does not support the newer Unity Hub install locations,
     assumed that there was only one Unity installation per machine, and, more importantly, only worked on Windows (using the Windows registry).
+    Not to mention, it's hard to collaborate on a project that always uses the latest installed Unity version on every contributor's machine.
 
 Moreover, only Dzmitry Lahoda's and DavidTimber's packages seem to recognize the need for _other_ Unity assemblies besides just `UnityEngine`.
 As more advanced Unity users will know, `UnityEngine.dll` doesn't contain everything.
