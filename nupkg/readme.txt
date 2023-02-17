@@ -25,10 +25,12 @@ and add code like the following:
 
     <!-- Directory.Build.props -->
     <Project>
-        <UnityVersion>2022.2.3f1</UnityVersion>
-        <!-- or -->
-        <UnityProjectPath>path\to\UnityProject</UnityProjectPath>
-    </Project
+        <PropertyGroup>
+            <UnityVersion>2022.2.3f1</UnityVersion>
+            <!-- or -->
+            <UnityProjectPath>path\to\UnityProject</UnityProjectPath>
+        </PropertyGroup>
+    </Project>
 
 Then, make sure your .csproj file looks something like this:
 
