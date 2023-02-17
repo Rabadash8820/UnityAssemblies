@@ -28,7 +28,7 @@ and add code like the following:
         <PropertyGroup>
             <UnityVersion>2022.2.3f1</UnityVersion>
             <!-- or -->
-            <UnityProjectPath>path\to\UnityProject</UnityProjectPath>
+            <UnityProjectPath>relative\path\to\UnityProject</UnityProjectPath>
         </PropertyGroup>
     </Project>
 
