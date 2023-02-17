@@ -5,16 +5,24 @@ All notable changes to the [Unity3D NuGet package](https://www.nuget.org/package
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.1.1 - 2023-02-17
+
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.1.1) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.1.1).
+
+## Fixed in 2.1.1
+
+- The `Directory.Build.props` snippet's syntax in the package `readme.txt` file
+
 ## 2.1.0 - 2023-01-27
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.1.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.1.0).
 
-### Changed
+### Changed in 2.1.0
 
 - Newtonsoft.Json short-hand properties now use the path in Unity's install folder for Unity 2022.2+
 - All short-hand properties for UPM assemblies now include `@` in the name, to prevent name conflicts for assemblies with "nested namespace" names
 
-### Removed
+### Removed in 2.1.0
 
 - Readme content specifically for 1.x versions of this package, as they are now deprecated
 
@@ -22,7 +30,7 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.0.1) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.0.1).
 
-### Changed
+### Changed in 2.0.1
 
 - All documentation and package details now reference the Rabadash8820 GitHub repository (transferred from DerploidEntertainment)
 
@@ -30,11 +38,11 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.0.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.0.0).
 
-### Added
+### Added in 2.0.0
 
 - Internal: this changelog!
 
-### Changed
+### Changed in 2.0.0
 
 - Package icon to use new Unity logo
 
@@ -42,14 +50,14 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.0.0-rc2) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.0.0-rc2).
 
-### Added
+### Added in 2.0.0-rc2
 
 - `UnityVersionMajor`, `UnityVersionMinor`, `UnityVersionPatch`, and `UnityVersionAsNumber` props for manipulation of Unity versions as numbers
 - Documentation on using the numeric Unity version properties in MSBuild files
 - Support documentation to main README
 - Internal: test projects for Tech Stream Unity releases up through 2022.1
 
-### Changed
+### Changed in 2.0.0-rc2
 
 - Updated usage notes in all Readme documents
 - Updated available short-hand properties in all Readme documents
@@ -60,11 +68,11 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.0.0-rc1) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.0.0-rc1).
 
-### Added
+### Added in 2.0.0-rc1
 
 - Many new short-hand properties, with more consistent naming (relative paths end in `Dir` or `Assembly`, absolute paths end in `Path`)
 
-### Changed
+### Changed in 2.0.0-rc1
 
 - Unity version can now be parsed automatically from the `ProjectVersion.txt` file in a Unity project, if not set explicitly (requires `UnityProjectPath` to be set)
 - Reference Include paths no longer need to start with `$(UnityInstallRoot)\$(UnityVersion)`\. Most paths will now use a single short-hand property.
@@ -76,7 +84,7 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v1.7.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/1.7.0).
 
-### Added
+### Added in 1.7.0
 
 - Root paths for Linux
 
@@ -84,17 +92,17 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v1.6.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/1.6.0).
 
-### Added
+### Added in 1.6.0
 
 - Suggested `TargetFramework` notes in main README
 - Internal: tests for Unity 2020.2.x
 
-### Changed
+### Changed in 1.6.0
 
 - Contributor Covenant to v2.0
 - Clarified which Unity versions are officially supported in main README
 
-### Fixed
+### Fixed in 1.6.0
 
 - Root paths for MacOS (thanks to input from GitHub user [Sorrowful-free](https://github.com/Sorrowful-free))
 
@@ -102,7 +110,7 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v1.5.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/1.5.0).
 
-### Added
+### Added in 1.5.0
 
 - Short-hand properties for iOS- and Android-specific assemblies
 
@@ -110,12 +118,12 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v1.4.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/1.4.0).
 
-### Added
+### Added in 1.4.0
 
 - Short-hand property for Newtonsoft.Json
 - Internal: test projects for Unity 2019.4.x and 2020.1.x
 
-### Changed
+### Changed in 1.4.0
 
 - Documentation about which Unity packages are necessary for which MSBuild short-hand properties
 
@@ -123,11 +131,11 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v1.3.1) or [nuget.org](https://www.nuget.org/packages/Unity3D/1.3.1).
 
-### Added
+### Added in 1.3.1
 
 - Internal: test projects for Unity 2019.3.x
 
-### Fixed
+### Fixed in 1.3.1
 
 - Some property conditions in the main `.props` file
 
@@ -135,23 +143,23 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 Download from [nuget.org](https://www.nuget.org/packages/Unity3D/1.3.0).
 
-### Added
+### Added in 1.3.0
 
 - Short-hand properties for more locations, including assemblies within a Unity project folder
 - Internal: some test Unity scenes in various Unity versions, for testing builds that reference Library/ or Asset Store assemblies
 - README instructions on removing the default `UnityEngine.dll` reference
 - README instructions on referencing assemblies in Packages, Asset Store assets, and Unity modules
 
-### Changed
+### Changed in 1.3.0
 
 - Internal: test solution is now more flexible, containing fewer projects that can each be built with a different target framework and version of Unity
 - Main README's usage section now better organized into sub-sections
 
-### Removed
+### Removed in 1.3.0
 
 - Unnecessary `UNITY_ASSERTIONS` define
 
-### Fixed
+### Fixed in 1.3.0
 
 - Missing `UnityModulesPath` property :facepalm:
 
@@ -159,11 +167,11 @@ Download from [nuget.org](https://www.nuget.org/packages/Unity3D/1.3.0).
 
 Download from [nuget.org](https://www.nuget.org/packages/Unity3D/1.2.0).
 
-### Changed
+### Changed in 1.2.0
 
 - All short-hand assembly properties now use the same casing as the referenced DLL files (e.g., `UnityEngineUIPath`, not `UnityEngineUiPath`)
 
-### Added
+### Added in 1.2.0
 
 - New `UnityManagedPath` and `UnityExtensionsPath` properties to clean up the props file
 
@@ -183,7 +191,7 @@ Final preparations for first stable version.
 
 Download from [nuget.org](https://www.nuget.org/packages/Unity3D/1.1.0-rc1).
 
-### Changed
+### Changed in 1.1.0-rc1
 
 References are now added as `Reference` items, not magic MSBuild properties.
 
