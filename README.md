@@ -196,21 +196,21 @@ This is especially common when your code and Unity project are stored in the sam
 and you want to reference assemblies from Asset Store assets or Packages that you've installed.
 In these cases, the paths in your `Reference` items should be relative paths, so that they resolve across platforms.
 When you define an MSBuild property named `$(UnityProjectPath)` to store this relative path, you can use it as a short-hand for multiple `Reference`s.
-Moreover, there are a [couple short-hand properties](#available-short-hand-properties) for common assembly paths under `UnityProjectPath`.
-For example, if you want to raise Standard Events with the [Analytics package](https://docs.unity3d.com/Manual/com.unity.analytics.html)
-and use the [Addressables](https://docs.unity3d.com/Manual/com.unity.addressables.html) workflow,
-then your `.csproj` would look something like (`UnityProjectPath` defined in `Directory.Build.props`):
+Moreover, there are a [couple short-hand properties](#available-short-hand-properties) that refer to common assembly paths under `UnityProjectPath`.
+For example, if you wanted to consume uGUI types like `Button` or `Text`
+_and_ use the [Addressables](https://docs.unity3d.com/Manual/com.unity.addressables.html) workflow,
+then your `.csproj` would look something like this (`UnityProjectPath` defined in `Directory.Build.props`):
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <Reference Include="$(UnityAnalyticsStandardEventsPath)" Private="false" />
+        <Reference Include="$(UnityEngineUIPath)" Private="false" />
         <Reference Include="$(UnityScriptAssembliesPath)\Unity.Addressables.dll" Private="false" />
     </ItemGroup>
 </Project>
 ```
 
-**Note: the Unity project must have been built recently, so that the `Library/` folder actually contains the imported assemblies!**
+**Note: the Unity project must have been opened recently, so that the `Library/` folder actually contains the imported assemblies!**
 
 Also note that, while there are short-hand properties for a couple assemblies under the `PackageCache` folder (see the [full list](#available-short-hand-properties)),
 there are _no_ short-hand properties for assemblies stored in the `ScriptAssemblies` folder.
