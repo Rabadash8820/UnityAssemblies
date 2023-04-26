@@ -49,7 +49,7 @@ Add a `Directory.Build.props` file in the same folder as your .csproj file (or a
 <!-- Directory.Build.props -->
 <Project>
     <PropertyGroup>
-        <UnityProjectPath>relative\path\to\UnityProject</UnityProjectPath>
+        <UnityProjectPath>$(MSBuildProjectDirectory)\relative\path\to\UnityProject</UnityProjectPath>
         <!-- Or -->
         <UnityVersion>2022.2.3f1</UnityVersion>
     </PropertyGroup>
@@ -110,15 +110,16 @@ As shown in the basic example above, this package only requires a `UnityVersion`
 ![Unity version strings highlighted in the Unity Hub interface](./images/unity-versions.png)
 
 This property must be added to a `Directory.Build.props` file.
-If you're working with a specific Unity project, the recommendation is to set `UnityProjectPath` rather than `UnityVersion`.
+
+If you're working with a specific Unity project, then the recommendation is to set `UnityProjectPath` instead of `UnityVersion`.
 This NuGet package will then look up the project's Unity version from its `ProjectSettings/ProjectVersion.txt` file,
 so that when you update the project to a new Unity version, your assembly references will also update.
 `UnityProjectPath` must be the path to a Unity project folder, not the `Assets/` subfolder.
-Try to define the path relative to `Directory.Build.props` so that it resolves across platforms
-(this works well when your MSBuild/Visual Studio project and Unity project are in the same repository).
+Try to define the path relative to the MSBuild project's directory (i.e., relative to `$(MSBuildProjectDirectory)`) so that it resolves across platforms.
+This works especially well when your MSBuild/Visual Studio project and Unity project are in the same repository.
 If both `UnityVersion` and `UnityProjectPath` are provided, then the explicit version will take precedence.
 If you do not set `UnityVersion` _or_ `UnityProjectPath`, then `UnityVersion` will default to the constant string "SET_VERSION_OR_PROJECT".
-If you see this text in the paths of assembly references in your IDE, then you'll know that those properties are missing or inaccessible to this NuGet package.
+If you see this string in the paths of assembly references in your IDE, then you'll know that those properties are missing or inaccessible to this NuGet package.
 Make sure that one of these properties is defined in `Directory.Build.props`, and _not_ in your .csproj file.
 
 ### Editing the project files
