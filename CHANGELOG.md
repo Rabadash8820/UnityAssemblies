@@ -5,6 +5,14 @@ All notable changes to the [Unity3D NuGet package](https://www.nuget.org/package
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 2.1.2 - 2023-04-26
+
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.1.2) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.1.2).
+
+## Fixed in 2.1.2
+
+- The relative path in the package `readme.txt` file to be based off `$(MSBuildProjectDirectory)`
+
 ## 2.1.1 - 2023-02-17
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.1.1) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.1.1).
