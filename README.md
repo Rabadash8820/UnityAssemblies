@@ -4,7 +4,7 @@
 
 [![NuGet package](https://img.shields.io/nuget/v/Unity3D.svg)](https://nuget.org/packages/Unity3D)
 [![NuGet downloads](https://img.shields.io/packagecontrol/dd/Unity3D.svg)](https://nuget.org/packages/Unity3D)
-[![Changelog (currently v2.1.1)](https://img.shields.io/badge/changelog-v2.1.1-blue.svg)](./CHANGELOG.md)
+[![Changelog (currently v2.1.2)](https://img.shields.io/badge/changelog-v2.1.2-blue.svg)](./CHANGELOG.md)
 [![License](https://img.shields.io/github/license/Rabadash8820/UnityAssemblies.svg)](./LICENSE)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 [![Issues closed](https://img.shields.io/github/issues-closed/Rabadash8820/UnityAssemblies)](https://github.com/Rabadash8820/UnityAssemblies/issues)
@@ -49,7 +49,7 @@ Add a `Directory.Build.props` file in the same folder as your .csproj file (or a
 <!-- Directory.Build.props -->
 <Project>
     <PropertyGroup>
-        <UnityProjectPath>relative\path\to\UnityProject</UnityProjectPath>
+        <UnityProjectPath>$(MSBuildProjectDirectory)\relative\path\to\UnityProject</UnityProjectPath>
         <!-- Or -->
         <UnityVersion>2022.2.3f1</UnityVersion>
     </PropertyGroup>
@@ -110,15 +110,16 @@ As shown in the basic example above, this package only requires a `UnityVersion`
 ![Unity version strings highlighted in the Unity Hub interface](./images/unity-versions.png)
 
 This property must be added to a `Directory.Build.props` file.
-If you're working with a specific Unity project, the recommendation is to set `UnityProjectPath` rather than `UnityVersion`.
+
+If you're working with a specific Unity project, then the recommendation is to set `UnityProjectPath` instead of `UnityVersion`.
 This NuGet package will then look up the project's Unity version from its `ProjectSettings/ProjectVersion.txt` file,
 so that when you update the project to a new Unity version, your assembly references will also update.
 `UnityProjectPath` must be the path to a Unity project folder, not the `Assets/` subfolder.
-Try to define the path relative to `Directory.Build.props` so that it resolves across platforms
-(this works well when your MSBuild/Visual Studio project and Unity project are in the same repository).
+Try to define the path relative to the MSBuild project's directory (i.e., relative to `$(MSBuildProjectDirectory)`) so that it resolves across platforms.
+This works especially well when your MSBuild/Visual Studio project and Unity project are in the same repository.
 If both `UnityVersion` and `UnityProjectPath` are provided, then the explicit version will take precedence.
 If you do not set `UnityVersion` _or_ `UnityProjectPath`, then `UnityVersion` will default to the constant string "SET_VERSION_OR_PROJECT".
-If you see this text in the paths of assembly references in your IDE, then you'll know that those properties are missing or inaccessible to this NuGet package.
+If you see this string in the paths of assembly references in your IDE, then you'll know that those properties are missing or inaccessible to this NuGet package.
 Make sure that one of these properties is defined in `Directory.Build.props`, and _not_ in your .csproj file.
 
 ### Editing the project files
@@ -195,21 +196,21 @@ This is especially common when your code and Unity project are stored in the sam
 and you want to reference assemblies from Asset Store assets or Packages that you've installed.
 In these cases, the paths in your `Reference` items should be relative paths, so that they resolve across platforms.
 When you define an MSBuild property named `$(UnityProjectPath)` to store this relative path, you can use it as a short-hand for multiple `Reference`s.
-Moreover, there are a [couple short-hand properties](#available-short-hand-properties) for common assembly paths under `UnityProjectPath`.
-For example, if you want to raise Standard Events with the [Analytics package](https://docs.unity3d.com/Manual/com.unity.analytics.html)
-and use the [Addressables](https://docs.unity3d.com/Manual/com.unity.addressables.html) workflow,
-then your `.csproj` would look something like (`UnityProjectPath` defined in `Directory.Build.props`):
+Moreover, there are a [couple short-hand properties](#available-short-hand-properties) that refer to common assembly paths under `UnityProjectPath`.
+For example, if you wanted to consume uGUI types like `Button` or `Text`
+_and_ use the [Addressables](https://docs.unity3d.com/Manual/com.unity.addressables.html) workflow,
+then your `.csproj` would look something like this (`UnityProjectPath` defined in `Directory.Build.props`):
 
 ```xml
 <Project Sdk="Microsoft.NET.Sdk">
     <ItemGroup>
-        <Reference Include="$(UnityAnalyticsStandardEventsPath)" Private="false" />
+        <Reference Include="$(UnityEngineUIPath)" Private="false" />
         <Reference Include="$(UnityScriptAssembliesPath)\Unity.Addressables.dll" Private="false" />
     </ItemGroup>
 </Project>
 ```
 
-**Note: the Unity project must have been built recently, so that the `Library/` folder actually contains the imported assemblies!**
+**Note: the Unity project must have been opened recently, so that the `Library/` folder actually contains the imported assemblies!**
 
 Also note that, while there are short-hand properties for a couple assemblies under the `PackageCache` folder (see the [full list](#available-short-hand-properties)),
 there are _no_ short-hand properties for assemblies stored in the `ScriptAssemblies` folder.
@@ -406,14 +407,14 @@ For example, you could reference both `org.nuget.microsoft.extensions.logging%40
 | `UnityEditorAndroidExtensionsPath` | `$(UnityAndroidPlayerPath)\UnityEditor.Android.Extensions.dll` | See types under `UnityEditor > UnityEditor.Android` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
 | `UnityEditoriOSExtensionsCommonPath` | `$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Common.dll` | See types under `UnityEditor > UnityEditor.iOS` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
 | `UnityEditoriOSExtensionsXcodePath` | `$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Xcode.dll` | See types under `UnityEditor > UnityEditor.iOS` in the [Unity Scripting API docs](https://docs.unity3d.com/ScriptReference/index.html) |
-| `NewtonsoftJsonAssembly` | `com.unity.nuget.newtonsoft-json%40*\Runtime\Newtonsoft.Json.dll` | Requires installation of the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner package. Referenced by `NewtonsoftJsonPath`. Only defined if `UnityVersion` is between 2019.3 and 2022.1, inclusive. |
-| `NewtonsoftJsonPath` | `$(UnityPackageCachePath)\$(NewtonsoftJsonAssembly)` for Unity 2019.3-2022.1, `$(UnityManagedPath)\Newtonsoft.Json.dll` for Unity 2022.2+ | In Unity 2019.3-2022.1, requires installation of the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@1.0/manual/index.html) for Unity Test Runner package. No extra installations required in Unity 2022.2+. |
-| `NunitAssembly` | `com.unity.ext.nunit%40*\net35\unity-custom\nunit.framework.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. Referenced by `NunitPath`. Only defined if `UnityVersion` is >= 2019.2. |
-| `NunitPath` | `$(UnityPackageCachePath)\$(NunitAssembly)` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. Only defined if `UnityVersion` is >= 2019.2. |
-| `MoqAssembly` | `nuget.moq%40*\Moq.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. In Unity 2020.1+, [download Moq from NuGet](https://www.nuget.org/packages/moq/) and import it as a managed plugin. Referenced by `MoqPath`. Only defined if `UnityVersion` is between 2019.2 and 2019.3, inclusive. |
-| `MoqPath` | `$(UnityPackageCachePath)\$(MoqAssembly)` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@1.1/manual/index.html) package. In Unity 2020.1+, [download Moq from NuGet](https://www.nuget.org/packages/moq/) and import it as a managed plugin. Only defined if `UnityVersion` is between 2019.2 and 2019.3, inclusive. |
-| `UnityAnalyticsStandardEventsAssembly` | `com.unity.analytics%40*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` | Requires installation of the [Analytics Library](https://docs.unity3d.com/Packages/com.unity.analytics@3.3/manual/index.html) package. Referenced by `UnityAnalyticsStandardEventsPath`. Only defined if `UnityVersion` is >= 2019.2. |
-| `UnityAnalyticsStandardEventsPath` | `$(UnityPackageCachePath)\$(UnityAnalyticsStandardEventsAssembly)` | Requires installation of the [Analytics Library](https://docs.unity3d.com/Packages/com.unity.analytics@3.3/manual/index.html) package. Only defined if `UnityVersion` is >= 2019.2. |
+| `NewtonsoftJsonAssembly` | `com.unity.nuget.newtonsoft-json%40*\Runtime\Newtonsoft.Json.dll` | Requires installation of the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@latest/index.html) for Unity Test Runner package. Referenced by `NewtonsoftJsonPath`. Only defined if `UnityVersion` is between 2019.3 and 2022.1, inclusive. |
+| `NewtonsoftJsonPath` | `$(UnityPackageCachePath)\$(NewtonsoftJsonAssembly)` for Unity 2019.3-2022.1, `$(UnityManagedPath)\Newtonsoft.Json.dll` for Unity 2022.2+ | In Unity 2019.3-2022.1, requires installation of the [Performance Testing Extension](https://docs.unity3d.com/Packages/com.unity.test-framework.performance@latest/index.html) for Unity Test Runner package. No extra installations required in Unity 2022.2+. |
+| `NunitAssembly` | `com.unity.ext.nunit%40*\net35\unity-custom\nunit.framework.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@latest/index.html) package. Referenced by `NunitPath`. Only defined if `UnityVersion` is >= 2019.2. |
+| `NunitPath` | `$(UnityPackageCachePath)\$(NunitAssembly)` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@latest/index.html) package. Only defined if `UnityVersion` is >= 2019.2. |
+| `MoqAssembly` | `nuget.moq%40*\Moq.dll` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@latest/index.html) package. In Unity 2020.1+, [download Moq from NuGet](https://www.nuget.org/packages/moq/) and import it as a managed plugin. Referenced by `MoqPath`. Only defined if `UnityVersion` is between 2019.2 and 2019.3, inclusive. |
+| `MoqPath` | `$(UnityPackageCachePath)\$(MoqAssembly)` | Requires installation of the [Test Framework](https://docs.unity3d.com/Packages/com.unity.test-framework@latest/index.html) package. In Unity 2020.1+, [download Moq from NuGet](https://www.nuget.org/packages/moq/) and import it as a managed plugin. Only defined if `UnityVersion` is between 2019.2 and 2019.3, inclusive. |
+| `UnityAnalyticsStandardEventsAssembly` | `com.unity.analytics%40*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll` | Requires installation of the [legacy Analytics Library](https://docs.unity3d.com/Packages/com.unity.analytics@latest/index.html) package. Referenced by `UnityAnalyticsStandardEventsPath`. Only defined if `UnityVersion` is >= 2019.2. |
+| `UnityAnalyticsStandardEventsPath` | `$(UnityPackageCachePath)\$(UnityAnalyticsStandardEventsAssembly)` | Requires installation of the [legacy Analytics Library](https://docs.unity3d.com/Packages/com.unity.analytics@latest/index.html) package. Only defined if `UnityVersion` is >= 2019.2. |
 
 ## FAQ
 
