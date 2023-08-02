@@ -11,7 +11,7 @@
 
 This repository contains the source code for the [`Unity3D` NuGet package](https://www.nuget.org/packages/Unity3D).
 
-`Unity3D` allows developers to effectively reference assemblies of the Unity game engine (e.g., `UnityEngine.dll`) as NuGet packages.
+`Unity3D` allows .NET developers to reference assemblies of the Unity game engine (e.g., `UnityEngine.dll`) as NuGet packages.
 
 If you find this package useful, consider supporting its development!
 
@@ -198,7 +198,7 @@ In these cases, the paths in your `Reference` items should be relative paths, so
 When you define an MSBuild property named `$(UnityProjectPath)` to store this relative path, you can use it as a short-hand for multiple `Reference`s.
 Moreover, there are a [couple short-hand properties](#available-short-hand-properties) that refer to common assembly paths under `UnityProjectPath`.
 For example, if you wanted to consume uGUI types like `Button` or `Text`
-_and_ use the [Addressables](https://docs.unity3d.com/Manual/com.unity.addressables.html) workflow,
+_and_ use the [Addressables](https://3d.com/Manual/com.unity.addressables.html) workflow,
 then your `.csproj` would look something like this (`UnityProjectPath` defined in `Directory.Build.props`):
 
 ```xml
@@ -218,7 +218,7 @@ That folder is completely flat, so you can just reference assemblies there by fi
 
 ### Referencing assemblies at non-default install locations
 
-Because Unity Hub is the installation tool [recommended by Unity Technologies](https://docs.unity3d.com/Manual/GettingStartedInstallingUnity.html),
+Because Unity Hub is the installation tool [recommended by Unity Technologies](https://3d.com/Manual/GettingStartedInstallingUnity.html),
 this package checks for Unity assemblies at Unity Hub's default install locations by default.
 If you are not using Unity Hub, or are using non-default install locations, then you can override the path where this package searches for Unity assemblies
 by setting the `UnityInstallRootPath` and/or `OSInstallRootPath` MSBuild properties.
