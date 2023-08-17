@@ -26,7 +26,7 @@ and add code like the following:
     <!-- Directory.Build.props -->
     <Project>
         <PropertyGroup>
-            <UnityVersion>2022.2.3f1</UnityVersion>
+            <UnityVersion>2023.1.8f1</UnityVersion>
             <!-- or -->
             <UnityProjectPath>$(MSBuildProjectDirectory)\relative\path\to\UnityProject</UnityProjectPath>
         </PropertyGroup>
@@ -40,7 +40,7 @@ Then, make sure your .csproj file looks something like this:
             <TargetFramework>netstandard2.1</TargetFramework>
         </PropertyGroup>
         <ItemGroup>
-            <PackageReference Include="Unity3D" Version="2.1.2" />
+            <PackageReference Include="Unity3D" Version="2.1.3" />
         </ItemGroup>
         <!-- Other properties/items -->
     </Project>
