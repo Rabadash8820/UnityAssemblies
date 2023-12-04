@@ -9,16 +9,19 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.1.3) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.1.3).
 
-## Fixed in 2.1.3
+### Fixed in 2.1.3
 
 - `$(NunitAssembly)` property now uses `net*` rather than `net35` to account for later versions of Unity's "Custom NUnit" package that use a `net40` version of the assembly
+
+### Added in 2.1.3
+
 - Internal: test projects for Tech Stream Unity releases up through 2023.1
 
 ## 2.1.2 - 2023-04-26
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.1.2) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.1.2).
 
-## Fixed in 2.1.2
+### Fixed in 2.1.2
 
 - The relative path in the package `readme.txt` file to be based off `$(MSBuildProjectDirectory)`
 
@@ -26,7 +29,7 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.1.1) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.1.1).
 
-## Fixed in 2.1.1
+### Fixed in 2.1.1
 
 - The `Directory.Build.props` snippet's syntax in the package `readme.txt` file
 
