@@ -72,6 +72,11 @@ bumpUnityVersions() {
     sed --expression="s|$findRegex.*|$replaceTxt|" --in-place "$mainReadmePath"
     errNum=$?
     if [ $errNum != 0 ]; then return $errNum; fi
+
+    echo ""
+    echo "Update the Readme FAQ with which Unity versions this package has been tested."
+    echo ""
+    read -p "Press [Enter] when you're done..."
 }
 
 bumpCurrentYear() {
@@ -131,11 +136,11 @@ nugetPush() {
     errNum=$?
     if [ $errNum != 0 ]; then return $errNum; fi
 
-    if [ $remindNugetPublish = true ] && [ "$nugetSource" == "nuget.org" ] ; then
+    if [ $remindNugetPublish = true ] ; then
         echo ""
-        echo "Now sign in to nuget.org, and copy over the documentation from the previous package version"
+        echo "Now sign in to your NuGet source ($nugetSource) and copy over the documentation from the previous package version"
         echo "    This should basically be the contents of the packaged readme.txt file"
-        echo "    Also be sure to increment the UnityVersion and PackageReference version strings therein!"
+        echo "    Also be sure to increment the 'UnityVersion' and 'PackageReference' version strings therein!"
         echo "    If you make any other substantive changes to the documentation, consider backporting them to older versions' documentation also."
         echo ""
         read -p "Press [Enter] when you're done..."
@@ -173,6 +178,7 @@ main() {
     nugetSourceApiKey=
     remindNugetPublish=0
     remindTagRelease=0
+    pack=0
 
     # Parse CLI options
     args=$(getopt \
@@ -193,6 +199,8 @@ main() {
             no-remind-nuget-publish, \
             remind-tag-release, \
             no-remind-tag-release, \
+            pack, \
+            no-pack, \
         ' -- "$@") || exit
     eval "set -- $args"
 
@@ -261,6 +269,13 @@ main() {
             remindTagRelease=false
             ;;
 
+        (--pack)
+            pack=true
+            ;;
+        (--no-pack)
+            pack=false
+            ;;
+
         (--)
             shift
             break
@@ -271,11 +286,11 @@ main() {
 
     # Validate CLI options
     if [ $showUsage == false ]; then
-        if [ -z $packageVersion ]; then
+        if [ -z $packageVersion ] ; then
             echo "Missing required new semantic version string for the NuGet package. Use the '-p | --package-version' option"
             showUsage=true;
         fi
-        if [ -z $nugetSourceApiKey ]; then
+        if [ -z $nugetSourceApiKey ] && [ $pack == true ]; then
             echo "Missing required API key for NuGet source '$nugetSource'. Use the '-k | --nuget-source-apikey' option"
             showUsage=true;
         fi
@@ -309,6 +324,8 @@ main() {
         echo "                  Optional. Toggle the reminder to update the NuGet package's page on the source site. Default behavior is to show the reminder."
         echo "    --[no-]remind-tag-release"
         echo "                  Optional. Toggle the reminder to push a new git tag for this NuGet release. Default behavior is to show the reminder."
+        echo "    --[no-]pack"
+        echo "                  Optional. Toggle whether the NuGet package is packed and published. Default behavior is to proceed with packing/publishing."
         return 1
     fi
 
@@ -319,7 +336,7 @@ main() {
     bumpCurrentYear
 
     echo ""
-    echo "Commit the changes to version/year that this script just made"
+    echo "Commit the changes to version/year that you and this script just made"
     echo ""
     read -p "Press [Enter] when you're done..."
 
@@ -331,6 +348,10 @@ main() {
         return 1
     elif [ "$nugetCode" = "2" ] ; then
         nugetPath="./nuget.exe"
+    fi
+
+    if [ $pack == false ] ; then
+        return 0
     fi
 
     # Create the NuGet package
