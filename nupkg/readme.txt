@@ -26,7 +26,7 @@ and add code like the following:
     <!-- Directory.Build.props -->
     <Project>
         <PropertyGroup>
-            <UnityVersion>2023.1.8f1</UnityVersion>
+            <UnityVersion>2023.2.1f1</UnityVersion>
             <!-- or -->
             <UnityProjectPath>$(MSBuildProjectDirectory)\relative\path\to\UnityProject</UnityProjectPath>
         </PropertyGroup>

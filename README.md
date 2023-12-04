@@ -51,7 +51,7 @@ Add a `Directory.Build.props` file in the same folder as your .csproj file (or a
     <PropertyGroup>
         <UnityProjectPath>$(MSBuildProjectDirectory)\relative\path\to\UnityProject</UnityProjectPath>
         <!-- Or -->
-        <UnityVersion>2023.1.8f1</UnityVersion>
+        <UnityVersion>2023.2.1f1</UnityVersion>
     </PropertyGroup>
 </Project>
 ```
