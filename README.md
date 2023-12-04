@@ -32,6 +32,7 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
   - [Removing the default reference to UnityEngine.dll](#removing-the-default-reference-to-unityenginedll)
   - [Referencing the Unity core modules](#referencing-the-unity-core-modules)
   - [Referencing assemblies in specific Unity versions](#referencing-assemblies-in-specific-unity-versions)
+  - [CI/CD Pipelines](#cicd-pipelines)
 - [Available Short-Hand Properties](#available-short-hand-properties)
 - [FAQ](#faq)
 - [Support](#support)
@@ -339,6 +340,42 @@ so you don't need to worry about conditionally setting the paths yourself.
 If a path is not applicable in a particular Unity version (such as `NunitPath` in Unity 2019.1 and below),
 then its MSBuild property will be undefined for that version (e.g., `$(NunitPath)` would be empty).
 
+### CI/CD Pipelines
+
+This package works with many different CI/CD (Continuous Integration/Continuous Deployment) setups.
+Just remember that this package does not actually include any Unity assemblies; it only _references_ them at expected locations.
+Therefore, whatever system is running .NET builds in your pipeline (be that a server, VM, container, etc.)
+must separately install the desired version of the Unity engine or its assemblies.
+
+Here are some possible solutions:
+
+- **Use [Unity Build Automation](https://unity.com/solutions/ci-cd) (formerly Unity Cloud Build).**
+    This is Unity's first-party build automation web service,
+    so it will always have the latest Unity versions, build features, and solid integration with other [Unity Gaming Services](https://unity.com/solutions/gaming-services).
+    Simply select your project's Unity version (or tell UBA to look up the version from a `ProjectVersion.txt`)
+    and then the build machine will have the associated Unity assemblies pre-installed.
+    You can run whatever additional build scripts you want and use this NuGet package.
+    You can still host your code from anywhere; UBA builds are triggered by a webhook.
+- **Compile your C# code _outside_ of Unity (e.g., in Visual Studio).**
+    You can copy the generated DLLs/PDBs via an MSBuild post-build event so that
+    they're imported into Unity as [managed plugins](https://docs.unity3d.com/Manual/UsingDLL.html) and won't require compilation during the CI/CD build process.
+    It's recommended to version those generated files in the same repository as the C# code (e.g., with [Git LFS](https://git-lfs.com/)).
+    It might feel redundant to store code and built executables in the same repository, but this serves the same benefits as storing, e.g.,
+    artists' PhotoShop project files and generated images in the same repository;
+    namely, experts can work on the "source" files, but other team members (and the CI/CD pipeline) can
+    just work with "built" files without random build errors/warnings from the source.
+    This approach also lets you use (most of) the latest C# language features since you're not tied to Unity's compiler version.
+- **Run the [unityci/editor](https://hub.docker.com/r/unityci/editor) images from Docker Hub.**
+    This option is good if your CI/CD system supports containerized build agents.
+    New tags are regularly added for the latest Unity versions as part of the [GameCI](https://game.ci/) project.
+    This Unity3D NuGet package will work inside a container run from those images.
+- **Use [Unity Build Server](https://unity.com/products/unity-build-server).**
+    This option is good if you already have on-premise build servers; this service helps scale/manage on-prem builds.
+- **Copy the actual Unity assemblies to your build agent.**
+    It is strongly recommended to store the assemblies on shared network storage or in a private NuGet package feed
+    (e.g., [GitHub Packages](https://github.com/features/packages) or [Azure Artifacts](https://azure.microsoft.com/en-us/products/devops/artifacts)).
+    Doing so allows you to easily reference the assemblies and share them between projects to reduce the size of your repositories and build agents.
+
 ## Available Short-Hand Properties
 
 Note that, unless otherwise noted, _any_ of the following properties can be overwritten by setting the property manually in `Directory.Build.props`.
@@ -456,6 +493,8 @@ For example, you could reference both `org.nuget.microsoft.extensions.logging%40
     - 2020.3 LTS, 2020.1
     - 2019.4 LTS
     - 2018.4 LTS
+1. **Can I use this package in my CI/CD Pipeline?**
+    Most likely, [yes](#cicd-pipelines)!
 1. **Why hasn't this repository been updated since [date]?**
     This NuGet package is very simple, with most of its functionality contained in a [single file](./nupkg/build/Unity3D.props).
     Between that, and the package's use of forward-compatible properties like `UnityVersion` that can be tweaked at design time,

@@ -19,6 +19,7 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 ### Added in 2.1.3
 
+- README documentation about using this package in CI/CD Pipelines
 - Internal: test projects for Tech Stream Unity releases up through 2023.2
 
 ## 2.1.2 - 2023-04-26
