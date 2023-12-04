@@ -450,7 +450,8 @@ For example, you could reference both `org.nuget.microsoft.extensions.logging%40
     so feel free to [open an Issue](https://github.com/Rabadash8820/UnityAssemblies/issues)!
 1. **With which Unity versions has this package been officially tested?**
     In the following:
-    - 2022.2, 2022.1
+    - 2023.2, 2023.1
+    - 2022.3 LTS, 2022.2, 2022.1
     - 2021.3 LTS, 2021.2, 2021.1
     - 2020.3 LTS, 2020.1
     - 2019.4 LTS
