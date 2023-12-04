@@ -11,8 +11,7 @@ verifyReleaseNotes() {
     read -p "Press [Enter] when you're done..."
 }
 
-bumpVersions() {
-    # Update package version strings to the provided one
+bumpNugetVersions() {
     echo ""
     echo "Changing package version strings to '$packageVersion' in:"
 
@@ -47,8 +46,9 @@ bumpVersions() {
     sed --expression="s|$findRegex.*|$replaceTxt|" --in-place "$nuspecPath"
     errNum=$?
     if [ $errNum != 0 ]; then return $errNum; fi
+}
 
-    # Update Unity version strings to the provided one
+bumpUnityVersions() {
     echo "Changing Unity version strings to '$unityVersion' in:"
 
     findRegex="using Unity .*,"
@@ -314,7 +314,8 @@ main() {
 
     # Make sure user has updated package info
     verifyReleaseNotes && \
-    bumpVersions && \
+    bumpNugetVersions && \
+    bumpUnityVersions && \
     bumpCurrentYear
 
     echo ""
