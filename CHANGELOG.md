@@ -12,6 +12,7 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 ### Changed in 2.1.3
 
 - Internal: Added a `--no-pack` option to the publish script for easier testing
+- Split up the main Readme into multiple Markdown files under `docs/` so that different documentation versions can exist side-by-side in perpetuity
 
 ### Fixed in 2.1.3
 
