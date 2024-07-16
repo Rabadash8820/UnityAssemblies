@@ -44,6 +44,15 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E365C332-8
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMinimalExplicit", "TestMinimalExplicit\TestMinimalExplicit.csproj", "{4EFD5237-59D1-431D-A60A-A8B1D397AC1B}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{565DD552-C304-431C-802A-95E92E81A6E8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "v3", "v3", "{2855D997-7DAC-4A81-B2AA-BCD46CF22290}"
+	ProjectSection(SolutionItems) = preProject
+		..\docs\v3\faq.md = ..\docs\v3\faq.md
+		..\docs\v3\short-hand-properties.md = ..\docs\v3\short-hand-properties.md
+		..\docs\v3\usage.md = ..\docs\v3\usage.md
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Net472_2021_3|Any CPU = Net472_2021_3|Any CPU
@@ -141,6 +150,8 @@ Global
 		{E4D0EF7B-F491-4BD5-BDD3-ABD92D3BEE05} = {CE043F66-AFE3-43C6-8D52-E3059B8B2CDB}
 		{98FA5AC9-B938-4AA6-B8B1-1B6468878191} = {CE043F66-AFE3-43C6-8D52-E3059B8B2CDB}
 		{E365C332-897A-43CA-8702-F9475896349B} = {157D3502-954C-4200-81B5-4A381B9F4C80}
+		{565DD552-C304-431C-802A-95E92E81A6E8} = {157D3502-954C-4200-81B5-4A381B9F4C80}
+		{2855D997-7DAC-4A81-B2AA-BCD46CF22290} = {565DD552-C304-431C-802A-95E92E81A6E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {AFEDC263-39BC-42D3-960F-FD230F8257F7}

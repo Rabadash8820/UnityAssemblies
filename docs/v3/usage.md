@@ -172,7 +172,7 @@ E.g., you may only need a reference to some other Unity assembly or want to refe
 To remove the references from your project, simply add the following line to a `<PropertyGroup>` in your MSBuild project file(s):
 
 ```xml
-<AddDefaultUnityReferences>False</AddDefaultUnityReferences>
+<IncludeDefaultUnityAssemblyReferences>False</IncludeDefaultUnityAssemblyReferences>
 ```
 
 ## Referencing the Unity core modules
