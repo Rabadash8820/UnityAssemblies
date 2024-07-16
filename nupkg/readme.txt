@@ -24,12 +24,12 @@ To use this package, add lines like the following to your .csproj file (or any i
 
     <Project Sdk="Microsoft.NET.Sdk">
         <PropertyGroup>
-            <UnityVersion>2023.2.1f1</UnityVersion>
+            <UnityVersion>2023.2.20f1</UnityVersion>
             <!-- or -->
             <UnityProjectPath>$(MSBuildProjectDirectory)\relative\path\to\UnityProject</UnityProjectPath>
         </PropertyGroup>
         <ItemGroup>
-            <PackageReference Include="Unity3D" Version="2.1.3" />
+            <PackageReference Include="Unity3D" Version="3.0.0-rc1" />
         </ItemGroup>
     </Project>
 
