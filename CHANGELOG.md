@@ -5,6 +5,18 @@ All notable changes to the [Unity3D NuGet package](https://www.nuget.org/package
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.0.0 - 2024-07-16
+
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v3.0.0-rc2) or [nuget.org](https://www.nuget.org/packages/Unity3D/3.0.0-rc2).
+
+### Added in 3.0.0
+
+- Internal: test project for Unity 6 Beta release
+
+### Fixed in 3.0.0
+
+- `NUnityAssembly` value for Unity 6+ projects
+
 ## 3.0.0-rc1 - 2024-07-16
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v3.0.0-rc1) or [nuget.org](https://www.nuget.org/packages/Unity3D/3.0.0-rc1).

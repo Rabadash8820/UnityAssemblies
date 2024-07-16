@@ -117,7 +117,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.2'">
     <!-- There is only ever one framework version in this UPM package, so the "net*" part is okay -->
-    <NunitAssembly Condition="'$(NunitAssembly)'==''">com.unity.ext.nunit%40*\net*\unity-custom\nunit.framework.dll</NunitAssembly>
+    <NunitAssembly Condition="'$(NunitAssembly)'=='' And '$(UnityVersionAsNumber)'&lt;'6000.0'">com.unity.ext.nunit%40*\net*\unity-custom\nunit.framework.dll</NunitAssembly>
+    <NunitAssembly Condition="'$(NunitAssembly)'=='' And '$(UnityVersionAsNumber)'>='6000.0'">com.unity.ext.nunit\net*\unity-custom\nunit.framework.dll</NunitAssembly>
     <NunitPath Condition="'$(NunitPath)'==''">$(UnityPackageCachePath)\$(NunitAssembly)</NunitPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(UnityVersionAsNumber)'=='2019.2' Or '$(UnityVersionAsNumber)'=='2019.3'">
