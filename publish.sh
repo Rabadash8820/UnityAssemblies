@@ -11,7 +11,7 @@ verifyReleaseNotes() {
     read -p "Press [Enter] when you're done..."
 }
 
-bumpNugetVersions() {
+bumpNuGetVersions() {
     echo ""
     echo "Changing package version strings to '$packageVersion' in:"
 
@@ -24,15 +24,10 @@ bumpNugetVersions() {
     errNum=$?
     if [ $errNum != 0 ]; then return $errNum; fi
 
-    mainReadmePath=$cwd/README.md
-    echo "    Sample project file at top of '$mainReadmePath'..."
-    sed --expression="s|$findRegex.*|$replaceTxt|" --in-place "$mainReadmePath"
-    errNum=$?
-    if [ $errNum != 0 ]; then return $errNum; fi
-
     findRegex="Changelog"
     replaceTxt="$findRegex (currently v$packageVersion)](https://img.shields.io/badge/changelog-v$packageVersion-blue.svg)](./CHANGELOG.md)"
 
+    mainReadmePath=$cwd/README.md
     echo "    Changelog badge at top of '$mainReadmePath'..."
     sed --expression="s|$findRegex.*|$replaceTxt|" --in-place "$mainReadmePath"
     errNum=$?
@@ -70,6 +65,12 @@ bumpUnityVersions() {
     mainReadmePath=$cwd/README.md
     echo "    Sample project files in '$mainReadmePath'..."
     sed --expression="s|$findRegex.*|$replaceTxt|" --in-place "$mainReadmePath"
+    errNum=$?
+    if [ $errNum != 0 ]; then return $errNum; fi
+
+    usagePath=$cwd/docs/$docsFolder/usage.md
+    echo "    Sample project file at top of '$usagePath'..."
+    sed --expression="s|$findRegex.*|$replaceTxt|" --in-place "$usagePath"
     errNum=$?
     if [ $errNum != 0 ]; then return $errNum; fi
 
@@ -132,7 +133,7 @@ nugetSign() {
 nugetPush() {
     echo ""
     echo "Publishing NuGet package at '$nupkgPath' to $nugetSource..."
-    # "$nugetPath" push "$nupkgPath" -Source "$nugetSource" -ApiKey "$nugetSourceApiKey"
+    "$nugetPath" push "$nupkgPath" -Source "$nugetSource" -ApiKey "$nugetSourceApiKey"
     errNum=$?
     if [ $errNum != 0 ]; then return $errNum; fi
 
@@ -171,6 +172,7 @@ main() {
     packageVersion=
     unityVersion=$DEFAULT_UNITY_VERSION
     copyrightStartYear=$DEFAULT_COPYRIGHT_START_YEAR
+    docsFolder=
     timestamper=$DEFAULT_TIMESTAMPER
     signPackage=1
     signingCertPath=
@@ -183,7 +185,7 @@ main() {
     # Parse CLI options
     args=$(getopt \
         --name publish \
-        --options 'hp:u:c:t:n:k:' \
+        --options 'hp:u:c:d:t:n:k:' \
         --long ' \
             help, \
             remind-release-notes, \
@@ -191,6 +193,7 @@ main() {
             package-version:, \
             unity-version:, \
             copyright-start-year:, \
+            docs-folder:, \
             timestamper:, \
             signing-cert-path:, \
             nuget-source:, \
@@ -233,6 +236,11 @@ main() {
         (-c|--copyright-start-year)
             shift
             copyrightStartYear=$1
+            ;;
+
+        (-d|--docs-folder)
+            shift
+            docsFolder=$1
             ;;
 
         (-t|--timestamper)
@@ -290,6 +298,10 @@ main() {
             echo "Missing required new semantic version string for the NuGet package. Use the '-p | --package-version' option"
             showUsage=true;
         fi
+        if [ -z $docsFolder ]; then
+            echo "Missing required documentation folder name (under docs/). Use the '-d | --docs-folder' option"
+            showUsage=true;
+        fi
         if [ -z $nugetSourceApiKey ] && [ $pack == true ]; then
             echo "Missing required API key for NuGet source '$nugetSource'. Use the '-k | --nuget-source-apikey' option"
             showUsage=true;
@@ -310,6 +322,8 @@ main() {
         echo "                  Optional. Latest Unity version to use in documentation. Default is '$DEFAULT_UNITY_VERSION'."
         echo "    -c, --copyright-start-year <copyrightStartYear>"
         echo "                  Optional. Copyright start year to use in documentation. Default is '$DEFAULT_COPYRIGHT_START_YEAR'."
+        echo "    -d, --docs-folder <docsFolder>"
+        echo "                  Required. Name of folder (under docs/) where documentation Markdown files are stored."
         echo "    -t, --timestamper <timestamper>"
         echo "                  Optional. URL of an RFC 3161 timestamp server for package signing. Default is '$DEFAULT_TIMESTAMPER'."
         echo "    --[no-]sign-package"
@@ -331,7 +345,7 @@ main() {
 
     # Make sure user has updated package info
     verifyReleaseNotes && \
-    bumpNugetVersions && \
+    bumpNuGetVersions && \
     bumpUnityVersions && \
     bumpCurrentYear
 
