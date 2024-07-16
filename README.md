@@ -4,7 +4,7 @@
 
 [![NuGet package](https://img.shields.io/nuget/v/Unity3D.svg)](https://nuget.org/packages/Unity3D)
 [![NuGet downloads](https://img.shields.io/packagecontrol/dd/Unity3D.svg)](https://nuget.org/packages/Unity3D)
-[![Changelog (currently v2.1.3)](https://img.shields.io/badge/changelog-v2.1.3-blue.svg)](./CHANGELOG.md)
+[![Changelog (currently v3.0.0-rc1)](https://img.shields.io/badge/changelog-v3.0.0-rc1-blue.svg)](./CHANGELOG.md)
 [![License](https://img.shields.io/github/license/Rabadash8820/UnityAssemblies.svg)](./LICENSE)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-v2.0%20adopted-ff69b4.svg)](./CODE_OF_CONDUCT.md)
 [![Issues closed](https://img.shields.io/github/issues-closed/Rabadash8820/UnityAssemblies)](https://github.com/Rabadash8820/UnityAssemblies/issues)
@@ -31,6 +31,7 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
 
 See full usage docs for the version of this NuGet package that you're using:
 
+- [3.x](docs/v3/usage.md)
 - [2.x](docs/v2/usage.md)
 - [1.x](https://github.com/Rabadash8820/UnityAssemblies/blob/v1.7.0/README.md) (deprecated and no longer maintained)
 

@@ -1,15 +1,13 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\UnityAssetsPath.props" />
-
-  <Import Project= "..\..\nupkg\build\Unity3D.props"/>
 
   <!-- Define compile constants for whether certain libraries/APIs are available based on Unity version -->
   <PropertyGroup>
     <DefineConstants Condition="'$(ConfigurationVersionNum)'>='20193'">$(DefineConstants);NEWTONSOFT_JSON_AVAILABLE</DefineConstants>
     <DefineConstants Condition="'$(ConfigurationVersionNum)'>='20192'">$(DefineConstants);NUNIT_AVAILABLE</DefineConstants>
     <DefineConstants Condition="'$(ConfigurationVersionNum)'=='20192' Or '$(ConfigurationVersionNum)'=='20193'">$(DefineConstants);MOQ_AVAILABLE</DefineConstants>
-    <DefineConstants Condition="'$(ConfigurationVersionNum)'>='20192'">$(DefineConstants);UNITY_ANALYTICS_STANDARD_EVENTS_AVAILABLE</DefineConstants>
+    <DefineConstants Condition="'$(ConfigurationVersionNum)'>='20192' And '$(ConfigurationVersionNum)'&lt;'20203'">$(DefineConstants);UNITY_ANALYTICS_STANDARD_EVENTS_AVAILABLE</DefineConstants>
     <DefineConstants Condition="'$(ConfigurationVersionNum)'>='20211'">$(DefineConstants);UNITYENGINE_DEVICE_AVAILABLE</DefineConstants>
   </PropertyGroup>
 
