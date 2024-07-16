@@ -1,0 +1,3 @@
+<Project>
+    <Import Project= "..\nupkg\build\Unity3D.targets"/>
+</Project>

@@ -1,8 +1,6 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
+<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\UnityAssetsPath.props" />
-
-  <Import Project= "..\..\nupkg\build\Unity3D.props"/>
 
   <!-- Define compile constants for whether certain libraries/APIs are available based on Unity version -->
   <PropertyGroup>

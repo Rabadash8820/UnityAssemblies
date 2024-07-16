@@ -13,12 +13,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "nupkg", "nupkg", "{CE043F66
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "build", "build", "{E4D0EF7B-F491-4BD5-BDD3-ABD92D3BEE05}"
 	ProjectSection(SolutionItems) = preProject
-		..\nupkg\build\Unity3D.props = ..\nupkg\build\Unity3D.props
+		..\nupkg\build\Unity3D.targets = ..\nupkg\build\Unity3D.targets
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "buildMultiTargeting", "buildMultiTargeting", "{98FA5AC9-B938-4AA6-B8B1-1B6468878191}"
 	ProjectSection(SolutionItems) = preProject
-		..\nupkg\buildMultiTargeting\Unity3D.props = ..\nupkg\buildMultiTargeting\Unity3D.props
+		..\nupkg\buildMultiTargeting\Unity3D.targets = ..\nupkg\buildMultiTargeting\Unity3D.targets
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TestMinimalFromProject", "TestMinimalFromProject\TestMinimalFromProject.csproj", "{7C22AA1F-E1E9-4592-BBB5-06E2DF7E74D4}"
@@ -37,6 +37,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{E365C332-897A-43CA-8702-F9475896349B}"
 	ProjectSection(SolutionItems) = preProject
 		Directory.Build.props = Directory.Build.props
+		Directory.Build.targets = Directory.Build.targets
 		UnityAssetsPath.props = UnityAssetsPath.props
 		UnityVersion.props = UnityVersion.props
 	EndProjectSection

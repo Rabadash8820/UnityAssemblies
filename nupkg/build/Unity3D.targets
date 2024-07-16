@@ -1,0 +1,143 @@
+<Project>
+
+  <!-- Set OS-specific absolute/relative folder paths -->
+  <Choose>
+    <When Condition="$([MSBuild]::IsOsPlatform(Windows))">
+      <PropertyGroup>
+        <OSInstallRootPath Condition="'$(OSInstallRootPath)'==''">C:\Program Files</OSInstallRootPath>
+        <UnityManagedDir Condition="'$(UnityManagedDir)'==''">Editor\Data\Managed</UnityManagedDir>
+        <UnityExtensionsDir Condition="'$(UnityExtensionsDir)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsDir>
+      </PropertyGroup>
+    </When>
+    <When Condition="$([MSBuild]::IsOsPlatform(OSX))">
+      <PropertyGroup>
+        <OSInstallRootPath Condition="'$(OSInstallRootPath)'==''">/Applications</OSInstallRootPath>
+        <UnityManagedDir Condition="'$(UnityManagedDir)'==''">Unity.app\Contents\Managed</UnityManagedDir>
+        <UnityExtensionsDir Condition="'$(UnityExtensionsDir)'==''">Editor\Unity.app\Contents\UnityExtensions\Unity</UnityExtensionsDir>
+      </PropertyGroup>
+    </When>
+    <When Condition="$([MSBuild]::IsOsPlatform(Linux))">
+      <PropertyGroup>
+        <OSInstallRootPath Condition="'$(OSInstallRootPath)'==''">$([System.Environment]::GetFolderPath('System.Environment+SpecialFolder.UserProfile'))</OSInstallRootPath>
+        <UnityManagedDir Condition="'$(UnityManagedDir)'==''">Editor\Data\Managed</UnityManagedDir>
+        <UnityExtensionsDir Condition="'$(UnityExtensionsDir)'==''">Editor\Data\UnityExtensions\Unity</UnityExtensionsDir>
+      </PropertyGroup>
+    </When>
+  </Choose>
+
+  <!-- Get or set Unity version, as necessary -->
+  <Choose>
+    <When Condition="'$(UnityVersion)'=='' And '$(UnityProjectPath)'==''">
+      <PropertyGroup>
+        <UnityVersion>SET_VERSION_OR_PROJECT</UnityVersion>
+        <UnityVersionMajor>0</UnityVersionMajor>
+        <UnityVersionMinor>0</UnityVersionMinor>
+        <UnityVersionPatch>0</UnityVersionPatch>
+        <UnityVersionAsNumber>0.0</UnityVersionAsNumber>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup Condition="'$(UnityVersion)'==''">
+        <!--
+          Parse editor version from ProjectVersion.txt file in Unity project. Its contents look like this (minus indent):
+              m_EditorVersion: 2021.3.2f1
+              m_EditorVersionWithRevision: 2021.3.2f1 (d6360bedb9a0)
+
+          First condense this to a single "CSV" line, e.g.: m_EditorVersion,2021.3.2f1,m_EditorVersionWithRevision,2021.3.2f1 (d6360bedb9a0)
+          Then pluck out the versions by splitting on commas
+        -->
+        <UnityProjectVersionTxt>$([System.IO.File]::ReadAllText(`$(UnityProjectPath)\ProjectSettings\ProjectVersion.txt`))</UnityProjectVersionTxt>
+        <UnityProjectVersionCsv>$([System.Text.RegularExpressions.Regex]::Replace(`$(UnityProjectVersionTxt)`, `\r\n|\r|\n|: `, `,`))</UnityProjectVersionCsv>
+        <UnityVersion>$(UnityProjectVersionCsv.Split(`,`)[1].Trim())</UnityVersion>
+      </PropertyGroup>
+      <PropertyGroup>
+        <UnityVersionMajor>$(UnityVersion.Split(`.`)[0])</UnityVersionMajor>
+        <UnityVersionMinor>$(UnityVersion.Split(`.`)[1])</UnityVersionMinor>
+        <UnityVersionPatch>$(UnityVersion.Split(`.`)[2])</UnityVersionPatch>
+        <UnityVersionAsNumber>$(UnityVersionMajor).$(UnityVersionMinor)</UnityVersionAsNumber>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
+
+  <!-- Set default Unity absolte/relative folder paths -->
+  <PropertyGroup>
+    <UnityInstallRootDir Condition="'$(UnityInstallRootDir)'==''">Unity\Hub\Editor</UnityInstallRootDir>
+    <UnityInstallRootPath Condition="'$(UnityInstallRootPath)'==''">$(OSInstallRootPath)\$(UnityInstallRootDir)</UnityInstallRootPath>
+
+    <UnityVersionInstallPath Condition="'$(UnityVersionInstallPath)'==''">$(UnityInstallRootPath)\$(UnityVersion)</UnityVersionInstallPath>
+    <UnityManagedPath Condition="'$(UnityManagedPath)'==''">$(UnityVersionInstallPath)\$(UnityManagedDir)</UnityManagedPath>
+    <UnityExtensionsPath Condition="'$(UnityExtensionsPath)'==''">$(UnityVersionInstallPath)\$(UnityExtensionsDir)</UnityExtensionsPath>
+
+    <UnityModulesDir Condition="'$(UnityModulesDir)'==''">UnityEngine</UnityModulesDir>
+    <UnityModulesPath Condition="'$(UnityModulesPath)'==''">$(UnityManagedPath)\$(UnityModulesDir)</UnityModulesPath>
+
+    <UnityPlaybackEnginesDir Condition="'$(UnityPlaybackEnginesDir)'==''">Editor\Data\PlaybackEngines</UnityPlaybackEnginesDir>
+    <UnityPlaybackEnginesPath Condition="'$(UnityPlaybackEnginesPath)'==''">$(UnityVersionInstallPath)\$(UnityPlaybackEnginesDir)</UnityPlaybackEnginesPath>
+    <UnityAndroidPlayerDir Condition="'$(UnityAndroidPlayerDir)'==''">$(UnityPlaybackEnginesDir)\AndroidPlayer</UnityAndroidPlayerDir>
+    <UnityAndroidPlayerPath Condition="'$(UnityAndroidPlayerPath)'==''">$(UnityVersionInstallPath)\$(UnityAndroidPlayerDir)</UnityAndroidPlayerPath>
+    <UnityiOSSupportDir Condition="'$(UnityiOSSupportDir)'==''">$(UnityPlaybackEnginesDir)\iOSSupport</UnityiOSSupportDir>
+    <UnityiOSSupportPath Condition="'$(UnityiOSSupportPath)'==''">$(UnityVersionInstallPath)\$(UnityiOSSupportDir)</UnityiOSSupportPath>
+
+    <UnityScriptAssembliesDir Condition="'$(UnityScriptAssembliesDir)'==''">Library\ScriptAssemblies</UnityScriptAssembliesDir>
+    <UnityScriptAssembliesPath Condition="'$(UnityScriptAssembliesPath)'==''">$(UnityProjectPath)\$(UnityScriptAssembliesDir)</UnityScriptAssembliesPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2017.2'">
+    <UnityBuiltInPackagesDir Condition="'$(UnityBuiltInPackagesDir)'==''">Editor\Data\Resources\PackageManager\BuiltInPackages</UnityBuiltInPackagesDir>
+    <UnityBuiltInPackagesPath Condition="'$(UnityBuiltInPackagesPath)'==''">$(UnityVersionInstallPath)\$(UnityBuiltInPackagesDir)</UnityBuiltInPackagesPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2017.2'">
+    <UnityPackageCacheDir Condition="'$(UnityPackageCacheDir)'==''">Library\PackageCache</UnityPackageCacheDir>
+    <UnityPackageCachePath Condition="'$(UnityPackageCachePath)'==''">$(UnityProjectPath)\$(UnityPackageCacheDir)</UnityPackageCachePath>
+  </PropertyGroup>
+
+  <!-- Set default paths of specific Unity assemblies -->
+  <PropertyGroup>
+    <UnityEnginePath Condition="'$(UnityEnginePath)'==''">$(UnityManagedPath)\UnityEngine.dll</UnityEnginePath>
+    <UnityEditorPath Condition="'$(UnityEditorPath)'==''">$(UnityManagedPath)\UnityEditor.dll</UnityEditorPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityEngineUIPath)'==''">
+    <UnityEngineUIPath>$(UnityExtensionsPath)\GUISystem\UnityEngine.UI.dll</UnityEngineUIPath>
+    <UnityEngineUIPath Condition="'$(UnityVersionAsNumber)'>='2019.3'">$(UnityScriptAssembliesPath)\UnityEngine.UI.dll</UnityEngineUIPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityEngineTestRunnerPath)'==''">
+    <UnityEngineTestRunnerPath Condition="'$(UnityVersionAsNumber)'>='2019.3'">$(UnityScriptAssembliesPath)\UnityEngine.TestRunner.dll</UnityEngineTestRunnerPath>
+    <UnityEngineTestRunnerPath Condition="'$(UnityVersionAsNumber)'&lt;'2019.3'">$(UnityExtensionsPath)\TestRunner\UnityEngine.TestRunner.dll</UnityEngineTestRunnerPath>
+  </PropertyGroup>
+
+  <!-- Set default paths of specific PackageCache assemblies -->
+  <PropertyGroup>
+    <UnityEditorAndroidExtensionsPath Condition="'$(UnityEditorAndroidExtensionsPath)'==''">$(UnityAndroidPlayerPath)\UnityEditor.Android.Extensions.dll</UnityEditorAndroidExtensionsPath>
+    <UnityEditoriOSExtensionsCommonPath Condition="'$(UnityEditoriOSExtensionsCommonPath)'==''">$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Common.dll</UnityEditoriOSExtensionsCommonPath>
+    <UnityEditoriOSExtensionsXcodePath Condition="'$(UnityEditoriOSExtensionsXcodePath)'==''">$(UnityiOSSupportPath)\UnityEditor.iOS.Extensions.Xcode.dll</UnityEditoriOSExtensionsXcodePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.3'">
+    <NewtonsoftJsonAssembly Condition="'$(NewtonsoftJsonAssembly)'=='' And '$(UnityVersionAsNumber)'&lt;'2022.2'">com.unity.nuget.newtonsoft-json%40*\Runtime\Newtonsoft.Json.dll</NewtonsoftJsonAssembly>
+    <NewtonsoftJsonPath Condition="'$(NewtonsoftJsonPath)'=='' And '$(UnityVersionAsNumber)'&lt;'2022.2'">$(UnityPackageCachePath)\$(NewtonsoftJsonAssembly)</NewtonsoftJsonPath>
+    <NewtonsoftJsonPath Condition="'$(NewtonsoftJsonPath)'=='' And '$(UnityVersionAsNumber)'>='2022.2'">$(UnityManagedPath)\Newtonsoft.Json.dll</NewtonsoftJsonPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.2'">
+    <!-- There is only ever one framework version in this UPM package, so the "net*" part is okay -->
+    <NunitAssembly Condition="'$(NunitAssembly)'==''">com.unity.ext.nunit%40*\net*\unity-custom\nunit.framework.dll</NunitAssembly>
+    <NunitPath Condition="'$(NunitPath)'==''">$(UnityPackageCachePath)\$(NunitAssembly)</NunitPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'=='2019.2' Or '$(UnityVersionAsNumber)'=='2019.3'">
+    <MoqAssembly Condition="'$(MoqAssembly)'==''">nuget.moq%40*\Moq.dll</MoqAssembly>
+    <MoqPath Condition="'$(MoqPath)'==''">$(UnityPackageCachePath)\$(MoqAssembly)</MoqPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.2'">
+    <UnityAnalyticsStandardEventsAssembly Condition="'$(UnityAnalyticsStandardEventsAssembly)'==''">com.unity.analytics%40*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</UnityAnalyticsStandardEventsAssembly>
+    <UnityAnalyticsStandardEventsPath Condition="'$(UnityAnalyticsStandardEventsPath)'==''">$(UnityPackageCachePath)\$(UnityAnalyticsStandardEventsAssembly)</UnityAnalyticsStandardEventsPath>
+  </PropertyGroup>
+
+  <!-- Add default Unity references, unless requested not to -->
+  <PropertyGroup>
+    <IncludeDefaultUnityAssemblyReferences Condition="'$(IncludeDefaultUnityAssemblyReferences)'==''">True</IncludeDefaultUnityAssemblyReferences>
+  </PropertyGroup>
+  <ItemGroup Condition="'$(IncludeDefaultUnityAssemblyReferences)'=='True'">
+    <!-- Don't use the usual monolithic UnityEngine.dll by default, as it conflicts with the module references required for many UPM package assemblies. -->
+    <!-- Don't use `UnityEngine*.dll` as the pattern either. That feels too general and might match assemblies in the future that we DON'T want by default. -->
+    <Reference Include="$(UnityModulesPath)\UnityEngine.dll" Private="false" />
+    <Reference Include="$(UnityModulesPath)\UnityEngine.*Module.dll" Private="false" />
+  </ItemGroup>
+
+</Project>
