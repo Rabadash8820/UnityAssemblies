@@ -5,11 +5,11 @@ All notable changes to the [Unity3D NuGet package](https://www.nuget.org/package
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## 3.0.0 - 2023-12-04
+## 3.0.0-rc1 - 2024-07-16
 
-Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v3.0.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/3.0.0).
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v3.0.0-rc1) or [nuget.org](https://www.nuget.org/packages/Unity3D/3.0.0-rc1).
 
-### Changed in 3.0.0
+### Changed in 3.0.0-rc1
 
 - All Unity module assemblies are now referenced by default (including the one named `UnityEngine.dll`), rather than the monolithic `UnityEngine.dll`,
   so projects don't have to remove the default references in order to work with UPM package assemblies.
@@ -17,7 +17,7 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 - All short-hand properties and default references are now added by a `.targets` file rather than `.props`,
   removing the need to move `UnityVersion` and/or `UnityProjectPath` property definitions to a `Directory.Build.props` file
 
-### Removed in 3.0.0
+### Removed in 3.0.0-rc1
 
 - `UnityAnalyticsStandardEvents*` MSBuild properties for Unity 2020.3+ projects, since those paths have never existed on those Unity versions
 
