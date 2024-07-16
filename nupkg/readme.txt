@@ -20,29 +20,17 @@
 
 Thank you for installing the Unity3D NuGet package!
 
-To use this package, define a Directory.Build.props file in the same folder as your .csproj file (or any of its parent folders),
-and add code like the following:
+To use this package, add lines like the following to your .csproj file (or any imported MSBuild project file).
 
-    <!-- Directory.Build.props -->
-    <Project>
+    <Project Sdk="Microsoft.NET.Sdk">
         <PropertyGroup>
             <UnityVersion>2023.2.1f1</UnityVersion>
             <!-- or -->
             <UnityProjectPath>$(MSBuildProjectDirectory)\relative\path\to\UnityProject</UnityProjectPath>
         </PropertyGroup>
-    </Project>
-
-Then, make sure your .csproj file looks something like this:
-
-    <!-- YourProject.csproj -->
-    <Project Sdk="Microsoft.NET.Sdk">
-        <PropertyGroup>
-            <TargetFramework>netstandard2.1</TargetFramework>
-        </PropertyGroup>
         <ItemGroup>
             <PackageReference Include="Unity3D" Version="2.1.3" />
         </ItemGroup>
-        <!-- Other properties/items -->
     </Project>
 
 For complete documentation, see the README on GitHub: https://github.com/Rabadash8820/UnityAssemblies/blob/master/README.md
