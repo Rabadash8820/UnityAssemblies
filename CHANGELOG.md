@@ -17,6 +17,10 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 - All short-hand properties and default references are now added by a `.targets` file rather than `.props`,
   removing the need to move `UnityVersion` and/or `UnityProjectPath` property definitions to a `Directory.Build.props` file
 
+### Removed in 3.0.0
+
+- `UnityAnalyticsStandardEvents*` MSBuild properties for Unity 2020.3+ projects, since those paths have never existed on those Unity versions
+
 ## 2.1.3 - 2023-08-16
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v2.1.3) or [nuget.org](https://www.nuget.org/packages/Unity3D/2.1.3).

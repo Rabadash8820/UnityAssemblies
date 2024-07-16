@@ -124,7 +124,11 @@
     <MoqAssembly Condition="'$(MoqAssembly)'==''">nuget.moq%40*\Moq.dll</MoqAssembly>
     <MoqPath Condition="'$(MoqPath)'==''">$(UnityPackageCachePath)\$(MoqAssembly)</MoqPath>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.2'">
+  <PropertyGroup Condition="'$(UnityVersionAsNumber)'>='2019.2' And '$(UnityVersionAsNumber)'&lt;'2020.3'">
+    <!--
+    Unity Analytics Standard Events assembly may have been moved from UPM even before 2020.3,
+    but I don't feel like installing those Unity versions to find out and they aren't officially supported anyway...
+    -->
     <UnityAnalyticsStandardEventsAssembly Condition="'$(UnityAnalyticsStandardEventsAssembly)'==''">com.unity.analytics%40*\AnalyticsStandardEvents\Unity.Analytics.StandardEvents.dll</UnityAnalyticsStandardEventsAssembly>
     <UnityAnalyticsStandardEventsPath Condition="'$(UnityAnalyticsStandardEventsPath)'==''">$(UnityPackageCachePath)\$(UnityAnalyticsStandardEventsAssembly)</UnityAnalyticsStandardEventsPath>
   </PropertyGroup>
