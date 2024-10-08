@@ -1,4 +1,4 @@
-# Unity3D v2 - Available Short-Hand Properties
+# Unity3D v3 - Available Short-Hand Properties
 
 - [Usage](./usage.md)
 - -> Available Short-Hand Properties

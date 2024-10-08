@@ -1,4 +1,4 @@
-# Unity3D v2 - FAQ
+# Unity3D v3 - FAQ
 
 - [Usage](./usage.md)
 - [Available Short-Hand Properties](./short-hand-properties.md)
