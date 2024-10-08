@@ -29,7 +29,19 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
 
 ## Usage
 
-See full usage docs for the version of this NuGet package that you're using:
+1. Install this NuGet package (See [MS Docs](https://docs.microsoft.com/en-us/nuget/consume-packages/overview-and-workflow#ways-to-install-a-nuget-package) for instructions)
+2. For v3 of this NuGet package, add lines like the following to your .csproj file (or any imported MSBuild project file)
+    ```xml
+    <PropertyGroup>
+        <UnityProjectPath>$(MSBuildProjectDirectory)\relative\path\to\UnityProject</UnityProjectPath>
+        <!-- Or -->
+        <UnityVersion>2023.2.20f1</UnityVersion>
+    </PropertyGroup>
+    ```
+
+This satisfies the large majority of use cases.
+
+For more advanced setups, see the full usage docs for your version of this NuGet package:
 
 - [3.x](docs/v3/usage.md)
 - [2.x](docs/v2/usage.md)
