@@ -38,10 +38,10 @@ See full usage docs for the version of this NuGet package that you're using:
 ## Why Another NuGet Package for Unity?
 
 It's true, there are a number of good NuGet packages for Unity [already available on nuget.org](https://www.nuget.org/packages?q=unity3d).
-Unfortunately, most of these packages are no longer being updated and have a number of issues. Almost all of them fall into one of two categories:
+Unfortunately, most of these packages are no longer updated and have various issues. Almost all of them fall into one of two categories:
 
 1. **Containing the actual Unity binaries within the package.** These packages include:
-    - [Unity3D.SDK](https://www.nuget.org/packages/Unity3D.SDK/) by amelkor
+    - [Unity3D.SDK](https://www.nuget.org/packages/Unity3D.SDK/) by amelkor (Deprecated)
     - [UnityEngine](https://www.nuget.org/packages/UnityEngine/) by Leanwork
     - [Unity3D.UnityEngine](https://www.nuget.org/packages/Unity3D.UnityEngine/) and [Unity3D.UnityEngine.UI](https://www.nuget.org/packages/Unity3D.UnityEngine.UI) by Dzmitry Lahoda
     - [UnityEngine5](https://www.nuget.org/packages/UnityEngine5/) by Taiyoung Jang
