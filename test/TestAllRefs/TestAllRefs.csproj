@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <Import Project="..\UnityAssetsPath.props" />
 
@@ -9,6 +9,9 @@
     <DefineConstants Condition="'$(ConfigurationVersionNum)'=='20192' Or '$(ConfigurationVersionNum)'=='20193'">$(DefineConstants);MOQ_AVAILABLE</DefineConstants>
     <DefineConstants Condition="'$(ConfigurationVersionNum)'>='20192' And '$(ConfigurationVersionNum)'&lt;'20203'">$(DefineConstants);UNITY_ANALYTICS_STANDARD_EVENTS_AVAILABLE</DefineConstants>
     <DefineConstants Condition="'$(ConfigurationVersionNum)'>='20211'">$(DefineConstants);UNITYENGINE_DEVICE_AVAILABLE</DefineConstants>
+
+    <!-- Technically, UnityEditor.iOS.Extensions.Common.dll is still in Unity 6, but it only has like two types, both internal -->
+    <DefineConstants Condition="'$(ConfigurationVersionNum)'&lt;'60000'">$(DefineConstants);IOS_EXTENSIONS_COMMON_AVAILABLE</DefineConstants>
   </PropertyGroup>
 
   <ItemGroup>
