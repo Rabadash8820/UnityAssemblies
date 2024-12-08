@@ -24,7 +24,7 @@ then add lines like the following to your .csproj file (or any imported MSBuild 
     <PropertyGroup>
         <UnityProjectPath>$(MSBuildProjectDirectory)\relative\path\to\UnityProject</UnityProjectPath>
         <!-- Or -->
-        <UnityVersion>2023.2.20f1</UnityVersion>
+        <UnityVersion>6000.0.24f1</UnityVersion>
     </PropertyGroup>
 </Project>
 ```
