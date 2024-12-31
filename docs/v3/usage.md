@@ -7,7 +7,7 @@
   - [Referencing additional Unity assemblies](#referencing-additional-unity-assemblies)
   - [Referencing assemblies stored in a Unity project](#referencing-assemblies-stored-in-a-unity-project)
   - [Referencing assemblies at non-default install locations](#referencing-assemblies-at-non-default-install-locations)
-  - [Removing the default reference to UnityEngine.dll](#removing-the-default-reference-to-unityenginedll)
+  - [Removing the default references](#removing-the-default-references)
   - [Referencing the Unity core modules](#referencing-the-unity-core-modules)
   - [Referencing assemblies in specific Unity versions](#referencing-assemblies-in-specific-unity-versions)
   - [CI/CD Pipelines](#cicd-pipelines)
