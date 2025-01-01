@@ -11,7 +11,7 @@
     <projectUrl>https://github.com/Rabadash8820/UnityAssemblies</projectUrl>
     <description>Simple, forward-compatible references to ANY Unity assembly on ANY platform.</description>
     <releaseNotes>See current and archived release notes at https://github.com/Rabadash8820/UnityAssemblies/blob/main/CHANGELOG.md</releaseNotes>
-    <copyright>Copyright ©2019-2024 Daniel Vicarel</copyright>
+    <copyright>Copyright ©2019-2025 Daniel Vicarel</copyright>
     <tags>Unity Unity3D UnityEngine UnityEditor</tags>
     <repository type="git" url="https://github.com/Rabadash8820/UnityAssemblies.git" />
   </metadata>
