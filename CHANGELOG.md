@@ -15,7 +15,7 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 ### Fixed in 3.0.0
 
-- `NUnityAssembly` value for Unity 6+ projects
+- `NUnitAssembly` value for Unity 6+ projects
 
 ## 3.0.0-rc1 - 2024-07-16
 
