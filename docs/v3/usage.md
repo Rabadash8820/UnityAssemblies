@@ -128,11 +128,13 @@ then your `.csproj` would look something like this:
 </Project>
 ```
 
-**Note: the Unity project must have been opened recently, so that the `Library/` folder actually contains the imported assemblies!**
+> [!IMPORTANT]
+> The Unity project must have been opened once, so that the `Library/` folder actually contains the imported assemblies!
 
-Also note that, while there are short-hand properties for a couple assemblies under the `PackageCache` folder (see the [full list](./short-hand-properties.md)),
-there are _no_ short-hand properties for assemblies stored in the `ScriptAssemblies` folder.
-That folder is completely flat, so you can just reference assemblies there by filename.
+> [!TIP]
+> While there are short-hand properties for a couple assemblies under the `PackageCache` folder (see the [full list](./short-hand-properties.md)),
+> there are _no_ short-hand properties for assemblies stored in the `ScriptAssemblies` folder.
+> That folder is completely flat, so you can just reference assemblies there by filename.
 
 ## Referencing assemblies at non-default install locations
 
@@ -162,8 +164,9 @@ Then, your versioned MSBuild property would be:
 <UnityInstallRootPath>$([System.Environment]::GetEnvironmentVariable('UNITY_OS_INSTALL_ROOT'))</UnityInstallRootPath>
 ```
 
-**Warning: If your property function returns `null` or an empty string (e.g., if a collaborator did _not_ set the required environment variable),
-then this package still uses the default `UnityInstallRoot[Path]` and/or `OSInstallRoot[Path]`.**
+> [!NOTE]
+> If your property function returns `null` or an empty string (e.g., if a collaborator did _not_ set the required environment variable),
+> then this package still uses the default `UnityInstallRoot[Path]` and/or `OSInstallRoot[Path]`.
 
 ## Removing the default references
 
@@ -207,17 +210,20 @@ For the preceding example, your `.csproj` might look like the following.
 </ItemGroup>
 ```
 
-There are _no_ short-hand properties for assemblies stored in `$(UnityModulesPath)`;
-the folder is completely flat, so you can just reference assemblies there by filename.
+> [!TIP]
+> There are _no_ short-hand properties for assemblies stored in `$(UnityModulesPath)`;
+> the folder is completely flat, so you can just reference assemblies there by filename.
+
 If you're unsure of which modules to reference, check out the Unity Scripting Manual.
 Every type includes an "Implemented in" note at the top of the page, telling you in which of Unity's core modules the type is implemented.
 For example, see the screenshot below of the manual page for `Vector2`:
 
-**Warning: There is a Unity module assembly named `UnityEngine.dll`.
-This is not to be confused with the monolithic `UnityEngine.dll` assembly at `$(UnityEnginePath)`!
-It contains types like `GUIElement`, `Network`, and `ProceduralMaterial`.**
-
 ![Unity Scripting Manual page for Vector2, showing that the type is implemented in UnityEngine.CoreModule](../../images/unity-modules-docs.png)
+
+> [!NOTE]
+> There is a Unity module assembly named `UnityEngine.dll`.
+> This is not to be confused with the monolithic `UnityEngine.dll` assembly at `$(UnityEnginePath)`!
+> It contains types like `GUIElement`, `Network`, and `ProceduralMaterial`.
 
 ## Referencing assemblies in specific Unity versions
 
@@ -239,7 +245,8 @@ For example, suppose you wanted to reference NUnit in an editor plugin that supp
 The Unity Test Framework has included NUnit since version 2019.2, but for older versions of Unity, you would have to import NUnit yourself.
 Therefore, to reference NUnit in _any_ Unity version, you could use [MSBuild Conditions](https://docs.microsoft.com/en-us/visualstudio/msbuild/msbuild-conditions) like the following in your project file:
 
-**Warning: "less than" (`<`) inequalities must be escaped with `&lt;`, since MSBuild project files are still XML files.**
+> [!IMPORTANT]
+> "Less than" (`<`) inequalities must be escaped with `&lt;`, since MSBuild project files are still XML files.
 
 ```xml
 <ItemGroup>

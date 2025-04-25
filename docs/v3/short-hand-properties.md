@@ -4,12 +4,13 @@
 - -> Available Short-Hand Properties
 - [FAQ](./faq.md)
 
-Note that, unless otherwise noted, _any_ of the following properties can be overwritten by setting the property manually in your MSBuild project files.
-For example, to change the UI assembly's path, you could set:
-
-```xml
-<UnityEngineUIPath>path\to\UnityEngine.UI.dll</UnityEngineUIPath>
-```
+> [!IMPORTANT]
+> Unless otherwise noted, _any_ of the following properties can be overwritten by setting the property manually in your MSBuild project files.
+> For example, to change the UI assembly's path, you could set:
+>
+> ```xml
+> <UnityEngineUIPath>path\to\UnityEngine.UI.dll</UnityEngineUIPath>
+> ```
 
 As assembly paths change in future versions of Unity, you can continue referencing them by overwriting these properties, until the properties are updated in this package.
 This ability makes this NuGet package truly "forward-compatible".
@@ -32,7 +33,8 @@ to prevent conflicts with "sub-namespace" assembly names.
 For example, you could reference both `org.nuget.microsoft.extensions.logging%40*\Microsoft.Extensions.Logging.dll` and
 `org.nuget.microsoft.extensions.logging.abstractions%40*\Microsoft.Extensions.Logging.Abstractions.dll`, without the former's wildcard overwriting the latter.
 
-**Note: It is worth repeating that, unless otherwise noted, _any_ of these properties can be manually overridden.**
+> [!IMPORTANT]
+> It is worth repeating that, unless otherwise noted, _any_ of these properties can be manually overridden!
 
 | Property | Default value | Comments |
 |:---------|:--------------|:---------|
