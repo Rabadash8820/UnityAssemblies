@@ -19,7 +19,7 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 
 ## 3.0.0 - 2024-07-16
 
-Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v3.0.0-rc2) or [nuget.org](https://www.nuget.org/packages/Unity3D/3.0.0-rc2).
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v3.0.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/3.0.0).
 
 ### Added in 3.0.0
 
