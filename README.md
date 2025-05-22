@@ -4,7 +4,7 @@
 
 [![NuGet package](https://img.shields.io/nuget/v/Unity3D.svg)](https://nuget.org/packages/Unity3D)
 [![NuGet downloads](https://img.shields.io/packagecontrol/dd/Unity3D.svg)](https://nuget.org/packages/Unity3D)
-[![Changelog (currently v3.0.0)](https://img.shields.io/badge/changelog-v3.0.0-blue.svg)](./CHANGELOG.md)
+[![Changelog (currently v3.0.1)](https://img.shields.io/badge/changelog-v3.0.1-blue.svg)](./CHANGELOG.md)
 [![License](https://img.shields.io/github/license/Rabadash8820/UnityAssemblies.svg)](./LICENSE)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](./CODE_OF_CONDUCT.md)
 [![Issues closed](https://img.shields.io/github/issues-closed/Rabadash8820/UnityAssemblies)](https://github.com/Rabadash8820/UnityAssemblies/issues)
@@ -35,7 +35,7 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
     <PropertyGroup>
         <UnityProjectPath>$(MSBuildProjectDirectory)\relative\path\to\UnityProject</UnityProjectPath>
         <!-- Or -->
-        <UnityVersion>6000.0.24f1</UnityVersion>
+        <UnityVersion>6000.0.49f1</UnityVersion>
     </PropertyGroup>
     ```
 
