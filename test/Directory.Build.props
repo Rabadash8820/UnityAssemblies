@@ -2,6 +2,7 @@
 
   <PropertyGroup>
     <Configurations>
+      Standard21_6000_1;Net472_6000_1;Net48_6000_1;
       Standard21_6000_0;Net472_6000_0;Net48_6000_0;
       Standard21_2023_2;Net472_2023_2;Net48_2023_2;
       Standard21_2023_1;Net472_2023_1;Net48_2023_1;

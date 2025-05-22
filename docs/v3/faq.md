@@ -36,7 +36,7 @@
     so feel free to [open an Issue](https://github.com/Rabadash8820/UnityAssemblies/issues)!
 1. **With which Unity versions has this package been officially tested?**
     In the following:
-    - Unity 6
+    - 6 LTS, 6.1
     - 2023.2, 2023.1
     - 2022.3 LTS, 2022.2, 2022.1
     - 2021.3 LTS, 2021.2, 2021.1
