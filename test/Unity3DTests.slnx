@@ -6,18 +6,21 @@
     <BuildType Name="Net472_2023_2" />
     <BuildType Name="Net472_6000_0" />
     <BuildType Name="Net472_6000_1" />
+    <BuildType Name="Net472_6000_2" />
     <BuildType Name="Net48_2021_3" />
     <BuildType Name="Net48_2022_3" />
     <BuildType Name="Net48_2023_1" />
     <BuildType Name="Net48_2023_2" />
     <BuildType Name="Net48_6000_0" />
     <BuildType Name="Net48_6000_1" />
+    <BuildType Name="Net48_6000_2" />
     <BuildType Name="Standard21_2021_3" />
     <BuildType Name="Standard21_2022_3" />
     <BuildType Name="Standard21_2023_1" />
     <BuildType Name="Standard21_2023_2" />
     <BuildType Name="Standard21_6000_0" />
     <BuildType Name="Standard21_6000_1" />
+    <BuildType Name="Standard21_6000_2" />
   </Configurations>
   <Folder Name="/Solution Items/">
     <File Path="../.gitignore" />
