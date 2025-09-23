@@ -1,0 +1,57 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="Net472_2021_3" />
+    <BuildType Name="Net472_2022_3" />
+    <BuildType Name="Net472_2023_1" />
+    <BuildType Name="Net472_2023_2" />
+    <BuildType Name="Net472_6000_0" />
+    <BuildType Name="Net472_6000_1" />
+    <BuildType Name="Net48_2021_3" />
+    <BuildType Name="Net48_2022_3" />
+    <BuildType Name="Net48_2023_1" />
+    <BuildType Name="Net48_2023_2" />
+    <BuildType Name="Net48_6000_0" />
+    <BuildType Name="Net48_6000_1" />
+    <BuildType Name="Standard21_2021_3" />
+    <BuildType Name="Standard21_2022_3" />
+    <BuildType Name="Standard21_2023_1" />
+    <BuildType Name="Standard21_2023_2" />
+    <BuildType Name="Standard21_6000_0" />
+    <BuildType Name="Standard21_6000_1" />
+  </Configurations>
+  <Folder Name="/Solution Items/">
+    <File Path="../.gitignore" />
+    <File Path="../CHANGELOG.md" />
+    <File Path="../CODE_OF_CONDUCT.md" />
+    <File Path="../CONTRIBUTING.md" />
+    <File Path="../LICENSE" />
+    <File Path="../publish.sh" />
+    <File Path="../README.md" />
+  </Folder>
+  <Folder Name="/Solution Items/docs/" />
+  <Folder Name="/Solution Items/docs/v3/">
+    <File Path="../docs/v3/faq.md" />
+    <File Path="../docs/v3/short-hand-properties.md" />
+    <File Path="../docs/v3/usage.md" />
+  </Folder>
+  <Folder Name="/Solution Items/nupkg/">
+    <File Path="../nupkg/icon.png" />
+    <File Path="../nupkg/readme.txt" />
+    <File Path="../nupkg/Unity3D.nuspec" />
+  </Folder>
+  <Folder Name="/Solution Items/nupkg/build/">
+    <File Path="../nupkg/build/Unity3D.targets" />
+  </Folder>
+  <Folder Name="/Solution Items/nupkg/buildMultiTargeting/">
+    <File Path="../nupkg/buildMultiTargeting/Unity3D.targets" />
+  </Folder>
+  <Folder Name="/Solution Items/test/">
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Build.targets" />
+    <File Path="UnityAssetsPath.props" />
+    <File Path="UnityVersion.props" />
+  </Folder>
+  <Project Path="TestAllRefs/TestAllRefs.csproj" />
+  <Project Path="TestMinimalExplicit/TestMinimalExplicit.csproj" />
+  <Project Path="TestMinimalFromProject/TestMinimalFromProject.csproj" />
+</Solution>
