@@ -165,27 +165,29 @@ main() {
     # Set option defaults
     DEFAULT_UNITY_VERSION=2023.1.8f1
     DEFAULT_COPYRIGHT_START_YEAR=2019
+    DEFAULT_DOCS_FOLDER=v3
     DEFAULT_TIMESTAMPER=http://timestamp.digicert.com
     DEFAULT_NUGET_SOURCE=nuget.org
 
-    remindReleaseNotes=0
+    remindReleaseNotes=true
     packageVersion=
     unityVersion=$DEFAULT_UNITY_VERSION
     copyrightStartYear=$DEFAULT_COPYRIGHT_START_YEAR
-    docsFolder=
+    docsFolder=$DEFAULT_DOCS_FOLDER
     timestamper=$DEFAULT_TIMESTAMPER
-    signPackage=1
+    signPackage=false
     signingCertPath=
     nugetSource=$DEFAULT_NUGET_SOURCE
     nugetSourceApiKey=
-    remindNugetPublish=0
-    remindTagRelease=0
-    pack=0
+    remindNugetPublish=true
+    remindTagRelease=true
+    pack=true
+    isVerbose=false
 
     # Parse CLI options
     args=$(getopt \
         --name publish \
-        --options 'hp:u:c:d:t:n:k:' \
+        --options 'hp:u:c:d:t:n:k:v' \
         --long ' \
             help, \
             remind-release-notes, \
@@ -204,6 +206,7 @@ main() {
             no-remind-tag-release, \
             pack, \
             no-pack, \
+            verbose, \
         ' -- "$@") || exit
     eval "set -- $args"
 
@@ -284,6 +287,10 @@ main() {
             pack=false
             ;;
 
+        (-v|--verbose)
+            isVerbose=true
+            ;;
+
         (--)
             shift
             break
@@ -292,14 +299,28 @@ main() {
         shift
     done
 
+    if [ $isVerbose == true ]; then
+        echo "Options:"
+        echo "    remindReleaseNotes: '$remindReleaseNotes'"
+        echo "    packageVersion: '$packageVersion'"
+        echo "    unityVersion: '$unityVersion'"
+        echo "    copyrightStartYear: '$copyrightStartYear'"
+        echo "    docsFolder: '$docsFolder'"
+        echo "    timestamper: '$timestamper'"
+        echo "    signPackage: '$signPackage'"
+        echo "    signingCertPath: '$signingCertPath'"
+        echo "    nugetSource: '$nugetSource'"
+        echo "    nugetSourceApiKey: '$nugetSourceApiKey'"
+        echo "    remindNugetPublish: '$remindNugetPublish'"
+        echo "    remindTagRelease: '$remindTagRelease'"
+        echo "    pack: '$pack'"
+        echo "    isVerbose: '$isVerbose'"
+    fi
+
     # Validate CLI options
     if [ $showUsage == false ]; then
         if [ -z $packageVersion ] ; then
             echo "Missing required new semantic version string for the NuGet package. Use the '-p | --package-version' option"
-            showUsage=true;
-        fi
-        if [ -z $docsFolder ]; then
-            echo "Missing required documentation folder name (under docs/). Use the '-d | --docs-folder' option"
             showUsage=true;
         fi
         if [ -z $nugetSourceApiKey ] && [ $pack == true ]; then
@@ -323,7 +344,7 @@ main() {
         echo "    -c, --copyright-start-year <copyrightStartYear>"
         echo "                  Optional. Copyright start year to use in documentation. Default is '$DEFAULT_COPYRIGHT_START_YEAR'."
         echo "    -d, --docs-folder <docsFolder>"
-        echo "                  Required. Name of folder (under docs/) where documentation Markdown files are stored."
+        echo "                  Required. Name of folder (under docs/) where documentation Markdown files are stored. Default is '$DEFAULT_DOCS_FOLDER'."
         echo "    -t, --timestamper <timestamper>"
         echo "                  Optional. URL of an RFC 3161 timestamp server for package signing. Default is '$DEFAULT_TIMESTAMPER'."
         echo "    --[no-]sign-package"
@@ -340,6 +361,8 @@ main() {
         echo "                  Optional. Toggle the reminder to push a new git tag for this NuGet release. Default behavior is to show the reminder."
         echo "    --[no-]pack"
         echo "                  Optional. Toggle whether the NuGet package is packed and published. Default behavior is to proceed with packing/publishing."
+        echo "    -v, --verbose"
+        echo "                  Optional. Show verbose output."
         return 1
     fi
 
