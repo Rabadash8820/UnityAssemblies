@@ -39,10 +39,10 @@ For example, you could reference both `org.nuget.microsoft.extensions.logging%40
 | Property | Default value | Comments |
 |:---------|:--------------|:---------|
 | `OSInstallRootPath` | `C:\Program Files` on Windows, `/Application` on MacOS, or `/home/<username>` on Linux. |  |
-| `UnityVersionMajor` | 0 | Major version parsed from `UnityVersion` (e.g., `2021` from `2021.3.5f1`). Cannot be overriden. |
-| `UnityVersionMinor` | 0 | Minor version parsed from `UnityVersion` (e.g., `3` from `2021.3.5f1`). Cannot be overriden. |
-| `UnityVersionPatch` | 0 | Patch version parsed from `UnityVersion` (e.g., `5f1` from `2021.3.5f1`). Cannot be overriden. |
-| `UnityVersionAsNumber` | 0.0 | Equals `$(UnityVersionMajor).$(UnityVersionMinor)`. Cannot be overriden. Useful for making numeric comparisons against the Unity version in MSBuild Conditions. |
+| `UnityVersionMajor` | 0 | Major version parsed from `UnityVersion` (e.g., `2021` from `2021.3.5f1`). Cannot be overridden. |
+| `UnityVersionMinor` | 0 | Minor version parsed from `UnityVersion` (e.g., `3` from `2021.3.5f1`). Cannot be overridden. |
+| `UnityVersionPatch` | 0 | Patch version parsed from `UnityVersion` (e.g., `5f1` from `2021.3.5f1`). Cannot be overridden. |
+| `UnityVersionAsNumber` | 0.0 | Equals `$(UnityVersionMajor).$(UnityVersionMinor)`. Cannot be overridden. Useful for making numeric comparisons against the Unity version in MSBuild Conditions. |
 | `UnityInstallRootDir` | `Unity\Hub\Editor` | Referenced by `UnityInstallRootPath`. |
 | `UnityInstallRootPath` | `$(OSInstallRootPath)\$(UnityInstallRootDir)` |  |
 | `UnityVersionInstallPath` | `$(UnityInstallRootPath)\$(UnityVersion)` |  |
@@ -63,6 +63,7 @@ For example, you could reference both `org.nuget.microsoft.extensions.logging%40
 | `UnityBuiltInPackagesDir` | `Editor\Data\Resources\PackageManager\BuiltInPackages` | Referenced by `UnityBuiltInPackagesPath`. Only defined if `UnityVersion` is >= 2017.2. |
 | `UnityBuiltInPackagesPath` | `$(UnityVersionInstallPath)\$(UnityBuiltInPackagesDir)` | This folder contains assemblies from Unity's built-in Packages, like IMGUI and TerrainPhysics (for all other UPM Package assemblies, see `UnityPackageCachePath`). Only defined if `UnityVersion` is >= 2017.2. |
 | `UnityProjectPath` | N/A | This property has no default value. Set it to the absolute path of the root folder of your Unity project, so that you can easily reference Package and Asset Store assemblies (as [described above](./usage.md#referencing-assemblies-stored-in-a-unity-project)). |
+| `UnityProjectVersionTxtPath` | `$(UnityProjectPath)\ProjectSettings\ProjectVersion.txt` | Cannot be overridden. |
 | `UnityPackageCacheDir` | `Library\PackageCache` | Referenced by `UnityPackageCachePath`. Only defined if `UnityVersion` is >= 2017.2. |
 | `UnityPackageCachePath` | `$(UnityProjectPath)\$(UnityPackageCacheDir)` | This folder contains assemblies from UPM packages (for built-in Packages, see `UnityBuiltInPackagesPath`). Only defined if `UnityVersion` is >= 2017.2. |
 | `UnityEnginePath` | `$(UnityManagedPath)\UnityEngine.dll` | This reference is added by default in versions 2.1.3 and below. See [instructions to remove it](./usage.md#removing-the-default-references). |

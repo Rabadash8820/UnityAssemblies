@@ -37,14 +37,14 @@ As shown in that basic example, this package only requires a `UnityVersion` or `
 ![Unity version strings highlighted in the Unity Hub interface](../../images/unity-versions.png)
 
 If you're working with a specific Unity project, then the recommendation is to set `UnityProjectPath` instead of `UnityVersion`.
-This NuGet package will then look up the project's Unity version from its `ProjectSettings/ProjectVersion.txt` file,
-so that when you update the project to a new Unity version, your assembly references will also update.
+This NuGet package will then look up the project's Unity version from its `ProjectVersion.txt` file,
+so that when you update the project to a new Unity version, your assembly references will also update automatically.
 `UnityProjectPath` must be the path to a Unity project folder, _not the `Assets/` subfolder_.
 Try to define the path relative to the MSBuild project's directory (i.e., relative to `$(MSBuildProjectDirectory)`) so that it resolves across platforms.
 This works especially well when your MSBuild (Visual Studio) project and Unity project are in the same repository.
 If both `UnityVersion` and `UnityProjectPath` are provided, then the explicit version will take precedence.
-If you do not set `UnityVersion` _or_ `UnityProjectPath`, then `UnityVersion` will default to the constant string `"SET_VERSION_OR_PROJECT"`.
-If you see this string in the paths of assembly references in your IDE, then the properties are missing or inaccessible to this NuGet package.
+If you do not set `UnityVersion` _or_ `UnityProjectPath`, then `UnityVersion` will default to the constant string `"PLEASE_SET_UNITY_VERSION_OR_PROJECT_PATH"`.
+Likewise, if the `UnityProjectPath` or the `ProjectVersion.txt` file below it cannot be found, then `UnityVersion` will default to the constant string `"UNITY_PROJECT_VERSION_TXT_NOT_FOUND"`.
 
 ## Editing the project files
 
@@ -237,7 +237,7 @@ For scenarios like these, this package provides MSBuild properties that expose t
 3. `UnityVersionPatch`: e.g., `5f1` in `2021.3.5f1`
 4. `UnityVersionAsNumber`: equals `$(UnityVersionMajor).$(UnityVersionMinor)`, e.g., `2021.3` in `2021.3.5f1`
 
-These properties cannot be overriden, since they are parsed directly from the `UnityVersion` that you provide
+These properties cannot be overridden, since they are parsed directly from the `UnityVersion` that you provide
 (or from the `ProjectVersion.txt` file under the `UnityProjectPath` that you provide).
 
 The major, minor, and `UnityVersionAsNumber` properties are numeric, so you can use them in range inequalities in your project files.
