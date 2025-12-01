@@ -27,17 +27,34 @@
 
   <!-- Get or set Unity version, as necessary -->
   <Choose>
+    <!-- No Unity version or project path specified -->
     <When Condition="'$(UnityVersion)' == '' And '$(UnityProjectPath)' == ''">
       <PropertyGroup>
-        <UnityVersion>SET_VERSION_OR_PROJECT</UnityVersion>
-        <UnityVersionMajor>0</UnityVersionMajor>
-        <UnityVersionMinor>0</UnityVersionMinor>
-        <UnityVersionPatch>0</UnityVersionPatch>
-        <UnityVersionAsNumber>0.0</UnityVersionAsNumber>
+        <UnityVersion>PLEASE_SET_UNITY_VERSION_OR_PROJECT_PATH</UnityVersion>
+        <UnityVersionToSplit>0.0.0</UnityVersionToSplit>
       </PropertyGroup>
     </When>
+
+    <!-- Unity version explicitly specified -->
+    <When Condition="'$(UnityVersion)' != ''">
+      <PropertyGroup>
+        <UnityVersionToSplit>$(UnityVersion)</UnityVersionToSplit>
+      </PropertyGroup>
+    </When>
+
     <Otherwise>
-      <PropertyGroup Condition="'$(UnityVersion)' == ''">
+      <PropertyGroup>
+        <UnityProjectVersionTxtPath>$(UnityProjectPath)\ProjectSettings\ProjectVersion.txt</UnityProjectVersionTxtPath>
+      </PropertyGroup>
+      <Choose>
+        <!-- Unity project path can't be found -->
+        <When Condition="$([System.IO.File]::Exists(`$(UnityProjectVersionTxtPath)`)) == False">
+          <PropertyGroup>
+            <UnityVersion>UNITY_PROJECT_VERSION_TXT_NOT_FOUND</UnityVersion>
+            <UnityVersionToSplit>0.0.0</UnityVersionToSplit>
+          </PropertyGroup>
+        </When>
+
         <!--
           Parse editor version from ProjectVersion.txt file in Unity project. Its contents look like this (minus indent):
               m_EditorVersion: 2021.3.2f1
@@ -46,18 +63,26 @@
           First condense this to a single "CSV" line, e.g.: m_EditorVersion,2021.3.2f1,m_EditorVersionWithRevision,2021.3.2f1 (d6360bedb9a0)
           Then pluck out the versions by splitting on commas
         -->
-        <UnityProjectVersionTxt>$([System.IO.File]::ReadAllText(`$(UnityProjectPath)\ProjectSettings\ProjectVersion.txt`))</UnityProjectVersionTxt>
-        <UnityProjectVersionCsv>$([System.Text.RegularExpressions.Regex]::Replace(`$(UnityProjectVersionTxt)`, `\r\n|\r|\n|: `, `,`))</UnityProjectVersionCsv>
-        <UnityVersion>$(UnityProjectVersionCsv.Split(`,`)[1].Trim())</UnityVersion>
-      </PropertyGroup>
-      <PropertyGroup>
-        <UnityVersionMajor>$(UnityVersion.Split(`.`)[0])</UnityVersionMajor>
-        <UnityVersionMinor>$(UnityVersion.Split(`.`)[1])</UnityVersionMinor>
-        <UnityVersionPatch>$(UnityVersion.Split(`.`)[2])</UnityVersionPatch>
-        <UnityVersionAsNumber>$(UnityVersionMajor).$(UnityVersionMinor)</UnityVersionAsNumber>
-      </PropertyGroup>
+        <Otherwise>
+          <PropertyGroup>
+            <UnityProjectVersionTxt>$([System.IO.File]::ReadAllText(`$(UnityProjectVersionTxtPath)`))</UnityProjectVersionTxt>
+            <UnityProjectVersionCsv>$([System.Text.RegularExpressions.Regex]::Replace(`$(UnityProjectVersionTxt)`, `\r\n|\r|\n|: `, `,`))</UnityProjectVersionCsv>
+            <UnityVersion>$(UnityProjectVersionCsv.Split(`,`)[1].Trim())</UnityVersion>
+            <UnityVersionToSplit>$(UnityVersion)</UnityVersionToSplit>
+          </PropertyGroup>
+        </Otherwise>
+
+      </Choose>
     </Otherwise>
+
   </Choose>
+
+  <PropertyGroup>
+    <UnityVersionMajor>$(UnityVersionToSplit.Split(`.`)[0])</UnityVersionMajor>
+    <UnityVersionMinor>$(UnityVersionToSplit.Split(`.`)[1])</UnityVersionMinor>
+    <UnityVersionPatch>$(UnityVersionToSplit.Split(`.`)[2])</UnityVersionPatch>
+    <UnityVersionAsNumber>$(UnityVersionMajor).$(UnityVersionMinor)</UnityVersionAsNumber>
+  </PropertyGroup>
 
   <!-- Set default Unity absolte/relative folder paths -->
   <PropertyGroup>
