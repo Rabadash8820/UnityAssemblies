@@ -12,6 +12,7 @@ Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/
 ### Changed in in 3.1.0
 
 - Change the hard-coded value for `UnityVersion` when no Unity version is set from `SET_VERSION_OR_PROJECT` to a more informative `PLEASE_SET_UNITY_VERSION_OR_PROJECT_PATH`
+- GitHub Releases starting with this version are immutable to protect dependents against supply chain attacks
 
 ### Fixed in 3.1.0
 
