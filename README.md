@@ -3,7 +3,6 @@
 ![Unity logo, trademarked by Unity Technologies](./nupkg/icon.png)
 
 [![NuGet package](https://img.shields.io/nuget/v/Unity3D.svg)](https://nuget.org/packages/Unity3D)
-[![NuGet downloads](https://img.shields.io/packagecontrol/dd/Unity3D.svg)](https://nuget.org/packages/Unity3D)
 [![Changelog (currently v3.1.1)](https://img.shields.io/badge/changelog-v3.1.1-blue.svg)](./CHANGELOG.md)
 [![Issues closed](https://img.shields.io/github/issues-closed/Rabadash8820/UnityAssemblies)](https://github.com/Rabadash8820/UnityAssemblies/issues)
 
