@@ -5,6 +5,18 @@ All notable changes to the [Unity3D NuGet package](https://www.nuget.org/package
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.1.0 - 2025-12-01
+
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v3.1.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/3.1.0).
+
+### Changed in in 3.1.0
+
+- Change the hard-coded value for `UnityVersion` when no Unity version is set from `SET_VERSION_OR_PROJECT` to a more informative `PLEASE_SET_UNITY_VERSION_OR_PROJECT_PATH`
+
+### Fixed in 3.1.0
+
+- Gracefully handle missing `$(UnityProjectPath)\ProjectVersion.txt` paths by setting `UnityVersion` to the hard-coded value: `UNITY_PROJECT_VERSION_TXT_NOT_FOUND`
+
 ## 3.0.1 - 2025-05-22
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v3.0.1) or [nuget.org](https://www.nuget.org/packages/Unity3D/3.0.1).
