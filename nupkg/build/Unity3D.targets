@@ -44,7 +44,7 @@
 
     <Otherwise>
       <PropertyGroup>
-        <UnityProjectVersionTxtPath>$(UnityProjectPath)\ProjectSettings\ProjectVersion.txt</UnityProjectVersionTxtPath>
+        <UnityProjectVersionTxtPath Condition="'$(UnityProjectVersionTxtPath)' == ''">$(UnityProjectPath)\ProjectSettings\ProjectVersion.txt</UnityProjectVersionTxtPath>
       </PropertyGroup>
       <Choose>
         <!-- Unity project path can't be found -->

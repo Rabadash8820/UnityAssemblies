@@ -29,8 +29,8 @@ To use this package, add lines like the following to your .csproj file (or any i
             <UnityProjectPath>$(MSBuildProjectDirectory)\relative\path\to\UnityProject</UnityProjectPath>
         </PropertyGroup>
         <ItemGroup>
-            <PackageReference Include="Unity3D" Version="3.1.0" />
+            <PackageReference Include="Unity3D" Version="3.1.1" />
         </ItemGroup>
     </Project>
 
-For complete documentation, see the README on GitHub: https://github.com/Rabadash8820/UnityAssemblies/blob/master/README.md
+For complete documentation, see the README on GitHub: https://github.com/Rabadash8820/UnityAssemblies/blob/main/README.md

@@ -5,6 +5,14 @@ All notable changes to the [Unity3D NuGet package](https://www.nuget.org/package
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## 3.1.1 - 2025-12-01
+
+Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v3.1.1) or [nuget.org](https://www.nuget.org/packages/Unity3D/3.1.1).
+
+### Changed in 3.1.1
+
+- Allow overriding of `$(UnityProjectVersionTxtPath)`
+
 ## 3.1.0 - 2025-12-01
 
 Download from [GitHub Releases](https://github.com/Rabadash8820/UnityAssemblies/releases/tag/v3.1.0) or [nuget.org](https://www.nuget.org/packages/Unity3D/3.1.0).
