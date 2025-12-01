@@ -6,7 +6,7 @@ verifyReleaseNotes() {
     fi
 
     echo ""
-    echo "Verify that CHANGELOG.md and the <releaseNotes/> element of nuspec are up-to-date"
+    echo "Verify that CHANGELOG.md and the <releaseNotes/> element of nuspec are up-to-date and committed"
     echo ""
     read -p "Press [Enter] when you're done..."
 }
