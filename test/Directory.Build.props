@@ -36,7 +36,7 @@
     <RootNamespace>Unity3D.Test</RootNamespace>
   </PropertyGroup>
 
-  <Target Name="PrintConfiguration" BeforeTargets="Build">
+  <Target Name="PrintUnityConfiguration" BeforeTargets="Build">
     <Message Importance="high" Text="Using Unity Version '$(UnityVersion)', TargetFramework '$(TargetFramework)'" />
   </Target>
 
