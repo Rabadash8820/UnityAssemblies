@@ -344,7 +344,7 @@ main() {
         echo "    -c, --copyright-start-year <copyrightStartYear>"
         echo "                  Optional. Copyright start year to use in documentation. Default is '$DEFAULT_COPYRIGHT_START_YEAR'."
         echo "    -d, --docs-folder <docsFolder>"
-        echo "                  Required. Name of folder (under docs/) where documentation Markdown files are stored. Default is '$DEFAULT_DOCS_FOLDER'."
+        echo "                  Optional. Name of folder (under docs/) where documentation Markdown files are stored. Default is '$DEFAULT_DOCS_FOLDER'."
         echo "    -t, --timestamper <timestamper>"
         echo "                  Optional. URL of an RFC 3161 timestamp server for package signing. Default is '$DEFAULT_TIMESTAMPER'."
         echo "    --[no-]sign-package"

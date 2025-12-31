@@ -7,7 +7,7 @@
 1. **Why would I use this NuGet package?**
     The primary, intended use case for this NuGet is for Unity developers writing [managed plugins](https://docs.unity3d.com/Manual/UsingDLL.html)
     (pre-compiled DLLs that will be imported into Unity) that also depend on Unity APIs.
-    It allows developers to reference the Unity assemblies via `Reference` items in their project files, just like they might reference any other NuGet package or local assembly,
+    It allows developers to reference the Unity assemblies via `Reference` items in their project files, just like they might reference any other local assembly DLL,
     without having to remember Unity's assembly paths or keep them up-to-date and cross-platform.
     With the option to [use Unity as a library](https://blogs.unity3d.com/2019/06/17/add-features-powered-by-unity-to-native-mobile-apps/) in 2019.3+,
     developers might also use this package in native mobile apps created with [Xamarin](https://dotnet.microsoft.com/apps/xamarin),
@@ -28,7 +28,7 @@
     **_so that maybe we can finally have an officially supported NuGet package for Unity assemblies!_**
 1. **If not, how is this package legal?**
     Well, it's not actually distributing the Unity assembly binaries, just MSBuild files that reference them.
-    This NuGet package won't do anything (except add some build warnings) if you haven't actually installed a version of Unity on your machine.
+    This NuGet package won't do anything if you haven't actually installed a version of Unity on your machine (except add some build warnings).
 1. **Can you help me solve [error] in Unity [version]?**
     Possibly. Compatibility is only tested with, and support offered for, the latest Unity [LTS releases](https://unity3d.com/unity/qa/lts-releases) and the TECH stream releases of the current year.
     Unity does not officially support versions older than that, so neither does this package!

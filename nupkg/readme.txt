@@ -24,7 +24,7 @@ To use this package, add lines like the following to your .csproj file (or any i
 
     <Project Sdk="Microsoft.NET.Sdk">
         <PropertyGroup>
-            <UnityVersion>6000.0.49f1</UnityVersion>
+            <UnityVersion>6000.3.2f1</UnityVersion>
             <!-- or -->
             <UnityProjectPath>$(MSBuildProjectDirectory)\relative\path\to\UnityProject</UnityProjectPath>
         </PropertyGroup>

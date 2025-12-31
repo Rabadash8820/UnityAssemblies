@@ -32,7 +32,7 @@ _Unity® and the Unity logo are trademarks of Unity Technologies._
     <PropertyGroup>
         <UnityProjectPath>$(MSBuildProjectDirectory)\relative\path\to\UnityProject</UnityProjectPath>
         <!-- Or -->
-        <UnityVersion>6000.0.49f1</UnityVersion>
+        <UnityVersion>6000.3.2f1</UnityVersion>
     </PropertyGroup>
     ```
 
