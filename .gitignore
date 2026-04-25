@@ -9,8 +9,7 @@ UserSettings/
 .vsconfig
 
 unity/**/*.csproj
-unity/**/*.sln
-
+unity/**/*.slnx
 
 
 #########################
