@@ -4,14 +4,17 @@
     <BuildType Name="Net472_6000_0" />
     <BuildType Name="Net472_6000_3" />
     <BuildType Name="Net472_6000_4" />
+    <BuildType Name="Net472_6000_5" />
     <BuildType Name="Net48_2022_3" />
     <BuildType Name="Net48_6000_0" />
     <BuildType Name="Net48_6000_3" />
     <BuildType Name="Net48_6000_4" />
+    <BuildType Name="Net48_6000_5" />
     <BuildType Name="Standard21_2022_3" />
     <BuildType Name="Standard21_6000_0" />
     <BuildType Name="Standard21_6000_3" />
     <BuildType Name="Standard21_6000_4" />
+    <BuildType Name="Standard21_6000_5" />
   </Configurations>
   <Folder Name="/Solution Items/">
     <File Path="../.gitignore" />
