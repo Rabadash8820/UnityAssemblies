@@ -65,7 +65,7 @@ You should then use one of the following .NET Standard `TargetFramework`s:
 - For Unity 2021.2+, use `netstandard2.1`
 - For Unity 2021.1 and below, use `netstandard2.0`
 
-If, however, you are working with an existing, older project, then you may be forced to use one of the following .NET 4.x `TargetFramework`s:
+If, however, you are working with an existing, non-SDK-style project, then you may be forced to use one of the following .NET 4.x `TargetFramework`s:
 
 - For Unity 2021.2+, use `net48` :
 - For Unity 2020.2 - 2021.1, use `net472`
